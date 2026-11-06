@@ -1,16 +1,16 @@
 load inv_s1 -force
 snap internal
-box 0.220um 0.140um 1.470um 0.770um
+box 0.220um 0.235um 1.470um 0.865um
 paint ndiff
-box 0.220um 1.840um 1.470um 3.100um
+box 0.220um 1.745um 1.470um 3.005um
 paint pdiff
-box 0.000um 1.660um 1.690um 3.550um
+box 0.000um 1.565um 1.690um 3.550um
 paint nwell
 box 0.000um -0.180um 1.690um 0.180um
 paint m1
 box 0.000um 3.060um 1.690um 3.420um
 paint m1
-box 0.770um 0.010um 0.920um 3.230um
+box 0.770um 0.105um 0.920um 3.135um
 paint poly
 box 0.680um 1.145um 1.010um 1.415um
 paint poly
@@ -18,36 +18,36 @@ box 0.760um 1.195um 0.930um 1.365um
 paint pc
 box 0.760um 1.115um 0.930um 1.445um
 paint li
-box 0.300um 0.265um 0.470um 0.435um
+box 0.300um 0.360um 0.470um 0.530um
 paint ndc
-box 0.300um 2.655um 0.470um 2.825um
+box 0.300um 2.560um 0.470um 2.730um
 paint pdc
-box 0.300um -0.085um 0.470um 0.525um
+box 0.300um -0.085um 0.470um 0.620um
 paint li
 box 0.300um -0.085um 0.470um 0.085um
 paint viali
-box 0.300um 2.565um 0.470um 3.325um
+box 0.300um 2.470um 0.470um 3.325um
 paint li
 box 0.300um 3.155um 0.470um 3.325um
 paint viali
-box 1.220um 0.265um 1.390um 0.435um
+box 1.220um 0.360um 1.390um 0.530um
 paint ndc
-box 1.220um 2.655um 1.390um 2.825um
+box 1.220um 2.560um 1.390um 2.730um
 paint pdc
-box 1.220um 0.175um 1.390um 0.525um
+box 1.220um 0.270um 1.390um 0.620um
 paint li
-box 1.220um 2.565um 1.390um 2.915um
+box 1.220um 2.470um 1.390um 2.820um
 paint li
-box 1.220um 2.655um 1.390um 2.825um
+box 1.220um 2.560um 1.390um 2.730um
 paint viali
-box 1.220um 0.350um 1.390um 2.740um
+box 1.220um 0.445um 1.390um 2.645um
 paint li
-box 1.145um 2.580um 1.465um 2.900um
+box 1.145um 2.485um 1.465um 2.805um
 paint m1
 box 0.845um 1.280um 0.845um 1.280um
 label A center li
 port make
-box 1.305um 2.740um 1.305um 2.740um
+box 1.305um 2.645um 1.305um 2.645um
 label Y center m1
 port make
 box 0.100um 3.240um 0.100um 3.240um

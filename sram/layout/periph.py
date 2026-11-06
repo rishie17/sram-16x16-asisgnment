@@ -28,11 +28,11 @@ def bank(name, ty, inputs, nodes, w, ypin=1.62):
     c.label("VDD", .1, H, "m1"); c.label("GND", .1, 0, "m1")
     return c
 def rwckt():
-    S = [("t", tap()), ("w", bank("rw_wr", "n", ["WE", "DINB", "DIN", "WE"], ["DL", "", "GND", "", "DLB"], 1.68)),
-         ("t2", tap()),
+    S = [("t", tap(False)), ("w", bank("rw_wr", "n", ["WE", "DINB", "DIN", "WE"], ["DL", "", "GND", "", "DLB"], 1.68)),
+         ("t2", tap(False)),
          ("p", bank("rw_pre", "p", ["PCB", "PCB"], ["DL", "VDD", "DLB"], 1.26)),
          ("e", bank("rw_eq", "p", ["PCB"], ["DL", "DLB"], .42)),
-         ("s", gate("rw_sa", ["A"], ["GND", "Y"], ["VDD", "Y"], .42, 1.26, P=.92))]
+         ("s", gate("rw_sa", ["A"], ["GND", "Y"], ["VDD", "Y"], .42, 1.26, P=.92)), ("t3", tap())]
     c = Cell("rwckt"); x = 0; pins = {}
     for n, k in S:
         c.place(k, x, 0, name=n)

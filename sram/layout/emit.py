@@ -7,11 +7,11 @@ from gates import inv, nand2, nand3, tap, finv
 from column import precharge, colmux
 from dff import build as dff
 from periph import rwckt, inbuf, biginv, pad
-from blocks import array, rowslice
+from blocks import rowslice, rowcell, core
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
 TOP = [tap(), bitcell(), inv(), nand2(), nand3(), precharge(), colmux(), dff(), rwckt(), *inbuf(), pad(),
        biginv("ob3", 6.72, 13.44), biginv("ob4", 27, 55), biginv("ob5", 108, 215), biginv("ob6", 430, 860),
-       finv(2, .42, .84, "wldrv"), rowslice(), array()]
+       finv(2, .42, .84, "wldrv"), rowslice(), rowcell(), core()]
 def wrapped(c):
     """tap + cell, so bulks tie to rails for per-cell LVS. Ports copied to the wrapper."""
     w = Cell("lv_" + c.name); t = tap(); w.place(t, 0, 0, name="t"); o = t.size()[0] + (.3 if c.name == "colmux" else 0); w.place(c, o, 0, name="u")
@@ -28,6 +28,8 @@ def order(cells):
     return out
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True); L = order(TOP)
+    for f in os.listdir(OUT):
+        if f.endswith(".tcl") and f != "why.tcl": os.remove(f"{OUT}/{f}")
     with open(f"{OUT}/run_magic.tcl", "w") as f:
         for c in L:
             open(f"{OUT}/{c.name}.tcl", "w").write(c.tcl()); f.write(f"source {c.name}.tcl\n")

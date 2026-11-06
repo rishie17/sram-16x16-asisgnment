@@ -13,8 +13,8 @@ def tg():
     c.r("ndiff", X[0] - .165, YN0, X[1] + .165, yn1); c.r("pdiff", X[0] - .165, yp0, X[1] + .165, YP1)
     c.r("nwell", 0, yp0 - .18, W_, H + .31); c.r("m1", 0, -.18, W_, .18); c.r("m1", 0, H - .18, W_, H + .18)
     for x, n in zip(X, "AB"):
-        c.sq("ndc", x, yn, C); c.sq("pdc", x, yp, C); c.r("li", x - W / 2, yn - .175, x + W / 2, yp + .175); c.label(n, x, 1.40, "li")
-    for name, g, a, b, y in (("GN", gn, YN0 - .13, 1.04, .90), ("GP", gp, 1.76, YP1 + .13, 1.90)):
+        c.sq("ndc", x, yn, C); c.sq("pdc", x, yp, C); c.r("li", x - W / 2, yn - .175, x + W / 2, yp + .175); c.label(n, x, 1.42, "li")
+    for name, g, a, b, y in (("GN", gn, YN0 - .13, 1.09, .95), ("GP", gp, 1.70, YP1 + .13, 1.84)):
         c.r("poly", g - L / 2, a, g + L / 2, b); c.r("poly", g - .165, y - .135, g + .165, y + .135)
         c.sq("pc", g, y, C); c.r("li", g - W / 2, y - .165, g + W / 2, y + .165); c.label(name, g, y, "li")
     c.label("VDD", .1, H, "m1"); c.label("GND", .1, 0, "m1")

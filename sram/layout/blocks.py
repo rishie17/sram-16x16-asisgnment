@@ -1,33 +1,61 @@
-"""Phase 2: array tile + row slice pitch check. Array: columns translate at 3.40, rows mirror at 3.24."""
+"""Phase 2. Rails: GND at y=0, VDD at y=H, shared by mirrored rows, so bit cell origin is +0.74.
+rowcell = tap + NAND3 + WL driver + WL strap; rowdec = 16 rowcells + bus; core = rowdec + array."""
 from lib import Cell
 from bitcell import build as bitcell
 from gates import nand3, finv, tap, H
 PX, PY = 3.40, 3.24
-def array(rows=16, cols=16):
-    b = bitcell(); a = Cell("array")
-    # bit cell rails sit at y=-0.74 (GND) and 2.50 (VDD); mirrored rows share them
-    for r in range(rows):
-        my = bool(r % 2)
-        y = r * PY if not my else (r + 1) * PY - 1.48    # odd rows flip about y=2.50+(r-1)*PY
-        for c in range(cols):
-            a.place(b, c * PX, y, my=my, name=f"c_{r}_{c}")
-    return a
+WLY, C = .325, .17     # wordline centre above the GND rail in template coordinates
 def rowslice():
-    """NAND3 + 2-finger WL driver (0.84/1.68 total) on the 3.24 template."""
-    s = Cell("rowslice"); n = nand3(); d = finv(2, .42, .84, "wldrv")
-    t = tap(); s.place(t, 0, 0, name="t"); o = t.size()[0]
+    s = Cell("rowslice"); n = nand3(); d = finv(2, .42, .84, "wldrv"); t = tap()
+    s.place(t, 0, 0, name="t"); o = t.size()[0]
     s.place(n, o, 0, name="n3"); x = o + n.size()[0]; s.place(d, x, 0, name="wd")
     Y = next((a, b) for t_, a, b, _ in n.labels if t_ == "Y"); A = next((a, b) for t_, a, b, _ in d.labels if t_ == "A")
-    xy = o + Y[0] + 2 * .70       # right end of the nand3 output strap, then down and across at the pin height
+    xy = o + Y[0] + 2 * .70
     s.r("m1", xy - .08, A[1] - .08, xy + .08, Y[1]); s.r("m1", xy - .08, A[1] - .08, x + A[0] + .08, A[1] + .08)
-    s.sq("viali", x + A[0], A[1], .17); s.sq("m1", x + A[0], A[1], .32)
+    s.sq("viali", x + A[0], A[1], C); s.r("m1", x + A[0] - .13, A[1] - .16, x + A[0] + .13, A[1] + .16)
     for t_, a, b, ly in n.labels:
         if t_ in "ABC": s.label(t_, o + a, b, ly)
     wy = next((a, b, ly) for t_, a, b, ly in d.labels if t_ == "Y"); s.label("WL", x + wy[0], wy[1], wy[2])
     s.label("VDD", .1, H, "m1"); s.label("GND", .1, 0, "m1")
     return s
-if __name__ == "__main__":
-    a = array(4, 4); f = a.flat()
-    gnd = sorted({round(y1 + .18, 3) for ly, x0, y0, x1, y1 in f if ly == "m1" and x1 - x0 > 3})
-    print("4x4 rail centre rows:", gnd[:8]); print("4x4 bbox", a.bbox())
-    r = rowslice(); print("rowslice", r.size(), "needs height 3.24 pitch")
+def rowcell():
+    """rowslice + strap to array poly. Array poly starts at the cell's right edge."""
+    c = Cell("rowcell"); s = rowslice(); c.place(s, 0, 0, name="s"); Wd = s.size()[0]; W_ = Wd + .75; x = W_ - .3
+    wy = next((a, b) for t_, a, b, _ in s.labels if t_ == "WL")
+    c.r("m1", Wd, -.18, W_, .18); c.r("m1", Wd, H - .18, W_, H + .18); c.r("nwell", Wd, 2.1, W_, H + .31)   # rail + well bridge
+    c.r("poly", x - .165, WLY - .135, x + .165, WLY + .135); c.r("poly", x, WLY - .075, W_, WLY + .075)
+    c.sq("pc", x, WLY, C); c.r("li", x - .085, WLY - .165, x + .085, .71); c.sq("viali", x, .62, C)
+    c.r("m1", x - .16, .46, x + .16, .78); c.r("m1", x - .08, .46, x + .08, wy[1] + .08); c.r("m1", wy[0], wy[1] - .08, x + .08, wy[1] + .08)
+    for t_, a, b, ly in s.labels:
+        if t_ in "ABC": c.label(t_, a, b, ly)
+    c.label("WL", x, .62, "m1"); c.label("VDD", .1, H, "m1"); c.label("GND", .1, 0, "m1")
+    return c
+TRK = {"A": .46, "B": 1.10, "C": 1.74}
+BUS = ["clkb"] + [f"rl{i}" for i in range(4)] + [f"rh{i}" for i in range(4)]
+def bx(i): return -.5 - .5 * i
+def core(rows=16, cols=16):
+    c = Cell("core"); rc = rowcell(); b = bitcell(); xA = rc.size()[0]
+    pin = {t: (a, y) for t, a, y, _ in rc.labels}
+    Yr = lambda r, y: (r * PY + y) if r % 2 == 0 else ((r + 1) * PY - y)
+    for r in range(rows):
+        my = bool(r % 2); y0 = r * PY if not my else (r + 1) * PY
+        c.place(rc, 0, y0, my=my, name=f"rc{r}")
+        for k in range(cols):
+            c.place(b, xA + .30 + k * PX, (r * PY + .74) if not my else ((r + 1) * PY - .74), my=my, name=f"c_{r}_{k}")
+        for t, net in (("A", f"rh{r >> 2}"), ("B", f"rl{r & 3}"), ("C", "clkb")):
+            x, py = pin[t]; yt, yp = Yr(r, TRK[t]), Yr(r, py); xb = bx(BUS.index(net))
+            c.sq("viali", x, yp, C); c.r("m1", x - .13, yp - .16, x + .13, yp + .16); c.sq("via1", x, yp, .26); c.sq("m2", x, yp, .32)
+            w = .15 if abs(yp - yt) < .65 else .07
+            c.r("m2", x - w, min(yp, yt), x + w, max(yp, yt)); c.r("m2", x - .15, yt - .185, x + .15, yt + .185); c.sq("via2", x, yt, .28)
+            c.r("m3", xb - .2, yt - .165, x + .2, yt + .165); c.r("m2", xb - .15, yt - .185, xb + .15, yt + .185); c.sq("via2", xb, yt, .28)
+    top = rows * PY
+    for i, n in enumerate(BUS):
+        c.r("m2", bx(i) - .15, 0, bx(i) + .15, top); c.label(n, bx(i), 1, "m2")
+    for k in range(cols):
+        c.label(f"bl{k}", xA + .30 + k * PX, top - 1, "m2"); c.label(f"blb{k}", xA + .30 + k * PX + 2.8, top - 1, "m2")
+    xs = bx(len(BUS)) - .1                    # VDD strap: m2 bar left of the bus, m1 rail stubs reach it
+    c.r("m2", xs - .2, 0, xs + .2, top + PY)
+    for r in range(1, rows + 1, 2):
+        y = r * PY; c.r("m1", xs - .2, y - .18, 0, y + .18); c.sq("via1", xs, y, .26)
+    c.label("VDD", xs, PY, "m2"); c.label("GND", .1, 0, "m1")
+    return c

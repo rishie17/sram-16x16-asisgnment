@@ -1,16 +1,16 @@
 """Pitch-matched CMOS gates. Template: GND rail y=0, VDD rail y=H=3.24 (the bit cell row pitch).
 Diff may sit under the rails; tapping is done by separate tap strips (see tap()).
-Rows mirror, so N diff bottom 0.14 gives 0.28 diff-diff across the shared rail."""
+Rows mirror: diff edge 0.235 from the rail leaves poly ends (0.13 overhang) 0.21 apart across it."""
 from lib import Cell, precheck
 from extract import extract
 H, P, L, C, W = 3.24, 0.70, 0.15, 0.17, 0.17
-YN0, YP1 = 0.14, H - 0.14
+YN0, YP1 = 0.235, H - 0.235
 def gate(name, inputs, nnodes, pnodes, wn, wp, out="Y", P=P, tie=False):
     """inputs: gate net per column gap. nnodes/pnodes: diff node per contact column ('' = no contact)."""
     c = Cell(name); n = len(inputs); X = [.3 + .085 + i * P for i in range(n + 1)]
     g = [(X[i] + X[i + 1]) / 2 for i in range(n)]
     W_ = X[-1] + .3 + .085; yn1, yp0 = YN0 + wn, YP1 - wp
-    assert yp0 - yn1 >= .77, (name, "gate pad gap", yp0 - yn1)
+    assert yp0 - yn1 >= .60, (name, "gate pad gap", yp0 - yn1)
     assert wp >= .72, (name, "P contact row needs wp>=0.72 to clear the VDD rail")
     yn, yp, ymid = YN0 + .21, YP1 - .36, (yn1 + yp0) / 2
     c.r("ndiff", X[0] - .165, YN0, X[-1] + .165, yn1); c.r("pdiff", X[0] - .165, yp0, X[-1] + .165, YP1)
@@ -41,11 +41,13 @@ def gate(name, inputs, nnodes, pnodes, wn, wp, out="Y", P=P, tie=False):
 def inv(wn=.42, wp=.84, name="inv", P=P): return gate(name, ["A"], ["GND", "Y"], ["VDD", "Y"], wn, wp, P=P)
 def nand2(): return gate("nand2", ["A", "B"], ["Y", "", "GND"], ["Y", "VDD", "Y"], .84, .84)
 def nand3(): return gate("nand3", ["A", "B", "C"], ["Y", "", "", "GND"], ["Y", "VDD", "Y", "VDD"], 1.26, .84)
-def tap():
-    """Well/substrate tap under the rails; one at the end of every template row."""
-    c = Cell("tap"); x, Wd = .425, .85
-    c.r("m1", 0, -.18, Wd, .18); c.r("m1", 0, H - .18, Wd, H + .18); c.r("nwell", 0, 2.1, Wd, H + .31)
-    for ly, ct, y in (("psd", "psc", 0), ("nsd", "nsc", H)):
+def tap(well=True):
+    """Well/substrate tap under the rails; one at the end of every template row.
+    well=False: substrate tap only, for use beside wide NMOS."""
+    c = Cell("tap" if well else "ptap"); x, Wd = .425, .85
+    c.r("m1", 0, -.18, Wd, .18); c.r("m1", 0, H - .18, Wd, H + .18)
+    if well: c.r("nwell", 0, 2.1, Wd, H + .31)
+    for ly, ct, y in (("psd", "psc", 0), ("nsd", "nsc", H))[:2 if well else 1]:
         c.r(ly, x - .205, y - .13, x + .205, y + .13); c.sq(ct, x, y, C); c.sq("viali", x, y, C)
         c.r("li", x - W / 2, y - .175, x + W / 2, y + .175)
     c.label("VDD", .1, H, "m1"); c.label("GND", .1, 0, "m1")

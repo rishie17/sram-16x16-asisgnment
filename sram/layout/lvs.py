@@ -16,6 +16,15 @@ S = {
  "rwckt": ("DL DLB WE DIN DINB PCB RD VDD GND", [m("p","DL","PCB","VDD","VDD",1.26), m("p","DLB","PCB","VDD","VDD",1.26), m("p","DL","PCB","DLB","VDD",.42), m("n","DL","WE","w1","GND",1.68), m("n","w1","DINB","GND","GND",1.68), m("n","DLB","WE","w2","GND",1.68), m("n","w2","DIN","GND","GND",1.68)] + inv("DL","RD",.42,1.26)),
  "rowslice": ("A B C WL VDD GND", [m("p","y","ABC"[i],"VDD","VDD",.84) for i in range(3)] + [m("n","y","A","n1","GND",1.26), m("n","n1","B","n2","GND",1.26), m("n","n2","C","GND","GND",1.26)] + inv("y","WL",.42,.84,2)),
 }
+def core_sch(rows=16, cols=16):
+    P = " ".join(["clkb"] + [f"rl{i}" for i in range(4)] + [f"rh{i}" for i in range(4)] + [f"bl{k} blb{k}" for k in range(cols)] + ["VDD GND"])
+    L = []
+    for r in range(rows):
+        L.append(f"Xr{r} rh{r >> 2} rl{r & 3} clkb wl{r} VDD GND rowslice")
+        for k in range(cols): L.append(f"Xc{r}_{k} bl{k} blb{k} wl{r} VDD GND q{r}_{k} qb{r}_{k} bitcell")
+    return P, L
+S["rowslice_h"] = S.pop("rowslice"); S["rowslice"] = S.pop("rowslice_h")
+S["core"] = core_sch()
 if __name__ == "__main__":
     with open(f"{OUT}/schem.sp", "w") as f:
         for n, (p, L) in S.items(): f.write(f".subckt {n} {p}\n" + "\n".join(L) + "\n.ends\n\n")

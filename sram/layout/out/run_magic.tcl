@@ -10,6 +10,7 @@ source tg.tcl
 source inv_s1.tcl
 source inv_s2.tcl
 source sdff.tcl
+source ptap.tcl
 source rw_wr.tcl
 source rw_pre.tcl
 source rw_eq.tcl
@@ -24,7 +25,8 @@ source ob5.tcl
 source ob6.tcl
 source wldrv.tcl
 source rowslice.tcl
-source array.tcl
+source rowcell.tcl
+source core.tcl
 source lv_inv.tcl
 source lv_nand2.tcl
 source lv_nand3.tcl
@@ -165,6 +167,17 @@ ext2spice -o sdff.spice
 ext2spice cthresh 0
 ext2spice -o sdff_pex.spice
 gds write sdff.gds
+load ptap
+select top cell
+drc check
+drc catchup
+puts "DRC ptap [drc list count total]"
+extract all
+ext2spice lvs
+ext2spice -o ptap.spice
+ext2spice cthresh 0
+ext2spice -o ptap_pex.spice
+gds write ptap.gds
 load rw_wr
 select top cell
 drc check
@@ -319,17 +332,28 @@ ext2spice -o rowslice.spice
 ext2spice cthresh 0
 ext2spice -o rowslice_pex.spice
 gds write rowslice.gds
-load array
+load rowcell
 select top cell
 drc check
 drc catchup
-puts "DRC array [drc list count total]"
+puts "DRC rowcell [drc list count total]"
 extract all
 ext2spice lvs
-ext2spice -o array.spice
+ext2spice -o rowcell.spice
 ext2spice cthresh 0
-ext2spice -o array_pex.spice
-gds write array.gds
+ext2spice -o rowcell_pex.spice
+gds write rowcell.gds
+load core
+select top cell
+drc check
+drc catchup
+puts "DRC core [drc list count total]"
+extract all
+ext2spice lvs
+ext2spice -o core.spice
+ext2spice cthresh 0
+ext2spice -o core_pex.spice
+gds write core.gds
 load lv_inv
 select top cell
 drc check
