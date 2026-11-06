@@ -8,6 +8,7 @@ from periph import rwckt, inbuf, biginv, bank
 import flatnet
 from blocks import core, bx, BUS, XPCB, XT, XS, XG
 _memo = {}
+LAST = {}
 def memo(key, f):
     if key not in _memo: _memo[key] = f()
     return _memo[key]
@@ -65,7 +66,7 @@ def outcluster(c, x0, yref, ybot):
     """ob1..ob6 on a common mid-line, so N and P banks and wells line up and A/Y wire straight across.
     GND and VDDIO each reach an m3 bar through m2 at the stage's rail."""
     S = [biginv("ob1", .42, .84), biginv("ob2", 1.68, 3.36), biginv("ob3", 6.72, 13.44), biginv("ob4", 27, 55), biginv("ob5", 108, 215), biginv("ob6", 430, 860)]
-    x = x0; prev = None; yms = [next(b for t, a, b, _ in k.labels if t == "A") for k in S]
+    x = x0; prev = None; LAST["xo"] = x0; yms = [next(b for t, a, b, _ in k.labels if t == "A") for k in S]
     top = max(yref - m + next(b for t, a, b, _ in k.labels if t == "VDD") for k, m in zip(S, yms)) + 1.0
     for k, m in zip(S, yms):
         y0 = yref - m; c.place(k, x, y0, name=k.name)
@@ -79,11 +80,15 @@ def outcluster(c, x0, yref, ybot):
             c.r("m3", prev[0] - .165, a[1] - .165, a[0] + .165, a[1] + .165)
         else: first = (a[0], a[1], "li")
         prev = yy; x += k.size()[0]
+    LAST["xo1"] = x; LAST["ybot"] = ybot; LAST["yd_end"] = prev[0] + 58.8
     c.r("m3", x0, top - .165, x, top + .165); c.label("vddio", x0 + .9, top, "m3"); c.r("m3", x0, ybot - .165, x, ybot + .165); c.label("yd", prev[0], prev[1], "m2")
     return first, prev
 def build():
     c = Cell("chip0"); c.place(core(), 0, 0, name="core"); I = insts(); pins = {}
     A = [i for i in I if i[1].name in ("sdff", "rwckt")]; B = [i for i in I if i not in A]
+    # clock drivers go mid-row, so clk_ff is fed from the centre of the flop row, not one end
+    ck = [i for i in B if i[0].startswith(("Xck_a", "Xck_r"))]; rest = [i for i in B if i not in ck]
+    B = rest[:len(rest) * 3 // 4] + ck + rest[len(rest) * 3 // 4:]
     t = memo("tap", tap); x = 1.0; pa = []
     for n, k, net in A:
         c.place(t, x, YA, name=f"ta_{n}"); x += t.size()[0]; c.place(k, x, YA, name=n)
@@ -137,6 +142,7 @@ def build():
         c.r("m1", xs_ - .2, y - .18, 1.0, y + .18); c.sq("via1", xs_, y, .26)
     c.r("m2", XG - .15, YB - .25, XG + .15, YS); c.r("m2", XS - .2, YB + H - .25, XS + .2, YS)
     c.label("VDD", XS, YA + 1, "m2"); c.label("GND", XG, YA + 1, "m2")
+    LAST.update(YB=YB, xa=xa, xb=xb)
     print("tracks", len(tr), "YB", round(YB, 2), "row A ends", round(xa, 1), "row B ends", round(xb, 1))
     return c
 if __name__ == "__main__":

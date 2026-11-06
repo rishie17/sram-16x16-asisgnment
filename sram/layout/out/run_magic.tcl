@@ -1,3 +1,5 @@
+source esd.tcl
+source rterm.tcl
 source tap.tcl
 source bitcell.tcl
 source inv.tcl
@@ -31,12 +33,13 @@ source colslice.tcl
 source core.tcl
 source ob1.tcl
 source ob2.tcl
-source ix6.tcl
 source ix3s.tcl
 source ix6s.tcl
 source c1n.tcl
 source c1p.tcl
+source ix6.tcl
 source chip0.tcl
+source sram_top.tcl
 source lv_inv.tcl
 source lv_nand2.tcl
 source lv_nand3.tcl
@@ -45,6 +48,28 @@ source lv_sdff.tcl
 source lv_ib1.tcl
 source lv_ib2.tcl
 source lv_wldrv.tcl
+load esd
+select top cell
+drc check
+drc catchup
+puts "DRC esd [drc list count total]"
+extract all
+ext2spice lvs
+ext2spice -o esd.spice
+ext2spice cthresh 0
+ext2spice -o esd_pex.spice
+gds write esd.gds
+load rterm
+select top cell
+drc check
+drc catchup
+puts "DRC rterm [drc list count total]"
+extract all
+ext2spice lvs
+ext2spice -o rterm.spice
+ext2spice cthresh 0
+ext2spice -o rterm_pex.spice
+gds write rterm.gds
 load tap
 select top cell
 drc check
@@ -408,17 +433,6 @@ ext2spice -o ob2.spice
 ext2spice cthresh 0
 ext2spice -o ob2_pex.spice
 gds write ob2.gds
-load ix6
-select top cell
-drc check
-drc catchup
-puts "DRC ix6 [drc list count total]"
-extract all
-ext2spice lvs
-ext2spice -o ix6.spice
-ext2spice cthresh 0
-ext2spice -o ix6_pex.spice
-gds write ix6.gds
 load ix3s
 select top cell
 drc check
@@ -463,6 +477,17 @@ ext2spice -o c1p.spice
 ext2spice cthresh 0
 ext2spice -o c1p_pex.spice
 gds write c1p.gds
+load ix6
+select top cell
+drc check
+drc catchup
+puts "DRC ix6 [drc list count total]"
+extract all
+ext2spice lvs
+ext2spice -o ix6.spice
+ext2spice cthresh 0
+ext2spice -o ix6_pex.spice
+gds write ix6.gds
 load chip0
 select top cell
 drc check
@@ -474,6 +499,17 @@ ext2spice -o chip0.spice
 ext2spice cthresh 0
 ext2spice -o chip0_pex.spice
 gds write chip0.gds
+load sram_top
+select top cell
+drc check
+drc catchup
+puts "DRC sram_top [drc list count total]"
+extract all
+ext2spice lvs
+ext2spice -o sram_top.spice
+ext2spice cthresh 0
+ext2spice -o sram_top_pex.spice
+gds write sram_top.gds
 load lv_inv
 select top cell
 drc check

@@ -9,10 +9,12 @@ from dff import build as dff
 from periph import rwckt, inbuf, biginv, pad
 from blocks import rowslice, rowcell, core, colslice
 from ctrl import build as build_chip
+from top import build as build_top
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
-TOP = [tap(), bitcell(), inv(), nand2(), nand3(), precharge(), colmux(), dff(), rwckt(), *inbuf(), pad(),
+from padcell import esd, rterm
+TOP = [esd(), rterm(), tap(), bitcell(), inv(), nand2(), nand3(), precharge(), colmux(), dff(), rwckt(), *inbuf(), pad(),
        biginv("ob3", 6.72, 13.44), biginv("ob4", 27, 55), biginv("ob5", 108, 215), biginv("ob6", 430, 860),
-       finv(2, .42, .84, "wldrv"), rowslice(), rowcell(), colslice(), core(), build_chip()]
+       finv(2, .42, .84, "wldrv"), rowslice(), rowcell(), colslice(), core(), build_chip(), build_top()]
 def wrapped(c):
     """tap + cell, so bulks tie to rails for per-cell LVS. Ports copied to the wrapper."""
     w = Cell("lv_" + c.name); t = tap(); w.place(t, 0, 0, name="t"); o = t.size()[0] + (.3 if c.name == "colmux" else 0); w.place(c, o, 0, name="u")

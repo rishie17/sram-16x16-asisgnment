@@ -44,6 +44,15 @@ def chip_sch():
             L.append(f"X{n} {a} {g} {c} {b} sky130_fd_pr__{ty}fet_01v8 w={w} l=0.15")
     return "clk_pad addr_pad rw_pad din_pad yd VDD vddio GND", L
 S["chip0"] = chip_sch()
+def top_sch():
+    P, L = S["chip0"]; L = list(L)
+    L.append("Xrt yd DOUT sky130_fd_pr__res_generic_po w=8.2 l=3.4")
+    D = {"DOUT": "DOUT", "CLK": "clk_pad", "ADDR": "addr_pad", "RW": "rw_pad", "DIN": "din_pad"}
+    for k, n in D.items():
+        L += [f"XE{k}1 {n} VDDIO sky130_fd_pr__diode_pd2nw_05v5 perim=1.6e+07 area=1.6e+13", f"XE{k}2 GND {n} sky130_fd_pr__diode_pw2nd_05v5 perim=1.6e+07 area=1.6e+13"]
+    L = [" ".join({"vddio": "VDDIO", "clk_pad": "CLK", "addr_pad": "ADDR", "rw_pad": "RW", "din_pad": "DIN"}.get(t, t) for t in l.split()) for l in L]
+    return "CLK ADDR RW DIN DOUT VDD VDDIO GND", L
+S["sram_top"] = top_sch()
 if __name__ == "__main__":
     with open(f"{OUT}/schem.sp", "w") as f:
         for n, (p, L) in S.items(): f.write(f".subckt {n} {p}\n" + "\n".join(L) + "\n.ends\n\n")
