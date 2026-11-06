@@ -32,7 +32,7 @@ def order(cells):
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True); L = order(TOP)
     for f in os.listdir(OUT):
-        if f.endswith(".tcl") and f != "why.tcl": os.remove(f"{OUT}/{f}")
+        if f.endswith(".tcl") and f not in ("why.tcl", "flat.tcl"): os.remove(f"{OUT}/{f}")
     with open(f"{OUT}/run_magic.tcl", "w") as f:
         for c in L:
             open(f"{OUT}/{c.name}.tcl", "w").write(c.tcl()); f.write(f"source {c.name}.tcl\n")
@@ -46,7 +46,7 @@ P=/foss/pdks/sky130A/libs.tech
 rm -f *.mag *.ext   # load -force reopens saved cells, so stale geometry would stack up
 magic -dnull -noconsole -rcfile $P/magic/sky130A.magicrc run_magic.tcl 2>&1 | tee magic.log | grep -E "^DRC|rror"
 # my cells must be local: a missing .mag means Magic resolved the name from a PDK library (banned cells)
-for f in *.tcl; do n=${f%.tcl}; case $n in run_magic|why) ;; *) [ -f $n.mag ] || { echo "MISSING LOCAL CELL $n"; exit 1; } ;; esac; done
+for f in *.tcl; do n=${f%.tcl}; case $n in run_magic|why|flat) ;; *) [ -f $n.mag ] || { echo "MISSING LOCAL CELL $n"; exit 1; } ;; esac; done
 for n in $(grep -h '^use ' *.mag | awk '{print $2}' | sort -u); do [ -f $n.mag ] || { echo "NON-LOCAL USE $n"; exit 1; }; done
 echo LOCAL CELLS OK
 ''')
