@@ -6,9 +6,9 @@ box 0.220um 11.620um 15.950um 21.390um
 paint pdiff
 box 0.000um 11.440um 16.170um 22.310um
 paint nwell
-box 0.000um -0.180um 16.170um 0.180um
+box 0.100um -0.180um 16.070um 0.180um
 paint m1
-box 0.000um 21.810um 16.170um 22.170um
+box 0.100um 21.810um 16.070um 22.170um
 paint m1
 box 0.660um 0.470um 0.810um 21.520um
 paint poly
@@ -237,6 +237,8 @@ paint poly
 box 0.650um 10.935um 0.820um 11.105um
 paint pc
 box 0.650um 10.855um 0.820um 11.185um
+paint li
+box 0.165um 10.935um 0.820um 11.105um
 paint li
 box 0.300um 0.640um 0.470um 0.810um
 paint ndc
@@ -4274,7 +4276,7 @@ box 15.645um 11.620um 15.925um 21.990um
 paint m1
 box 0.935um 10.860um 15.235um 11.180um
 paint m2
-box 0.735um 11.020um 0.735um 11.020um
+box 0.250um 11.020um 0.250um 11.020um
 label A center li
 port make
 box 1.085um 11.020um 1.085um 11.020um

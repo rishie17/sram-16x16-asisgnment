@@ -1,5 +1,7 @@
 load rwckt -force
 snap internal
+box 12.140um 1.565um 12.990um 2.200um
+paint nwell
 box 1.035um 0.295um 11.495um 0.625um
 paint m3
 box 1.150um 0.990um 1.320um 1.160um

@@ -49,6 +49,9 @@ def colslice():
 TRK = {"A": .46, "B": 1.10, "C": 1.74}
 BUS = ["clkb"] + [f"rl{i}" for i in range(4)] + [f"rh{i}" for i in range(4)]
 def bx(i): return -.5 - .5 * i
+XPCB = -6.1
+XT = {"dl": -6.6, "dlb": -7.1}; XT.update({f"ch{i}": -7.6 - .5 * i for i in range(4)}); XT.update({f"cl{i}": -9.6 - .5 * i for i in range(4)})
+XS, XG = bx(len(BUS)) - .1, -5.6       # VDD and GND m2 straps
 def core(rows=16, cols=16):
     c = Cell("core"); rc = rowcell(); b = bitcell(); xA = rc.size()[0]
     pin = {t: (a, y) for t, a, y, _ in rc.labels}
@@ -96,9 +99,10 @@ def core(rows=16, cols=16):
             # PCB up to the m3 bar
             x = xc + 1.4; yb = yp + 1.79
             c.sq("viali", x, yb, C); c.r("m1", x - .13, yb - .16, x + .13, yb + .16); c.sq("via1", x, yb, .26); c.r("m2", x - .15, yb - .185, x + .15, yb + .185); c.sq("via2", x, yb, .28)
-        c.r("m3", bx(0) - .2, yp + 1.79 - .165, xr, yp + 1.79 + .165); c.label("pcb", xA, yp + 1.79, "m3")
+        c.r("m3", XPCB - .2, yp + 1.79 - .165, xr, yp + 1.79 + .165); c.r("m2", XPCB - .15, yp + 1.79 - .185, XPCB + .15, yp + 1.79 + .185); c.sq("via2", XPCB, yp + 1.79, .28); c.r("m2", XPCB - .15, ys, XPCB + .15, yp + 1.79); c.label("pcb", XPCB, 1, "m2")
         for n, y in T.items():
-            c.r("m3", xA, y - .165, xr, y + .165); c.label(n, xA + .1, y, "m3")
+            x = XT[n]; c.r("m3", x - .2, y - .165, xr, y + .165); c.r("m2", x - .15, y - .185, x + .15, y + .185); c.sq("via2", x, y, .28)
+            c.r("m2", x - .15, ys, x + .15, y); c.label(n, x, y - .5, "m2")
         c.r("m1", bx(len(BUS)) - .3, yp, xl + .30, yp + .36)              # precharge VDD rail back to the strap
     xs = bx(len(BUS)) - .1                    # VDD strap: m2 bar left of the bus, m1 rail stubs reach it
     c.r("m2", xs - .2, 0, xs + .2, top + 1.5)
@@ -107,7 +111,13 @@ def core(rows=16, cols=16):
     if cols == 16:
         c.sq("via1", xs, top + .85 + .18, .26)
         y = ys + PY; c.r("m1", xs - .2, y - .18, xA + .30 - .85, y + .18); c.sq("via1", xs, y, .26)
-        c.r("m2", xs - .2, y - .185, xs + .2, 0)
+        c.r("m2", xs - .2, ys, xs + .2, 0)
         t = tap(); c.place(t, xA + .30 - .85, ys, name="tcs0"); c.place(t, xA + .30 - .85, ys + 2 * PY, my=True, name="tcs1")
-    c.label("VDD", xs, PY, "m2"); c.label("GND", .1, 0, "m1")
+    c.r("m2", XG - .15, ys - .25, XG + .15, top + .25)
+    for r in range(0, rows + 1, 2):
+        y = r * PY; c.r("m1", XG - .2, y - .18, 0, y + .18); c.sq("via1", XG, y, .26)
+    y = ys; c.r("m1", XG - .2, y - .18, xA + .30 - .85, y + .18); c.sq("via1", XG, y, .26)
+    y = ys + 2 * PY; c.r("m1", XG - .2, y - .18, xA + .30 - .85, y + .18); c.sq("via1", XG, y, .26)
+    for i in range(len(BUS)): c.r("m2", bx(i) - .15, ys, bx(i) + .15, 0)
+    c.label("VDD", xs, PY, "m2"); c.label("GND", XG, 1, "m2")
     return c

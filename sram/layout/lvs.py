@@ -3,7 +3,7 @@ import os
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
 def m(t, d, g, s, b, w): return f"X{d}_{g}_{s}_{w} {d} {g} {s} {b} sky130_fd_pr__{'n' if t=='n' else 'p'}fet_01v8 w={w} l=0.15"
 def inv(a, y, wn, wp, k=1): return [m("n", y, a, "GND", "GND", wn)] * 0 + [f"XN{a}{y}{i} {y} {a} GND GND sky130_fd_pr__nfet_01v8 w={wn} l=0.15" for i in range(k)] + [f"XP{a}{y}{i} {y} {a} VDD VDD sky130_fd_pr__pfet_01v8 w={wp} l=0.15" for i in range(k)]
-def tgate(a, b, n, p): return [m("n", a, n, b, "GND", .42), m("p", a, p, b, "VDD", .84)]
+def tgate(a, b, n, p): return [m("n", a, n, b, "GND", .42), m("p", a, p, b, "VDD", .42)]
 S = {
  "bitcell": ("BL BLB WL VDD GND Q QB", [m("p","Q","QB","VDD","VDD",.42), m("n","Q","QB","GND","GND",.63), m("p","QB","Q","VDD","VDD",.42), m("n","QB","Q","GND","GND",.63), m("n","BL","WL","Q","GND",.42), m("n","BLB","WL","QB","GND",.42)]),
  "lv_inv": ("A Y VDD GND", inv("A","Y",.42,.84)), "lv_wldrv": ("A Y VDD GND", inv("A","Y",.42,.84,2)),
@@ -29,11 +29,26 @@ def core_sch(rows=16, cols=16):
                   f"Xcd{k} ch{k >> 2} cl{k & 3} cb{k} VDD GND lv_nand2", f"Xcs{k} cb{k} csel{k} VDD GND lv_wldrv"]
     return P, L
 S["core"] = core_sch()
+def chip_sch():
+    """Flat devices from the real netlist. Pads and R/L/C are excluded; Rterm is shorted until it is drawn."""
+    import flatnet
+    SC = flatnet.subckts(); L = []; rn = {"vdd": "VDD", "vss": "GND", "vddio": "vddio", "Xob.yd": "yd", "dout_pad": "yd"}
+    n = 0
+    for r in range(16):
+        L.append(f"Xrs{r} rh{r >> 2} rl{r & 3} clkb wl{r} VDD GND rowslice")
+    for t in flatnet.top_insts():
+        if t[0].startswith(("Xpad", "Xrd", "Xwd")): continue
+        for d in flatnet.expand(t, SC):
+            if d[0] not in "np": continue
+            ty, a, g, c, b, w = d; a, g, c, b = (rn.get(q, q).replace(".", "_") for q in (a, g, c, b)); n += 1
+            L.append(f"X{n} {a} {g} {c} {b} sky130_fd_pr__{ty}fet_01v8 w={w} l=0.15")
+    return "clk_pad addr_pad rw_pad din_pad yd VDD vddio GND", L
+S["chip0"] = chip_sch()
 if __name__ == "__main__":
     with open(f"{OUT}/schem.sp", "w") as f:
         for n, (p, L) in S.items(): f.write(f".subckt {n} {p}\n" + "\n".join(L) + "\n.ends\n\n")
     with open(f"{OUT}/run_lvs.sh", "w") as f:
         f.write("#!/bin/bash\nS=/foss/pdks/sky130A/libs.tech/netgen/sky130A_setup.tcl\n")
         for n in S:
-            f.write(f'netgen -batch lvs "{n}.spice {n}" "schem.sp {n}" $S lvs_{n}.out > /dev/null 2>&1; r=$(grep -cE "Circuits match uniquely" lvs_{n}.out); echo "LVS {n} match_lines=$r $(grep -E "Property errors|Netlists do not match|Top level cell failed" lvs_{n}.out | head -2 | tr "\\n" " ")"\n')
+            f.write(f'netgen -batch lvs "{n}.spice {n}" "schem.sp {n}" $S lvs_{n}.out > /dev/null 2>&1; r=$(grep -cE "Circuits match uniquely" lvs_{n}.out); p=$(grep -c "Property errors were found" lvs_{n}.out); [ "$p" != 0 ] && r=0; echo "LVS {n} match_lines=$r $(grep -E "Property errors|Netlists do not match|Top level cell failed" lvs_{n}.out | head -2 | tr "\\n" " ")"\n')
     os.chmod(f"{OUT}/run_lvs.sh", 0o755); print(len(S), "LVS cells")

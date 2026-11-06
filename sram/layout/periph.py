@@ -39,6 +39,7 @@ def rwckt():
         for t, a, b, ly in k.labels: pins.setdefault((n, t), []).append((x + a, b, ly))
         x += k.size()[0]
     A = lambda n, t: pins[(n, t)]
+    c.r("nwell", x - tap().size()[0], 1.565, x, 2.2)     # continue the rw_sa well bottom under the end tap
     route(c, {"DL": A("w","DL") + A("p","DL") + A("e","DL") + A("s","A"), "DLB": A("w","DLB") + A("p","DLB") + A("e","DLB"),
               "WE": A("w","WE"), "PCB": A("p","PCB") + A("e","PCB")})
     for n, t, top in (("w","DIN","DIN"), ("w","DINB","DINB"), ("s","Y","RD")): c.label(top, *A(n, t)[0][:2], A(n, t)[0][2])
@@ -54,7 +55,7 @@ def biginv(name, wnt, wpt, wf=10.0):
     X = [.385 + i * pt for i in range(k + 1)]; G = [(X[i] + X[i + 1]) / 2 for i in range(k)]
     yn0, yn1 = Y0, Y0 + wn; yp0, yp1 = yn1 + gap, yn1 + gap + wp; ym = (yn1 + yp0) / 2; Wd = X[-1] + .385; T = yp1 + .6
     c.r("ndiff", X[0] - .165, yn0, X[kn] + .165, yn1); c.r("pdiff", X[0] - .165, yp0, X[kp] + .165, yp1)
-    c.r("nwell", 0, yp0 - .18, Wd, T + .32); c.r("m1", 0, -.18, Wd, .18); c.r("m1", 0, T - .18, Wd, T + .18)
+    c.r("nwell", 0, yp0 - .18, Wd, T + .32); c.r("m1", .1, -.18, Wd - .1, .18); c.r("m1", .1, T - .18, Wd - .1, T + .18)
     for i, g in enumerate(G):
         c.r("poly", g - L / 2, (yn0 - .13) if i < kn else (ym - .075), g + L / 2, (yp1 + .13) if i < kp else (ym + .075))
     c.r("poly", G[0] - L / 2, ym - .075, G[-1] + L / 2, ym + .075)
@@ -62,8 +63,8 @@ def biginv(name, wnt, wpt, wf=10.0):
         for ly, ct, y in (("psd", "psc", 0), ("nsd", "nsc", T)):
             c.r(ly, x - .205, y - .13, x + .205, y + .13); c.sq(ct, x, y, C); c.sq("viali", x, y, C)
             c.r("li", x - W / 2, y - .175, x + W / 2, y + .175)
-    c.r("poly", G[0] - .165, ym - .135, G[0] + .165, ym + .135); c.sq("pc", G[0], ym, C); c.label("A", G[0], ym, "li")
-    c.r("li", G[0] - W / 2, ym - .165, G[0] + W / 2, ym + .165)
+    c.r("poly", G[0] - .165, ym - .135, G[0] + .165, ym + .135); c.sq("pc", G[0], ym, C); c.label("A", .25, ym, "li")
+    c.r("li", G[0] - W / 2, ym - .165, G[0] + W / 2, ym + .165); c.r("li", .165, ym - .085, G[0] + W / 2, ym + .085)
     def col(x, y0, y1, ct):
         y = y0 + .125
         while y + .125 <= y1 + 1e-9:

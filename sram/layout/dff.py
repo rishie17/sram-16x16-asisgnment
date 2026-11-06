@@ -8,8 +8,8 @@ L, C, W = .15, .17, .17
 def tg():
     """A/B diff columns tied N to P by li. NMOS gate GN and PMOS gate GP sit at different x,
     so their m2 stubs can pass each other."""
-    c = Cell("tg"); X = (.385, 1.865); gn, gp = .865, 1.385; wn, wp = .42, .84; yn1, yp0 = YN0 + wn, YP1 - wp
-    W_ = 2.25; yn, yp = YN0 + .21, YP1 - .36
+    c = Cell("tg"); X = (.385, 1.865); gn, gp = .865, 1.385; wn, wp = .42, .42; yn1, yp0 = YN0 + wn, YP1 - wp
+    W_ = 2.25; yn, yp = YN0 + .21, YP1 - .21
     c.r("ndiff", X[0] - .165, YN0, X[1] + .165, yn1); c.r("pdiff", X[0] - .165, yp0, X[1] + .165, YP1)
     c.r("nwell", 0, yp0 - .18, W_, H + .31); c.r("m1", 0, -.18, W_, .18); c.r("m1", 0, H - .18, W_, H + .18)
     for x, n in zip(X, "AB"):
@@ -53,7 +53,7 @@ def check(c):
         deg[g] += 1
         for n in sd: deg[n] += 1
     assert len(d) == 20 and sorted(deg.values()) == FANOUT, sorted(deg.items())
-    assert Counter((t, w) for t, _, _, w in d) == Counter({("n", .42): 9, ("p", .84): 9, ("n", .63): 1, ("p", 1.26): 1})
+    assert Counter((t, w) for t, _, _, w in d) == Counter({("n", .42): 9, ("p", .84): 5, ("p", .42): 4, ("n", .63): 1, ("p", 1.26): 1})
     return d
 if __name__ == "__main__":
     c = build(); print(c.name, c.size(), precheck(c)); check(c); print("dff connectivity OK")
