@@ -8,16 +8,35 @@ from paths import ROOT, SIM, PDK_LIB
 from gen_sram import make_stream, pwl, init_mem
 import run_check as rc
 FLAT = os.path.join(ROOT, "layout/out/sram_top_flat.spice")
-def fixed():
-    out = os.path.join(SIM, "sram_top_post.spice"); s = open(FLAT).read()
+WLR = 1088.0    # ohm per bit cell: 48.1 ohm/sq (measured on Rterm) x 3.40/0.15 squares. 0 disables.
+def fixed(tag="sram_top_post"):
+    out = os.path.join(SIM, tag + ".spice"); s = open(FLAT).read()
     fix = lambda m: f"perim={float(m[1]) / 1e6:g} area={float(m[2]) / 1e12:g}"
     s = re.sub(r"perim=(\S+) area=(\S+)", fix, s)
+    if WLR:                       # poly WL: split the gate net per column so distributed R is real
+        L = s.splitlines(); hit = {}; tok = re.compile(r"^(X\S+) (\S+) (\S+) (\S+) (\S+) sky130_fd_pr__nfet_01v8")
+        for i, l in enumerate(L):
+            m = tok.match(l)
+            if not m: continue
+            for sd in (m[2], m[4]):
+                q = re.fullmatch(r"chip/core/c_(\d+)_(\d+)/QB?", sd)
+                if q and re.search(r"/bl", m[2] + " " + m[4]):
+                    r, k = int(q[1]), int(q[2]); hit.setdefault(r, {}).setdefault(k, []).append((i, m[3]))
+        extra = []
+        for r, col in hit.items():
+            assert len(col) == 16 and all(len(v) == 2 for v in col.values()), (r, len(col))
+            root = {g for v in col.values() for _, g in v}; assert len(root) == 1, root; root = root.pop(); prev = root
+            for k in range(16):
+                n = f"wlr{r}_{k}"; extra.append(f"Rwl{r}_{k} {prev} {n} {WLR}"); prev = n
+                for i, g in col[k]:
+                    p = L[i].split(); p[2] = n; L[i] = " ".join(p)
+        assert len(hit) == 16; s = "\n".join(L + extra)
     open(out, "w").write(".subckt sram_top DOUT VDDIO GND VDD CLK ADDR RW DIN\n" + s + "\n.ends\n"); return out
 def node(n): return "xtop." + n.lower()
 PROBE = {"v(xdut.rdqb)": "chip/ob1/A", "v(xdut.clk_ff)": "chip/Xck_a2/Y"}
 def bench(kind, T, tr=50e-12, cload=5e-12, extra=2, seed=1, corner="tt", probes=PROBE):
     cyc, exp = make_stream(kind, seed=seed); n = len(cyc) + extra; v = cyc + [[0, 0, 0]] * extra
-    L = [f"* post-layout {kind} T={T*1e9:.3f} ns", f".lib {PDK_LIB} {corner}", f".include {fixed()}", "Vdd vdd 0 1.8", "Vddio vddio 0 1.8",
+    L = [f"* post-layout {kind} T={T*1e9:.3f} ns", f".lib {PDK_LIB} {corner}", f".include {INC}", "Vdd vdd 0 1.8", "Vddio vddio 0 1.8",
          f"Vclk clk_src 0 PULSE(0 1.8 {T/2:.4e} {tr:.2e} {tr:.2e} {T/2-tr:.4e} {T:.4e})", "Rclk clk_src CLK 50",
          pwl("addr", "ADDR", [x[0] for x in v], T, tr), pwl("rw", "RW", [x[1] for x in v], T, tr), pwl("din", "DIN", [x[2] for x in v], T, tr), f"Cload DOUT 0 {cload:.3e}"]
     for p in "CLK ADDR RW DIN DOUT".split():
@@ -34,7 +53,8 @@ def bench(kind, T, tr=50e-12, cload=5e-12, extra=2, seed=1, corner="tt", probes=
     return L, cyc, exp, S
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("kind"); ap.add_argument("--T", type=float, default=5e-9); ap.add_argument("--tag"); a = ap.parse_args()
-    tag = a.tag or f"post_{a.kind}_{a.T*1e12:.0f}ps"; L, cyc, exp, S = bench(a.kind, a.T)
+    tag = a.tag or f"post_{a.kind}_{a.T*1e12:.0f}ps"
+    global INC; INC = fixed("net_" + tag); L, cyc, exp, S = bench(a.kind, a.T)
     L += [".control", "set wr_singlescale", "set wr_vecnames", "run", f"wrdata {tag}.dat " + " ".join(S), ".endc", ".end"]
     sp = os.path.join(SIM, f"{tag}.sp"); open(sp, "w").write("\n".join(L)); t0 = time.time()
     r = subprocess.run(["ngspice", "-b", sp], cwd=SIM, capture_output=True, text=True); open(os.path.join(SIM, f"{tag}.log"), "w").write(r.stdout + r.stderr); dt = time.time() - t0
