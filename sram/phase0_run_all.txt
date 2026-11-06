@@ -1,0 +1,16 @@
+[INFO] USER_ID: 1000, GROUP_ID: 1000
+[INFO] Final PATH variable: /headless/.local/bin:/foss/tools/bin:/foss/tools/sak:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/foss/tools/kactus2:/foss/tools/klayout:/foss/tools/osic-multitool
+[INFO] Final PYTHONPATH variable: /headless/.local/lib/python3.12/site-packages:/usr/lib/python312.zip:/usr/lib/python3.12:/usr/lib/python3.12/lib-dynload:/usr/local/lib/python3.12/dist-packages:/usr/lib/python3/dist-packages:/foss/tools/ngspyce/local/lib/python3.12/dist-packages:/foss/tools/openems/local/lib/python3.12/dist-packages:/foss/tools/pyopus/local/lib/python3.12/dist-packages:/foss/tools/yosys/share/yosys/python3:/foss/tools/klayout/pymod:/foss/tools/vacask/lib/vacask/python
+[INFO] SKIPPING UI STARTUP
+[INFO] Executing command: 'bash -lc cd /foss/designs/sram && ./run_all.sh'
+== [1] PDK sanity (inverter) ==
+Circuit: * pdk sanity check: one inverter, 20 ff load. expect tphl ~0.1 ns, tplh ~0.15 ns (50%-50% delays).
+tphl                =  1.14860e-10 targ=  3.39860e-10 trig=  2.25000e-10
+tplh                =  1.39251e-10 targ=  1.41425e-09 trig=  1.27500e-09
+PDK CHECK: PASS
+== [2] Bit-cell sizing: hold/read SNM, write trip ==
+PD=0.42 PG=0.42 PU=0.42: hold SNM=726mV read SNM=307mV write trip BL=698mV
+PD=0.63 PG=0.42 PU=0.42: hold SNM=714mV read SNM=375mV write trip BL=654mV
+PD=0.84 PG=0.42 PU=0.42: hold SNM=707mV read SNM=416mV write trip BL=624mV
+PD=1.0 PG=0.42 PU=0.42: hold SNM=704mV read SNM=448mV write trip BL=604mV
+== [3] Smoke test: 10 serial accesses + every partial-address read, 200 MHz ==

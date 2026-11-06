@@ -1,0 +1,6 @@
+#!/bin/bash
+# Runs a command in the iic-osic-tools container; this folder appears as /foss/designs.
+# Usage: ./eda 'ngspice -v'
+cd "$(dirname "$0")" || exit 1
+exec docker run --rm -v "$PWD":/foss/designs -w /foss/designs \
+  --user "$(id -u):$(id -g)" hpretl/iic-osic-tools --skip bash -lc "$*"

@@ -1,0 +1,20 @@
+* PDK sanity check: one inverter, 20 fF load. Expect tphl ~0.1 ns, tplh ~0.15 ns (50%-50% delays).
+* If this fails, nothing else will run: fix the .lib path first.
+.lib /foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+Vdd vdd 0 1.8
+Vin a 0 pulse(0 1.8 0.2n 50p 50p 1n 2n)
+Xp y a vdd vdd sky130_fd_pr__pfet_01v8 w=0.84 l=0.15
+Xn y a 0 0 sky130_fd_pr__nfet_01v8 w=0.42 l=0.15
+C1 y 0 20f
+.tran 2p 3n
+.control
+run
+meas tran tphl trig v(a) val=0.9 rise=1 targ v(y) val=0.9 fall=1
+meas tran tplh trig v(a) val=0.9 fall=1 targ v(y) val=0.9 rise=1
+if (tphl > 5p) & (tphl < 300p) & (tplh > 5p) & (tplh < 400p)
+  echo "PDK CHECK: PASS"
+else
+  echo "PDK CHECK: FAIL"
+end
+.endc
+.end

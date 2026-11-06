@@ -1,0 +1,14 @@
+{
+ "kind": "full",
+ "T_ns": 5.0,
+ "sim_s": 3361.5804631710052,
+ "reads_checked": 265,
+ "core_errors": 0,
+ "dout_errors": 0,
+ "E_write_core_pJ": 2.3886521582743407,
+ "E_read_core_pJ": 2.27822075454943,
+ "E_write_io_pJ": 8.548192594942293,
+ "E_read_io_pJ": 8.451386040687733,
+ "first_core_errs": [],
+ "first_dout_errs": []
+}

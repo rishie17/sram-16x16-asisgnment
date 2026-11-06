@@ -1,0 +1,11 @@
+* Minimal sky130 TT library: nfet_01v8 / pfet_01v8 only
+.lib tt
+.option scale=1.0u
+.include "/home/claude/pdk/fd_pr/models/parameters/lod.spice"
+.param sky130_fd_pr__nfet_01v8__dlc_rotweak=0 sky130_fd_pr__pfet_01v8__dlc_rotweak=0
+.include "/home/claude/pdk/fd_pr/cells/nfet_01v8/sky130_fd_pr__nfet_01v8__tt.corner.spice"
+.include "/home/claude/pdk/fd_pr/cells/pfet_01v8/sky130_fd_pr__pfet_01v8__tt.corner.spice"
+.include "/home/claude/pdk/fd_pr/models/corners/tt/nonfet.spice"
+.include "/home/claude/pdk/fd_pr/cells/nfet_01v8/sky130_fd_pr__nfet_01v8__mismatch.corner.spice"
+.include "/home/claude/pdk/fd_pr/cells/pfet_01v8/sky130_fd_pr__pfet_01v8__mismatch.corner.spice"
+.endl

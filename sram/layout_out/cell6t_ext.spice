@@ -1,0 +1,11 @@
+* NGSPICE file created from cell6t.ext - technology: sky130A
+
+.subckt cell6t BL BLB WL VDD GND Q QB
+X0 BLB WL QB GND sky130_fd_pr__nfet_01v8 ad=0.2184 pd=1.88 as=0.1837 ps=1.33 w=0.42 l=0.15
+X1 GND QB Q GND sky130_fd_pr__nfet_01v8 ad=0.2205 pd=1.33 as=0.1837 ps=1.33 w=0.63 l=0.15
+X2 VDD QB Q VDD sky130_fd_pr__pfet_01v8 ad=0.147 pd=1.12 as=0.2142 ps=1.86 w=0.42 l=0.15
+X3 QB Q VDD VDD sky130_fd_pr__pfet_01v8 ad=0.2184 pd=1.88 as=0.147 ps=1.12 w=0.42 l=0.15
+X4 Q WL BL GND sky130_fd_pr__nfet_01v8 ad=0.1837 pd=1.33 as=0.2184 ps=1.88 w=0.42 l=0.15
+X5 QB Q GND GND sky130_fd_pr__nfet_01v8 ad=0.1837 pd=1.33 as=0.2205 ps=1.33 w=0.63 l=0.15
+.ends
+

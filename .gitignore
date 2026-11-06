@@ -1,0 +1,6 @@
+*.dat
+*.raw
+*.log
+sram/sim/
+sram/layout/out/
+__pycache__/

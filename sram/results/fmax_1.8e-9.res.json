@@ -1,0 +1,14 @@
+{
+ "kind": "rand64",
+ "T_ns": 1.8,
+ "sim_s": 355.0713481903076,
+ "reads_checked": 41,
+ "core_errors": 0,
+ "dout_errors": 0,
+ "E_write_core_pJ": 2.465268662424441,
+ "E_read_core_pJ": 2.3899270140625646,
+ "E_write_io_pJ": 7.973908765765777,
+ "E_read_io_pJ": 10.110298428198506,
+ "first_core_errs": [],
+ "first_dout_errs": []
+}
