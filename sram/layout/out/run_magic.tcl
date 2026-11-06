@@ -26,6 +26,8 @@ source ob6.tcl
 source wldrv.tcl
 source rowslice.tcl
 source rowcell.tcl
+source csdrv.tcl
+source colslice.tcl
 source core.tcl
 source lv_inv.tcl
 source lv_nand2.tcl
@@ -343,6 +345,28 @@ ext2spice -o rowcell.spice
 ext2spice cthresh 0
 ext2spice -o rowcell_pex.spice
 gds write rowcell.gds
+load csdrv
+select top cell
+drc check
+drc catchup
+puts "DRC csdrv [drc list count total]"
+extract all
+ext2spice lvs
+ext2spice -o csdrv.spice
+ext2spice cthresh 0
+ext2spice -o csdrv_pex.spice
+gds write csdrv.gds
+load colslice
+select top cell
+drc check
+drc catchup
+puts "DRC colslice [drc list count total]"
+extract all
+ext2spice lvs
+ext2spice -o colslice.spice
+ext2spice cthresh 0
+ext2spice -o colslice_pex.spice
+gds write colslice.gds
 load core
 select top cell
 drc check

@@ -22,8 +22,12 @@ def core_sch(rows=16, cols=16):
     for r in range(rows):
         L.append(f"Xr{r} rh{r >> 2} rl{r & 3} clkb wl{r} VDD GND rowslice")
         for k in range(cols): L.append(f"Xc{r}_{k} bl{k} blb{k} wl{r} VDD GND q{r}_{k} qb{r}_{k} bitcell")
+    if cols == 16:
+        P += " pcb dl dlb " + " ".join(f"ch{i} cl{i}" for i in range(4)) + " " + " ".join(f"csel{k}" for k in range(16))
+        for k in range(16):
+            L += [f"Xp{k} bl{k} blb{k} pcb VDD precharge", f"Xm{k} bl{k} blb{k} dl dlb csel{k} GND lv_colmux",
+                  f"Xcd{k} ch{k >> 2} cl{k & 3} cb{k} VDD GND lv_nand2", f"Xcs{k} cb{k} csel{k} VDD GND lv_wldrv"]
     return P, L
-S["rowslice_h"] = S.pop("rowslice"); S["rowslice"] = S.pop("rowslice_h")
 S["core"] = core_sch()
 if __name__ == "__main__":
     with open(f"{OUT}/schem.sp", "w") as f:

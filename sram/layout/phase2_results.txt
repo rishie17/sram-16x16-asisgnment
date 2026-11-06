@@ -26,6 +26,8 @@ DRC ob6 0
 DRC wldrv 0
 DRC rowslice 0
 DRC rowcell 0
+DRC csdrv 0
+DRC colslice 0
 DRC core 0
 DRC lv_inv 0
 DRC lv_nand2 0

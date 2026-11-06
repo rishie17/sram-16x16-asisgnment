@@ -52,10 +52,10 @@ def tap(well=True):
         c.r("li", x - W / 2, y - .175, x + W / 2, y + .175)
     c.label("VDD", .1, H, "m1"); c.label("GND", .1, 0, "m1")
     return c
-def finv(k, wn, wp, name):
+def finv(k, wn, wp, name, P=P):
     """k-finger inverter; wn/wp are per finger."""
     N = ["GND", "Y"] * (k // 2 + 1); P_ = ["VDD", "Y"] * (k // 2 + 1)
-    return gate(name, ["A"] * k, N[:k + 1], P_[:k + 1], wn, wp, tie=True)
+    return gate(name, ["A"] * k, N[:k + 1], P_[:k + 1], wn, wp, tie=True, P=P)
 if __name__ == "__main__":
     for c in (inv(), nand2(), nand3()):
         d, _ = extract(c.rects, c.labels); print(c.name, c.size(), precheck(c)); [print(" ", x) for x in sorted(d, key=str)]
