@@ -84,8 +84,10 @@ def outcluster(c, x0, yref, ybot):
     c.r("m3", x0, top - .165, x, top + .165); c.label("vddio", x0 + .9, top, "m3"); c.r("m3", x0, ybot - .165, x, ybot + .165); c.label("yd", prev[0], prev[1], "m2")
     return first, prev
 def build():
-    c = Cell("chip0"); c.place(core(), 0, 0, name="core"); I = insts(); pins = {}
+    c = Cell("chip0"); c.place(core(), 0, 0, name="core"); I = insts(); pins = {}; owned = []
     A = [i for i in I if i[1].name in ("sdff", "rwckt")]; B = [i for i in I if i not in A]
+    # rwckt and the output flop go next to the column mux: DL wire C sets the read speed
+    A.sort(key=lambda i: {"Xrw": 0, "Xff_out": 1}.get(i[0], 2))
     # clock drivers go mid-row, so clk_ff is fed from the centre of the flop row, not one end
     ck = [i for i in B if i[0].startswith(("Xck_a", "Xck_r"))]; rest = [i for i in B if i not in ck]
     B = rest[:len(rest) * 3 // 4] + ck + rest[len(rest) * 3 // 4:]
@@ -121,14 +123,19 @@ def build():
     YB = ytr(len(tr) - 1) - .8 - H
     for n, k, x, net in pb: c.place(k, x, YB, name=n if n != "tap" else f"tb_{x}")
     for N, P in pins.items():
-        yt = ytr(T[N]); xs = []
+        yt = ytr(T[N]); xs = []; n0 = len(c.rects)
         for p in P:
             if p[0] == "d": drop(c, p[1], p[2], yt, p[3]); xs.append(p[1])
             elif p[0] == "b": drop(c, p[1], p[2], yt, p[3]); xs.append(p[1])
-            elif p[0] == "o": rise(c, p[1], p[2], yt, p[3], 0); xs.append(p[1])
+            elif p[0] == "o": rise(c, p[1], p[2], yt, p[3], -.675); xs.append(p[1] - .675)
             else: rise(c, p[1], p[2] + YB, yt, p[3], p[4]); xs.append(p[1] + p[4])
         c.r("m3", min(xs) - .2, yt - .165, max(max(xs) + .2, min(xs) + .55), yt + .165)     # 0.75 long meets m3 min area
         if N.endswith("_pad"): c.label(N, min(xs), yt, "m3")
+        owned.extend((r, N) for r in c.rects[n0:])
+    # routing short check: DRC cannot see two nets that overlap outright
+    for i, (p, n) in enumerate(owned):
+        for q, m in owned[:i]:
+            if n != m and p[0] == q[0] and p[1] < q[3] and q[1] < p[3] and p[2] < q[4] and q[2] < p[4]: raise AssertionError(f"short {n} / {m} on {p}")
     # n-well bars close the 0.1 um steps between neighbouring cells' wells
     for (n, k, x, net) in pb:
         if k.name == "ptap" or k.name == "c1n": continue

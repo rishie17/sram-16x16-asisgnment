@@ -8,7 +8,7 @@ from paths import ROOT, SIM, PDK_LIB
 from gen_sram import make_stream, pwl, init_mem
 import run_check as rc
 FLAT = os.path.join(ROOT, "layout/out/sram_top_flat.spice")
-WLR = 1088.0    # ohm per bit cell: 48.1 ohm/sq (measured on Rterm) x 3.40/0.15 squares. 0 disables.
+WLR = float(os.environ.get("POST_WLR", 1088.0))    # ohm per bit cell: 48.1 ohm/sq (measured on Rterm) x 3.40/0.15 squares. 0 disables.
 def fixed(tag="sram_top_post"):
     out = os.path.join(SIM, tag + ".spice"); s = open(FLAT).read()
     fix = lambda m: f"perim={float(m[1]) / 1e6:g} area={float(m[2]) / 1e12:g}"
