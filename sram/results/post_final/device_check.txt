@@ -1,0 +1,9 @@
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+c = 1.180831e-02
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+i(vd)[0] = 2.441406e-04
+i(vd)[18] = -2.90024e-18
+i(vd)[26] = -1.75692e+06
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+-i(vr) = 4.982780e-02
+1/(-i(vr)) = 2.006912e+01

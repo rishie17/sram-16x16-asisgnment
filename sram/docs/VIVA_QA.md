@@ -36,7 +36,7 @@ Numbers are from this design. Schematic Fmax is from Stage 1 results; post-layou
     It is far smaller and simpler for 256 bits. The cost is speed: it waits for a large swing on DL.
 
 12. **What limits Fmax?**
-    Read time. One bit cell must discharge BL and DL before the output flop captures. The read window is about half a clock cycle.
+    Read time. One bit cell must discharge BL and DL before the output flop captures. The read window is about half a clock cycle. I showed this on the first layout. On the final layout I measured only pass and fail, so here it is inferred.
 
 13. **Your Fmax dropped from 769 to 454 MHz. Why?**
     Extra wire and junction capacitance on the read path. DL has about 20 fF of wire against the 10 fF schematic estimate, and every part of the clock and decode path is slower too.
@@ -51,7 +51,7 @@ Numbers are from this design. Schematic Fmax is from Stage 1 results; post-layou
     Metal 1 is used by rails and metal 2 by bitlines. A strap would need more area in the cell.
 
 17. **Why did energy double after layout?**
-    Dynamic energy is C V squared, and wires add C. Core write energy went from 2.34 to 5.12 pJ. The 2.34 pJ is at 200 MHz and the 5.12 pJ at 2.2 ns.
+    Dynamic energy is C V squared, and wires add C. At 200 MHz on the same test, core write energy went from 2.39 to 4.90 pJ, and read from 2.28 to 4.56 pJ.
 
 18. **Why is I/O energy larger than core energy?**
     The output driver swings a 5 pF load through a large buffer chain on VDDIO.

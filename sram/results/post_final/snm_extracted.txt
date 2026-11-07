@@ -1,0 +1,1 @@
+EXTRACTED: hold SNM=714mV read SNM=375mV write trip BL=654mV
