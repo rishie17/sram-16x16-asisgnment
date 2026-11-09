@@ -4,16 +4,18 @@ Rishab Gautam, EE24BTECH11220, IIT Hyderabad. VLSI course project, Stage 2.
 
 I would like a second pair of eyes: is everything the brief asks for done, and done properly? Below is the brief, what was built, the evidence for each item, and the parts I already know are weak. Every number comes from a simulation or check log in the repo (paths in backticks). Numbers marked *calculated* are arithmetic, not simulation.
 
-## 1. The brief
+## 1. The brief (official text, summarised)
 
-- Design a 16x16 (256-bit) SRAM from transistor-level schematic to physical layout: bit cells, address decoding, read/write circuitry, output.
-- Exactly 5 external signals: read/write, serial address, clock, data in, data out.
-- Transistor level throughout, with both schematic and post-layout simulation.
+- Design a 16x16 bit memory array from transistor-level schematic to physical layout: bit cells, address decoding, read/write circuitry, and output readout for reliable operation.
+- Five external signals: read/write select, a 1-bit address (with a serial or sequential mechanism to reach all 256 locations), clock, data in, data out.
+- Transistor level throughout, verified by schematic and post-layout simulation.
 - Optimise for area.
-- Report energy to read and to write one bit, and the maximum clock frequency.
-- Every I/O passes through a bond-wire plus pad equivalent circuit.
-- A clock tree for clock distribution, and top metal for power and ground.
-- Custom layout only. No standard cells, no foundry SRAM cells, no OpenRAM, no automatic place and route. Scripts that generate your own geometry are allowed.
+- Find power consumption for reading and writing each bit, and the maximum clock frequency.
+- Inputs and outputs pass through a bond-wire plus I/O pad equivalent circuit.
+- A clock tree network for clock distribution, and top metal for power and ground.
+- Two stages, each 50 %, each with a classroom demo. This is Stage 2.
+
+The course prompt I worked from also bans standard cells, foundry SRAM cells, OpenRAM and automatic place and route; generated custom geometry is allowed.
 
 ## 2. Compliance at a glance
 
@@ -28,7 +30,7 @@ I would like a second pair of eyes: is everything the brief asks for done, and d
 | LVS | 15 of 15 match uniquely, incl. full chip | `results/phase4_drc_lvs.txt`, `layout/out/lvs_*.out` |
 | Post-layout simulation | Done, passes | `results/post_final/` |
 | Area optimised | Bit cell 11.0 um2, down from about 17.6 um2 at Stage 1 | Section 5 |
-| Read and write energy | Reported | Section 6 |
+| Read and write power and energy per bit | Reported | Section 6 |
 | Fmax | Reported, schematic and post-layout | Section 6 |
 | Bond wire and pad on every I/O | Done | Pad, ESD and Rterm in layout; bond wire R/L in the testbench |
 | Clock tree | **Partial**: centre-fed trunk, not an H-tree | Section 4 |
@@ -85,6 +87,15 @@ I would like a second pair of eyes: is everything the brief asks for done, and d
 | I/O energy per write / read | 8.55 / 8.45 pJ | 8.59 / 8.47 pJ | full test, 200 MHz |
 | Leakage, core + I/O | 57.8 + 23.5 nA (146 nW) | 382 + 100 nA (867 nW) | `leak_*.txt` |
 | Hold / read SNM, write trip | 714 / 375 / 654 mV | same on extracted cell | `snm_extracted.txt` |
+
+**Power while reading or writing every cycle** (*calculated* as energy per access x clock frequency; mW, as core write / core read / I/O write / I/O read):
+
+| Condition | Schematic | Post-layout |
+|---|---|---|
+| 200 MHz | 0.48 / 0.46 / 1.71 / 1.69 | 0.98 / 0.91 / 1.72 / 1.69 |
+| At own Fmax (769 / 454.5 MHz, from the last passing run) | 1.89 / 1.83 / 6.13 / 7.79 | 2.33 / 2.24 / 3.59 / 4.67 |
+
+Static (leakage) power is listed separately in the table above.
 
 **How the energy is measured:** VDD (core) and VDDIO current are each integrated over every write cycle and every read cycle of the test, then averaged per cycle. The word is 1 bit, so one access is one bit. Core energy includes clock, decode, flops and array.
 

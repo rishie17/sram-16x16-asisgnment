@@ -189,7 +189,14 @@ Fmax sweep on the extracted chip (`results/post_final/post_fmax_*.res.json`), 41
 
 `clk_ff` to `clkb` differ by 15 ps. The netlist has no wire resistance on `clk_ff`, so skew along the trunk cannot show in simulation. From geometry, the worst-case trunk resistance is about 15 ohm of met3, which gives under 1 ps. That figure is calculated, not extracted.
 
-**Power at 200 MHz (calculated from energy x frequency):** core 0.98 mW writing, 0.91 mW reading.
+**Power while reading or writing every cycle** (*calculated* as energy per access x clock frequency; mW, as core write / core read / I/O write / I/O read):
+
+| Condition | Schematic | Post-layout |
+|---|---|---|
+| 200 MHz | 0.48 / 0.46 / 1.71 / 1.69 | 0.98 / 0.91 / 1.72 / 1.69 |
+| At own Fmax (769 / 454.5 MHz, from the last passing run) | 1.89 / 1.83 / 6.13 / 7.79 | 2.33 / 2.24 / 3.59 / 4.67 |
+
+Static (leakage) power is listed separately in the table above.
 
 ## 11. Limitations
 
