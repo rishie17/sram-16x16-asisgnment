@@ -77,8 +77,8 @@ I would like a second pair of eyes: is everything the brief asks for done, and d
 
 | Quantity | Schematic | Post-layout | Source |
 |---|---:|---:|---|
-| Full test, 200 MHz (write all 256, read back; 265 reads) | 0 errors | 0 errors | `*/full_5ns.res.json` |
-| Last pass / first fail period | 1.3 / 1.25 ns | 2.2 / 2.1 ns | `*/fmax_*.res.json` |
+| Full test, 200 MHz (write all 256, read back; 265 reads) | 0 errors | 0 errors | `results/*/s1re_full_5ns`, `post_full_5ns` |
+| Last pass / first fail period | 1.3 / 1.25 ns | 2.2 / 2.1 ns | `results/*/s1re_fmax_*`, `post_fmax_*` |
 | Fmax | 769 MHz | 454.5 MHz | as above |
 | Core energy per write | 2.39 pJ | 4.90 pJ | full test, 200 MHz |
 | Core energy per read | 2.28 pJ | 4.56 pJ | full test, 200 MHz |
