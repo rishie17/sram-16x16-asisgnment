@@ -1,0 +1,6 @@
+C scale to extracted: {'clk_ff': 1.518, 'clkb': 1.745, 'pcb': 1.854}
+tech C of as-built nets (fF): {'clk_ff': 33.0, 'clkb': 26.0, 'pcb': 20.2}
+built clk_ff: skew 0.26 ps (array 0.26), delay 205 ps, slew 230 ps, wire 402 um; clkb: skew 2.10 ps (array 0.60), delay 207 ps, slew 128 ps, wire 311 um; pcb: skew 2.37 ps (array 0.18), delay 427 ps, slew 120 ps, wire 243 um; clock E 1.186 pJ/cycle, 0.847 mW at 1.4 ns
+end clk_ff: skew 0.99 ps (array 0.99), delay 205 ps, slew 231 ps, wire 402 um; clkb: skew 2.10 ps (array 0.60), delay 207 ps, slew 128 ps, wire 311 um; pcb: skew 2.37 ps (array 0.18), delay 427 ps, slew 120 ps, wire 243 um; clock E 1.186 pJ/cycle, 0.847 mW at 1.4 ns
+centre clk_ff: skew 0.26 ps (array 0.26), delay 205 ps, slew 230 ps, wire 402 um; clkb: skew 1.70 ps (array 0.14), delay 209 ps, slew 131 ps, wire 335 um; pcb: skew 2.58 ps (array 0.04), delay 430 ps, slew 124 ps, wire 268 um; clock E 1.207 pJ/cycle, 0.862 mW at 1.4 ns
+tree clk_ff: skew 0.15 ps (array 0.15), delay 253 ps, slew 330 ps, wire 645 um; clkb: skew 1.97 ps (array 0.00), delay 215 ps, slew 142 ps, wire 389 um; pcb: skew 3.00 ps (array 0.00), delay 437 ps, slew 136 ps, wire 327 um; clock E 1.364 pJ/cycle, 0.974 mW at 1.4 ns

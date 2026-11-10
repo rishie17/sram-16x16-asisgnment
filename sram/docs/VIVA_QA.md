@@ -63,10 +63,10 @@ Numbers are from this design. Schematic Fmax is from Stage 1 results; post-layou
     pcb is NAND of the clock and an 8-inverter delayed copy, so it stays off until the wordline has closed.
 
 21. **What is your clock skew?**
-    Between `clk_ff` and `clkb` it is 15 ps from simulation. Along `clk_ff` itself I calculated about 15 ohm of metal 3 from the centre feed, so under 1 ps. That part is an estimate, because wire R was not extracted.
+    Between the `clk_ff` and `clkb` branches it is 15 ps on the extracted chip. Within each net I simulated a distributed-RC model built from the layout geometry, with real loads. That gives 0.26 ps across the 11 flops, 0.6 ps across the 16 wordline gates, and 0.18 ps across the 16 precharge gates. The model's wire R comes from the tech-file sheet R, not from extraction.
 
 22. **Is that an H-tree?**
-    No. The flops are in one row, so it is a centre-fed trunk. An H-tree suits a 2D spread of loads.
+    No. I simulated a length-matched binary tree on the same sinks. It takes array skew to 0 ps, but adds 60 % more `clk_ff` wire, 48 ps more delay and 15 % more clock energy. Skew was already under 1 ps on a 1,400 ps period, so I kept the simpler routing.
 
 23. **Why is array efficiency only 3.7%?**
     The chip is pad-limited. Eight 60 um pads and rings set the size at 76,236 um2; the array is 2,820 um2.
@@ -76,3 +76,19 @@ Numbers are from this design. Schematic Fmax is from Stage 1 results; post-layou
 
 25. **What would you improve next?**
     Add a differential sense amplifier, strap the wordlines, tighten the control row, and check IR drop and ESD properly.
+
+26. **How do you know your Xschem schematics are the circuit you simulated?**
+    They are generated from `cells.sp`, and netgen compares each Xschem netlist with the simulated netlist: 21 of 21 match uniquely. I planted a wrong width and a short, and both made the check fail.
+
+27. **What does the clock tree cost in power?**
+    1.19 pJ per cycle for the generator, wires and sink gates. That is 0.85 mW at 714 MHz. A binary tree would raise it to 1.36 pJ.
+
+28. **Why is `pcb` slower than `clk_ff` (427 against 205 ps)?**
+    `pcb` comes from a NAND of the clock and an 8-inverter delayed copy, then two buffers. The extra delay is deliberate: precharge must not overlap the wordline.
+
+29. **Does wire resistance change your timing?**
+    Hardly. The longest clock wire is 202 um of met3 at 0.047 ohm/sq and 0.33 um wide, about 29 ohm. With the clock RC trees added, the schematic still passes at 714 MHz with 0 errors.
+
+30. **Why are there 8 pads when the brief says 5 signals?**
+    The 5 signals each have a pad. The other three are supplies: VDD for the core, GND, and VDDIO for the output driver, so the 5 pF switching noise stays off the core supply.
+

@@ -60,7 +60,7 @@ The layout adds supply pads VDD, GND and VDDIO, for 8 pads in total. The bond wi
 | Skewed inverter, no sense amplifier | Few devices and no timing signal | Slower: DL needs a large swing |
 | NMOS-only column mux | Reads sense a falling DL, so a PMOS is not needed | Writing a 1 relies on the opposite line going low |
 | `rwckt` beside the column mux | DL wire fell from 43 fF to 19.7 fF | Control routing around it |
-| Centre-fed `clk_ff` trunk | The flops sit in one row | Not the H-tree the brief suggested (see section 11) |
+| As-built clock routing, not an H-tree | Distributed-RC simulation gives under 1 ps skew across every sink array (section 10); a length-matched binary tree removes that last 1 ps but costs 15 % more clock energy | Not the H-tree the brief suggested |
 | Three nested met5 rings | Separate core and I/O supplies on top metal | Single via stacks, no IR check |
 
 ## 5. Schematics
@@ -72,6 +72,22 @@ The layout adds supply pads VDD, GND and VDDIO, for 8 pads in total. The bond wi
 | Row decoder | ![row decoder](plots/s03_row_decoder.png) |
 | Flip-flop | ![flop](plots/s04_dff.png) |
 | Pad and clock | ![pad and clock](plots/s05_pad_clock.png) |
+
+**Xschem (GUI) schematics.** `gen/mk_xschem.py` writes an Xschem `.sch` and `.sym` for every cell in `cells/cells.sp` using the sky130 device symbols. Each size variant of a gate is its own cell, for example `inv_wn0p84_wp1p68`. It also writes the block-level top schematic `sram256.sch` (434 blocks) and a 6T testbench `tb_bitcell.sch`. All files are in `xschem/`.
+
+- **Check (`xschem/check.sh`):** Xschem netlists each schematic, and netgen compares it with a flat netlist built from `cells.sp`. **21 of 21 match uniquely with no property errors**, including `sram256` with 2,263 devices (`xschem/check_result.txt`).
+- **The check can fail:** a planted wrong width (0.84 for 0.63) gave a property error, and a label short gave a device-count mismatch.
+- **Testbench**, simulated from the Xschem netlist (`xschem/tb_bitcell_result.txt`): Q = 0.000 V after write 0 and after the following read, and 1.800 V after write 1 and after its read. During each read the precharged bitline falls to 0.001 V.
+- **PNGs** are screenshots of the Xschem window (`plots/xschem_*.png`). Xschem's own PNG export hung in batch mode, and its headless SVG export came out blank.
+
+| Cell | Xschem |
+|---|---|
+| 6T bit cell | ![bitcell](plots/xschem_bitcell.png) |
+| Flip-flop | ![dff](plots/xschem_dff.png) |
+| Read/write circuit | ![rwckt](plots/xschem_rwckt.png) |
+| 6T testbench | ![tb](plots/xschem_tb_bitcell.png) |
+
+![6T testbench waveforms](plots/xschem_tb_bitcell_waves.png)
 
 The full transistor-level set is in `SRAM256_schematics.pdf`. The netlist is `cells/cells.sp`, and `gen/gen_sram.py` generates the top level.
 
@@ -187,7 +203,45 @@ Fmax sweep on the extracted chip (`results/post_final/post_fmax_*.res.json`), 41
 | `clk_ff` | 425 |
 | `clkb` | 440 |
 
-`clk_ff` to `clkb` differ by 15 ps. The netlist has no wire resistance on `clk_ff`, so skew along the trunk cannot show in simulation. From geometry, the worst-case trunk resistance is about 15 ohm of met3, which gives under 1 ps. That figure is calculated, not extracted.
+`clk_ff` to `clkb` differ by 15 ps. The extracted netlist has no wire resistance, so skew along each net is taken from the clock-tree analysis below.
+
+**Clock tree analysis** (`gen/clocktree.py`, `results/clocktree/`):
+- **Model:** each of the three clock nets is built from its layout geometry as distributed RC: pi sections of at most 2 um, using Magic's sky130A sheet R (met2 0.125, met3/met4 0.047 ohm/sq) and area and perimeter C. One via cut per sink drop.
+- **Capacitance scaled to extraction:** wire C is scaled so each as-built net totals its extracted C (factors 1.52, 1.75, 1.85). The tech-file C counts only capacitance to substrate, not coupling.
+- **Loads and drivers:** the loads are the real cells (flops, NAND3, NAND2, precharge, `rwckt`), driven by the real clock generator from a 50 ps input edge.
+- **Comparison:** four topologies on the same sinks.
+
+| Net (sinks) | Topology | Wire (um) | Max delay (ps) | Skew, all sinks (ps) | Skew, array sinks (ps) | Slew 10-90 (ps) |
+|---|---|---:|---:|---:|---:|---:|
+| `clk_ff` (11 flops) | **as built: centre-fed** | 402 | 205 | **0.26** | 0.26 | 230 |
+| | end-fed | 402 | 205 | 0.99 | 0.99 | 231 |
+| | binary tree | 645 | 253 | 0.15 | 0.15 | 330 |
+| `clkb` (16 NAND3 + write enable) | **as built: end-fed spine** | 311 | 207 | **2.10** | 0.60 | 128 |
+| | centre-fed | 335 | 209 | 1.70 | 0.14 | 131 |
+| | binary tree | 389 | 215 | 1.97 | 0.00 | 142 |
+| `pcb` (16 precharge + `rwckt`) | **as built: end-fed bar** | 243 | 427 | **2.37** | 0.18 | 120 |
+| | centre-fed | 268 | 430 | 2.58 | 0.04 | 124 |
+| | binary tree | 327 | 437 | 3.00 | 0.00 | 136 |
+
+| Topology | Clock energy per cycle | Clock power at 714 MHz |
+|---|---:|---:|
+| as built | 1.186 pJ | 0.847 mW |
+| centre-fed | 1.207 pJ | 0.862 mW |
+| binary tree | 1.364 pJ | 0.974 mW |
+
+![Clock arrival per sink](plots/10_clock_tree_arrival.png)
+
+**Reading the tables:**
+- **Wire resistance hardly matters at this size.** These nets are short and wide: the longest is 202 um of met3, about 29 ohm end to end.
+- **The tree removes the last sub-picosecond array skew.** It costs 60 % more `clk_ff` wire, 48 ps more delay, a slower slew and 15 % more clock energy.
+- **The remaining 2 ps** is the one off-array sink on each net (write enable, `rwckt`), which every topology still reaches by its own wire.
+- **Decision:** with a 1,400 ps period and every skew at 3 ps or less, I kept the as-built layout routing. The tree is the textbook answer, but the numbers say it buys nothing here.
+
+**The tree in the full simulation.** `SRAM_CTREE=1` makes `gen_sram.py` replace the three clock nets with these as-built RC trees, with one leaf net per sink. With it, the schematic still passes:
+- 200 MHz smoke test: 68 reads, 0/0 errors.
+- 714 MHz random test: 41 reads, 0/0 errors.
+
+Core energy rises from 2.34 to 2.76 pJ per write and from 2.25 to 2.67 pJ per read (`results/clocktree/ct_*.res.json`). That increase is the clock wire capacitance.
 
 **Power while reading or writing every cycle** (*calculated* as energy per access x clock frequency; mW, as core write / core read / I/O write / I/O read):
 
@@ -204,7 +258,7 @@ Static (leakage) power is listed separately in the table above.
 - **Fmax is from 41 random reads.** The full 256-location test passed at 200 MHz, not at 454.5 MHz. Period resolution near the limit is 0.1 ns.
 - **Most wires have no resistance.** Only wordline poly R is modelled, by script.
 - **Fmax limit not re-diagnosed.** The read path was shown to be the limit on the first layout. On the final layout I measured only pass and fail, so read path is inferred.
-- **Clock is a centre-fed trunk, not an H-tree.** The flops are in one row. Skew along the trunk is calculated, not extracted.
+- **Clock is the as-built routing, not an H-tree.** Its RC skew (under 3 ps) comes from a model built from layout geometry and the tech-file sheet R, not from extracted R.
 - **No IR drop or electromigration check.** Supplies use single via stacks.
 - **ESD is two 16 um2 diodes per signal pad.** No HBM or CDM check.
 - **Leakage increase is unexplained** beyond the likely cause in section 10.
@@ -215,6 +269,8 @@ Static (leakage) power is listed separately in the table above.
 - The project is in `~/vlsi`, not `~/projects/sram16x16`. There was no `eda` script, so I wrote one.
 - Generators share modules, rather than one script per cell.
 - The phase gates were run straight through, on my instruction.
+- **8 pads, not 7.** The output stages run on a separate VDDIO supply, which needs its own pad.
+- **No H-tree re-route.** The second prompt asked for the layout clock to follow a balanced tree. I kept the as-built routing because the RC analysis in section 10 shows it is within 3 ps of skew and uses less energy.
 - The Stage 2 deadline and the examiners' Stage 1 questions were never answered, so neither shaped the plan.
 
 ## 13. Rebuild

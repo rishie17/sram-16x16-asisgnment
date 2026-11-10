@@ -24,6 +24,7 @@ The course prompt I worked from also bans standard cells, foundry SRAM cells, Op
 | 16x16 6T array, transistor level | Done | `cells/cells.sp`, `SRAM256_schematics.pdf` |
 | 5 signals only | Done | Pads: CLK, ADDR, RW, DIN, DOUT, plus VDD, GND, VDDIO |
 | Schematic simulation | Done | `results/schematic_rerun/` |
+| Xschem (GUI) schematics | Done, 21 of 21 netgen-matched to the simulated netlist | `xschem/`, `plots/xschem_*.png` |
 | Physical layout | Done | `gds/sram_top.gds`, `plots/layout_*.png` |
 | Custom layout and routing, no P&R or std cells | Done | Python generators in `layout/`; the flow checks that no foundry cell is used (`LOCAL CELLS OK`) |
 | DRC | 0 errors, 50 cells | `results/phase4_drc_lvs.txt` |
@@ -33,7 +34,7 @@ The course prompt I worked from also bans standard cells, foundry SRAM cells, Op
 | Read and write power and energy per bit | Reported | Section 6 |
 | Fmax | Reported, schematic and post-layout | Section 6 |
 | Bond wire and pad on every I/O | Done | Pad, ESD and Rterm in layout; bond wire R/L in the testbench |
-| Clock tree | **Partial**: centre-fed trunk, not an H-tree | Section 4 |
+| Clock tree | Done as built (centre-fed `clk_ff`, end-fed `clkb`/`pcb`), analysed with distributed RC: skew 0.26 ps or less across each sink array, 2.4 ps across all sinks. A binary tree was simulated and rejected (+15 % clock energy) | `results/clocktree/`, Section 4 |
 | Top metal for power and ground | Done: three nested met5 rings | `plots/layout_sram_top.png` |
 
 ## 3. Tools and flow

@@ -29,3 +29,12 @@ See section 13 of `REPORT.md`.
 - Check (`xschem/check.sh`): Xschem netlists each schematic, and netgen compares it with a flat reference from `cells.sp`. Result `xschem/check_result.txt`: 21 of 21 match uniquely with no property errors, `sram256` 2,263 devices. Negative tests: a wrong W (0.84 for 0.63) gave property errors, and a label short gave a device mismatch, so the check does fail when it should.
 - Testbench simulated from the Xschem netlist (`xschem/tb_bitcell_result.txt`): Q = 0.000 V after write 0 and after the read, 1.800 V after write 1 and after the read.
 - PNGs: `plots/xschem_*.png`. Taken as GUI screenshots on a virtual display, because Xschem's batch PNG export hung and its headless SVG export came out blank.
+
+### Clock tree: done
+- `gen/clocktree.py` builds `clk_ff`, `clkb` and `pcb` as distributed RC from the layout geometry, with real cells as loads. It compares four topologies; results are in `results/clocktree/clocktree.txt` and `.json`, plot `plots/10_clock_tree_arrival.png`.
+- As built: array skew 0.26 / 0.60 / 0.18 ps; all-sink skew 0.26 / 2.10 / 2.37 ps; clock energy 1.186 pJ per cycle (0.847 mW at 714 MHz). A binary tree reaches 0 ps array skew but costs 1.364 pJ. The layout is not re-routed; the reason is in REPORT section 10.
+- `SRAM_CTREE=1` puts the RC trees into `gen_sram.py`. Smoke at 200 MHz: 0/0 errors. Random traffic at 714 MHz: 0/0 errors (`results/clocktree/ct_*.res.json`).
+
+### Docs: done
+- `docs/DEMO.md`: live demo steps. `./eda-gui` shows windows via WSLg; the display test passed and the batch Magic DRC demo was verified (0 errors, then 1 met1.1 error). The KLayout and Xschem GUI steps were not clicked through by me.
+- `docs/VIVA_QA.md`: 30 questions. `REPORT.md`: Xschem and clock tree sections added.

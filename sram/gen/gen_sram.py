@@ -116,8 +116,26 @@ def netlist_core(wire=True):
     # ---------------- output register + pad driver (I/O supply)
     w("Xff_out rd clk_ff rdq rdqb vdd vss dff")
     w("Xob rdqb dout_pad vddio vss outbuf")
-    w(".ends sram256")
+    if os.environ.get("SRAM_CTREE") == "1": L = clock_rc(L)
+    w = L.append; w(".ends sram256")
     return "\n".join(L)
+
+
+def clock_rc(L):
+    """SRAM_CTREE=1: clk_ff, clkb and pcb become distributed-RC trees (gen/clocktree.py, as-built layout
+    topology) and every sink gets its own leaf net. Flop order follows the layout row: Xff_out first."""
+    from clocktree import tree_lines
+    ff = ["Xff_out"] + [f"Xff_a{i}" for i in range(8)] + ["Xff_rw", "Xff_din"]
+    leaf = {n: ("clk_ff", f"clk_ff_s{i}") for i, n in enumerate(ff)}
+    leaf.update({f"Xrd{r}": ("clkb", f"clkb_s{r}") for r in range(16)}); leaf["Xwe1"] = ("clkb", "clkb_s_we")
+    leaf.update({f"Xpre{c}": ("pcb", f"pcb_s{c}") for c in range(16)}); leaf["Xrw"] = ("pcb", "pcb_s_rw")
+    out = []
+    for l in L:
+        t = l.split()
+        if t and t[0] in leaf:
+            net, new = leaf[t[0]]; assert t.count(net) == 1, l; t[t.index(net)] = new; l = " ".join(t)
+        out.append(l)
+    return out + ["* --- clock RC trees (gen/clocktree.py)"] + tree_lines("built")
 
 
 def make_stream(kind, ncyc=None, seed=1):

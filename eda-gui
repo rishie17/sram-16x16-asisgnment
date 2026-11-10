@@ -1,0 +1,6 @@
+#!/bin/bash
+# Like ./eda, but windows open on the Windows desktop through WSLg. Usage: ./eda-gui 'klayout'
+cd "$(dirname "$0")" || exit 1
+exec docker run --rm -v "$PWD":/foss/designs -w /foss/designs --user "$(id -u):$(id -g)" \
+  -e DISPLAY="${DISPLAY:-:0}" -v /tmp/.X11-unix:/tmp/.X11-unix -v /mnt/wslg:/mnt/wslg \
+  hpretl/iic-osic-tools --skip bash -lc "$*"

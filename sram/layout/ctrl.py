@@ -149,7 +149,7 @@ def build():
         c.r("m1", xs_ - .2, y - .18, 1.0, y + .18); c.sq("via1", xs_, y, .26)
     c.r("m2", XG - .15, YB - .25, XG + .15, YS); c.r("m2", XS - .2, YB + H - .25, XS + .2, YS)
     c.label("VDD", XS, YA + 1, "m2"); c.label("GND", XG, YA + 1, "m2")
-    LAST.update(YB=YB, xa=xa, xb=xb)
+    LAST.update(YB=YB, xa=xa, xb=xb, owned=owned, pins=pins)
     print("tracks", len(tr), "YB", round(YB, 2), "row A ends", round(xa, 1), "row B ends", round(xb, 1))
     return c
 if __name__ == "__main__":
