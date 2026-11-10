@@ -4,3 +4,4 @@
 sram/sim/
 sram/layout/out/
 __pycache__/
+sram/xschem/net/

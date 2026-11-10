@@ -1,0 +1,7 @@
+.subckt bondpad ext pad vddio vss
+RRbw ext n1 0.2
+LLbw n1 pad 2n
+CCpad pad vss 1p
+DD1 pad vddio desd area=1
+DD2 vss pad desd area=1
+.ends

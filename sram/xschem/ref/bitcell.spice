@@ -1,0 +1,8 @@
+.subckt bitcell bl blb wl vdd vss
+XXPU1 q qb vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.42 nf=1 m=1
+XXPD1 q qb vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.63 nf=1 m=1
+XXPU2 qb q vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.42 nf=1 m=1
+XXPD2 qb q vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.63 nf=1 m=1
+XXPG1 bl wl q vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1 m=1
+XXPG2 blb wl qb vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1 m=1
+.ends

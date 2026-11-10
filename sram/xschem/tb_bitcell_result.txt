@@ -1,0 +1,6 @@
+Q after write 0 (3.5 ns): 0.000 V
+Q after read (6.5 ns): 0.000 V
+Q after write 1 (9.5 ns): 1.800 V
+Q after read (12 ns): 1.800 V
+BL dip during read 0 (5.8 ns): 0.001 V
+BLB dip during read 1 (11.8 ns): 0.001 V

@@ -1,0 +1,31 @@
+.subckt outbuf a y vdd vss
+XX1_XP n1 a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1 m=1
+XX1_XN n1 a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1 m=1
+XX2_XP n2 n1 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=3.36 nf=1 m=1
+XX2_XN n2 n1 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1 m=1
+XX3_XP n3 n2 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=13.44 nf=1 m=1
+XX3_XN n3 n2 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=6.72 nf=1 m=1
+XXP4_0 n4 n3 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=55.0 nf=1 m=1
+XXN4_0 n4 n3 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=27.0 nf=1 m=1
+XXP5_0 n5 n4 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=71.67 nf=1 m=1
+XXP5_1 n5 n4 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=71.67 nf=1 m=1
+XXP5_2 n5 n4 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=71.67 nf=1 m=1
+XXN5_0 n5 n4 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=54.0 nf=1 m=1
+XXN5_1 n5 n4 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=54.0 nf=1 m=1
+XXP6_0 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXP6_1 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXP6_2 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXP6_3 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXP6_4 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXP6_5 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXP6_6 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXP6_7 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXP6_8 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXP6_9 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXN6_0 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXN6_1 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXN6_2 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXN6_3 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1 m=1
+XXN6_4 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1 m=1
+RRterm yd y 20
+.ends

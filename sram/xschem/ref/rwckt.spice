@@ -1,0 +1,11 @@
+.subckt rwckt dl dlb we din dinb pcb rd vdd vss
+XXPD1 dl pcb vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1.26 nf=1 m=1
+XXPD2 dlb pcb vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1.26 nf=1 m=1
+XXPE dl pcb dlb vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.42 nf=1 m=1
+XXW1 dl we w1 vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1 m=1
+XXW2 w1 dinb vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1 m=1
+XXW3 dlb we w2 vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1 m=1
+XXW4 w2 din vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1 m=1
+XXSA_XP rd dl vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1.26 nf=1 m=1
+XXSA_XN rd dl vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1 m=1
+.ends

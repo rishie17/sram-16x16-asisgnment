@@ -1,0 +1,4 @@
+.subckt inv_wn1p26_wp2p52 a y vdd vss
+XXP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=2.52 nf=1 m=1
+XXN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.26 nf=1 m=1
+.ends

@@ -22,3 +22,10 @@
 
 ## How to rebuild
 See section 13 of `REPORT.md`.
+
+## Second prompt (2026-11-10): additions
+### Xschem schematics: done
+- `gen/mk_xschem.py` writes `xschem/*.sch` and `*.sym` from `cells/cells.sp` and the `gen_sram.py` top netlist: 20 cells (each size variant of inv/nand2 is its own cell), `sram256` top level, and the `tb_bitcell` testbench. Connections use net labels.
+- Check (`xschem/check.sh`): Xschem netlists each schematic, and netgen compares it with a flat reference from `cells.sp`. Result `xschem/check_result.txt`: 21 of 21 match uniquely with no property errors, `sram256` 2,263 devices. Negative tests: a wrong W (0.84 for 0.63) gave property errors, and a label short gave a device mismatch, so the check does fail when it should.
+- Testbench simulated from the Xschem netlist (`xschem/tb_bitcell_result.txt`): Q = 0.000 V after write 0 and after the read, 1.800 V after write 1 and after the read.
+- PNGs: `plots/xschem_*.png`. Taken as GUI screenshots on a virtual display, because Xschem's batch PNG export hung and its headless SVG export came out blank.
