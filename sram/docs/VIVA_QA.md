@@ -38,8 +38,8 @@ Numbers are from this design. Schematic Fmax is from Stage 1 results; post-layou
 12. **What limits Fmax?**
     Read time. One bit cell must discharge BL and DL before the output flop captures. The read window is about half a clock cycle. I showed this on the first layout. On the final layout I measured only pass and fail, so here it is inferred.
 
-13. **Your Fmax dropped from 769 to 454 MHz. Why?**
-    Extra wire and junction capacitance on the read path. DL has about 20 fF of wire against the 10 fF schematic estimate, and every part of the clock and decode path is slower too.
+13. **What is your post-layout Fmax, and why is it below the schematic's 769 MHz?**
+    454.5 MHz at TT on the extracted chip: 2.2 ns passes and 2.1 ns fails. Extraction adds the real wire and junction capacitance that the schematic only estimated: DL is 19.7 fF against a 10 fF estimate, and the clock nets are 37 to 50 fF each. The read path (bitline, then DL, then the sense inverter) has the same weak drive, so it slows down, and the clock and decode stages ahead of it are slower too. Core write energy roughly doubles at the same 200 MHz test (2.39 to 4.90 pJ), which shows the switched capacitance roughly doubled.
 
 14. **How did you find that?**
     Waveforms at 2.5 ns showed DL too slow. DL wire was 43 fF because `rwckt` sat 200 um away. Moving it cut DL to 20 fF and raised Fmax from 333 to 454 MHz.
@@ -65,11 +65,11 @@ Numbers are from this design. Schematic Fmax is from Stage 1 results; post-layou
 21. **What is your clock skew?**
     Between the `clk_ff` and `clkb` branches it is 15 ps on the extracted chip. Within each net I simulated a distributed-RC model built from the layout geometry, with real loads. That gives 0.26 ps across the 11 flops, 0.6 ps across the 16 wordline gates, and 0.18 ps across the 16 precharge gates. The model's wire R comes from the tech-file sheet R, not from extraction.
 
-22. **Is that an H-tree?**
-    No. I simulated a length-matched binary tree on the same sinks. It takes array skew to 0 ps, but adds 60 % more `clk_ff` wire, 48 ps more delay and 15 % more clock energy. Skew was already under 1 ps on a 1,400 ps period, so I kept the simpler routing.
+22. **Why no H-tree?**
+    An H-tree balances a 2D spread of sinks. Mine are in lines: 11 flops in one row, 16 wordline gates in one column, 16 precharge gates in one row. For a line, the equivalent is a length-matched binary tree, and I simulated it on the same sinks with real wire RC. It takes array skew from at most 0.6 ps to 0 ps. In exchange it adds 60 % more `clk_ff` wire, 48 ps more delay, a 100 ps slower edge and 15 % more clock energy (1.364 against 1.186 pJ per cycle). At the post-layout clock period of 2,200 ps (454.5 MHz, TT), 0.6 ps is 0.03 %. The tree's extra 48 ps of delay would matter more than the skew it removes, so I kept the simpler routing. The diagram and the numbers are in REPORT section 10.
 
-23. **Why is array efficiency only 3.7%?**
-    The chip is pad-limited. Eight 60 um pads and rings set the size at 76,236 um2; the array is 2,820 um2.
+23. **Why is array efficiency only 3.7 %?**
+    That is array over the whole chip, and the chip is pad-limited: eight 60 um pads and three met5 rings set 76,236 um2. The core alone is 72.6 x 70.8 um = 5,141 um2, 20.1 um2 per bit. The array (2,820 um2) fills 54.9 % of it, because the decoder slices and column periphery are pitch-matched to the 3.40 x 3.24 um cell. Including the control strip (flops, predecoders, clock, output buffer) it is 25,137 um2, so the array is 11.2 % of that.
 
 24. **What did LVS catch that DRC could not?**
     Wire overlaps between nets, such as `rdqb` to `ab7`, and transmission gate PMOS drawn 0.84 instead of 0.42.
@@ -81,7 +81,7 @@ Numbers are from this design. Schematic Fmax is from Stage 1 results; post-layou
     They are generated from `cells.sp`, and netgen compares each Xschem netlist with the simulated netlist: 21 of 21 match uniquely. I planted a wrong width and a short, and both made the check fail.
 
 27. **What does the clock tree cost in power?**
-    1.19 pJ per cycle for the generator, wires and sink gates. That is 0.85 mW at 714 MHz. A binary tree would raise it to 1.36 pJ.
+    1.19 pJ per cycle for the generator, wires and sink gates. That is 0.54 mW at the post-layout Fmax of 454.5 MHz (energy times frequency). A binary tree would raise it to 1.36 pJ.
 
 28. **Why is `pcb` slower than `clk_ff` (427 against 205 ps)?**
     `pcb` comes from a NAND of the clock and an 8-inverter delayed copy, then two buffers. The extra delay is deliberate: precharge must not overlap the wordline.
@@ -89,6 +89,5 @@ Numbers are from this design. Schematic Fmax is from Stage 1 results; post-layou
 29. **Does wire resistance change your timing?**
     Hardly. The longest clock wire is 202 um of met3 at 0.047 ohm/sq and 0.33 um wide, about 29 ohm. With the clock RC trees added, the schematic still passes at 714 MHz with 0 errors.
 
-30. **Why are there 8 pads when the brief says 5 signals?**
-    The 5 signals each have a pad. The other three are supplies: VDD for the core, GND, and VDDIO for the output driver, so the 5 pF switching noise stays off the core supply.
-
+30. **Why 8 pads when the brief says 5 signals?**
+    The brief limits signals, not supplies. Each of the 5 signals has its own pad, and the other three are supplies: VDD for the core, GND, and VDDIO for the output driver. The output driver switches a 5 pF load through a 6-stage buffer with 86 um fingers. A separate VDDIO keeps that current spike and its bond-wire bounce off the core supply that the bit cells and sense inverter use. Merging VDDIO into VDD would save one pad, but every DOUT edge would then bump the supply of the cells being read.

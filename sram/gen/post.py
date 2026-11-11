@@ -52,9 +52,11 @@ def bench(kind, T, tr=50e-12, cload=5e-12, extra=2, seed=1, corner="tt", probes=
     L += [".option reltol=1e-3", f".tran {T/50:.3e} {tstop:.4e}"]
     return L, cyc, exp, S
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("kind"); ap.add_argument("--T", type=float, default=5e-9); ap.add_argument("--tag"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("kind"); ap.add_argument("--T", type=float, default=5e-9); ap.add_argument("--tag"); ap.add_argument("--corner", default="tt"); ap.add_argument("--opt", default=""); a = ap.parse_args()
     tag = a.tag or f"post_{a.kind}_{a.T*1e12:.0f}ps"
-    global INC; INC = fixed("net_" + tag); L, cyc, exp, S = bench(a.kind, a.T)
+    global INC; INC = fixed("net_" + tag); L, cyc, exp, S = bench(a.kind, a.T, corner=a.corner)
+    if a.opt: L = [x + " " + a.opt if x.startswith(".option") else x for x in L]   # e.g. method=gear when trap fails to converge
+    L += [".save " + " ".join(S)]                      # keep only what is written out: memory, not results
     L += [".control", "set wr_singlescale", "set wr_vecnames", "run", f"wrdata {tag}.dat " + " ".join(S), ".endc", ".end"]
     sp = os.path.join(SIM, f"{tag}.sp"); open(sp, "w").write("\n".join(L)); t0 = time.time()
     r = subprocess.run(["ngspice", "-b", sp], cwd=SIM, capture_output=True, text=True); open(os.path.join(SIM, f"{tag}.log"), "w").write(r.stdout + r.stderr); dt = time.time() - t0
@@ -62,6 +64,6 @@ def main():
     rev = {f"v({node(v)})": k for k, v in PROBE.items()}
     D = {rev.get(k, k): v for k, v in D.items()}
     ec, eo = rc.check(cyc, exp, a.T, D); Ew, Ewio = rc.energy(cyc, a.T, D, 1); Er, Erio = rc.energy(cyc, a.T, D, 0, start=8)
-    R = {"kind": a.kind, "T_ns": a.T * 1e9, "sim_s": dt, "reads_checked": len(exp), "core_errors": len(ec), "dout_errors": len(eo), "E_write_core_pJ": float(Ew.mean() * 1e12), "E_read_core_pJ": float(Er.mean() * 1e12), "E_write_io_pJ": float(Ewio.mean() * 1e12), "E_read_io_pJ": float(Erio.mean() * 1e12), "first_core_errs": ec[:5], "first_dout_errs": eo[:5]}
+    R = {"kind": a.kind, "corner": a.corner, "T_ns": a.T * 1e9, "sim_s": dt, "reads_checked": len(exp), "core_errors": len(ec), "dout_errors": len(eo), "E_write_core_pJ": float(Ew.mean() * 1e12), "E_read_core_pJ": float(Er.mean() * 1e12), "E_write_io_pJ": float(Ewio.mean() * 1e12), "E_read_io_pJ": float(Erio.mean() * 1e12), "first_core_errs": ec[:5], "first_dout_errs": eo[:5]}
     json.dump(R, open(os.path.join(SIM, f"{tag}.res.json"), "w"), indent=1); print(json.dumps(R, indent=1))
 if __name__ == "__main__": main()

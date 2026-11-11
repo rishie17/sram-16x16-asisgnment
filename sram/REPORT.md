@@ -11,13 +11,14 @@ Every number below comes from a file in this repo. Calculated values are labelle
 | DRC | 0 errors on all 50 layout cells, including `sram_top` |
 | LVS | 15 of 15 checks match uniquely, including `sram_top`, no property errors |
 | Full test, 200 MHz, extracted chip | 265 reads, 0 core errors, 0 DOUT errors |
-| Fmax, extracted chip | 454.5 MHz: 2.2 ns passes, 2.1 ns fails. Random traffic, 41 reads, TT only |
+| **Fmax, extracted chip, TT** | **454.5 MHz** (2.2 ns passes, 2.1 ns fails; random traffic, 41 reads). The schematic reached 769 MHz; section 10 explains the drop |
 | Energy at 200 MHz, core | 4.90 pJ per write, 4.56 pJ per read |
 | Energy at 200 MHz, I/O | 8.59 pJ per write, 8.47 pJ per read |
 | Leakage | 867 nW (382 nA core, 100 nA I/O, at 1.8 V; power calculated) |
 | Chip area | 280.435 x 271.85 um = 76,236 um2, 298 um2 per bit |
+| Core area (array + decoders + column periphery) | 72.645 x 70.775 um = 5,141 um2, 20.1 um2 per bit |
 | Bit cell | 3.40 x 3.24 um pitch, 11.0 um2 |
-| Array efficiency | 3.7 %: the chip is pad-limited |
+| Array efficiency | 54.9 % of the core, 3.7 % of the chip: the chip is pad-limited |
 
 ## 2. Specification
 
@@ -133,13 +134,23 @@ LVS caught two kinds of real bug: wires overlapping between nets, such as `rdqb`
 
 | Item | Value |
 |---|---|
-| Chip | 280.435 x 271.85 um = 76,236 um2 |
-| Per bit | 298 um2 (calculated) |
-| Array | 54.4 x 51.84 um = 2,820 um2 (calculated from pitch) |
-| Array efficiency | 3.7 % (calculated) |
-| Bit cell | 11.0 um2, against about 17.6 um2 at Stage 1 (4.0 x 4.4 um) |
+| Level | What it contains | Size (um) | Area (um2) | Per bit (um2) | Array share |
+|---|---|---|---:|---:|---:|
+| Array | 16 x 16 bit cells | 54.4 x 51.84 (pitch) | 2,820 | 11.0 | 100 % |
+| Core (`core`) | array, row decoder slices, precharge, column mux, column decoder | 72.645 x 70.775 | 5,141 | 20.1 | **54.9 %** |
+| Core + control (`chip0`) | core, flops, predecoders, clock generator, `rwckt`, output buffer | 248.01 x 101.355 | 25,137 | 98.2 | 11.2 % |
+| Chip (`sram_top`) | everything plus 8 pads, ESD, met5 rings | 280.435 x 271.85 | 76,236 | 297.8 | **3.7 %** |
 
-The chip is pad-limited. Eight 60 um pads and the rings set its size, so compacting the logic further would barely change the total. I did not compact it. The real area work is the bit cell and the pitch-matched periphery.
+Sizes are GDS bounding boxes (`results/post_final/cell_sizes.txt`), except the array, which is the 3.40 x 3.24 um pitch times 16 x 16. Its GDS box (54.4 x 52.35 um) includes the well overhang at the edges. Areas, per-bit values and shares are calculated from these sizes.
+
+| Bit cell | Area |
+|---|---|
+| This design | 11.0 um2 |
+| Stage 1 | about 17.6 um2 (4.0 x 4.4 um) |
+
+The chip is pad-limited. Eight 60 um pads and the rings set its size, so compacting the logic further would barely change the total. I did not compact it.
+
+The real area work is the bit cell and the pitch-matched periphery. Because the row decoder slices and column periphery match the cell pitch, the array fills 54.9 % of the core. The control strip is a single long row of flops and gates; it was not folded, and it is the largest area left to recover inside the pad ring.
 
 ## 9. Post-layout method
 
@@ -183,6 +194,19 @@ Fmax sweep on the extracted chip (`results/post_final/post_fmax_*.res.json`), 41
 | 2.0 | 500 | 24 | 25 | 5.00 | 4.77 |
 | 1.6 | 625 | 27 | 25 | 4.98 | 4.80 |
 
+### Post-layout Fmax at TT: 454.5 MHz
+
+**Measurement:** on the extracted chip at TT, 1.8 V and 27 C, a 2.2 ns clock (454.5 MHz) passes the random test with 0 errors, and 2.1 ns fails with 12 errors. The schematic passes at 1.3 ns (769 MHz).
+
+**Why it dropped by 41 %:**
+- **Layout adds capacitance the schematic never had.** The schematic models only a few lumped wire caps: 10 fF on DL, 5 fF per bitline, 4 fF per wordline. Extraction adds the real wiring and the drawn junctions on every net:
+  - DL: 19.7 fF;
+  - the three clock nets: 37 to 50 fF each;
+  - every gate output: the drawn junction areas, not the schematic's estimate.
+- **The read path is where that capacitance hurts.** A read must discharge a bitline through one bit cell, then DL through the column mux, before the skewed inverter flips and the output flop captures. Each of those nodes gained capacitance while the drive (one 0.42 um access device in series with a 0.63 um pull-down) stayed the same.
+- **Every stage before it got slower too.** The clock branches, decoders and wordline drivers all switch more capacitance, so the wordline opens later in the cycle and leaves less time for the read.
+- **Energy confirms the size of the effect.** Core energy per write roughly doubles at the same 200 MHz test, from 2.39 to 4.90 pJ. Dynamic energy is C V^2, so the switched capacitance roughly doubled.
+
 **The route to this Fmax.** The first full layout passed at 3.0 ns and failed at 2.5 ns (`results/layout_v1/`). `rwckt` sat about 200 um from the column mux, which put 43 fF of wire on DL. Moving it next to the mux cut DL to 19.7 fF and raised Fmax from 333 to 454.5 MHz. On that first layout, turning the wordline resistance off at 2.0 ns did not help: 26 errors either way. So wordline R was not the limit there.
 
 **Wire capacitance on key nets** (`results/post_final/wire_cap.txt`; self plus coupling):
@@ -205,6 +229,17 @@ Fmax sweep on the extracted chip (`results/post_final/post_fmax_*.res.json`), 41
 
 `clk_ff` to `clkb` differ by 15 ps. The extracted netlist has no wire resistance, so skew along each net is taken from the clock-tree analysis below.
 
+### Clock tree
+
+The clock enters at the CLK pad, passes the input buffer and a root buffer, then splits into three branches (diagram (a) below). Each branch drives one net, routed as diagram (b) shows:
+- **`clk_ff`:** a met3 track along the flop row, fed at its centre.
+- **`clkb`:** a met2 spine up the row decoder, fed from the bottom.
+- **`pcb`:** a met3 bar across the precharge row, fed from the left.
+
+The flops sit in a single row and the array sinks sit in single columns or rows, so each net is a line of sinks rather than a 2D spread. A 2D H-tree does not fit that shape; the one-dimensional equivalent is a length-matched binary tree, and it was simulated below against the routing actually drawn.
+
+![Clock tree diagram](plots/11_clock_tree_diagram.png)
+
 **Clock tree analysis** (`gen/clocktree.py`, `results/clocktree/`):
 - **Model:** each of the three clock nets is built from its layout geometry as distributed RC: pi sections of at most 2 um, using Magic's sky130A sheet R (met2 0.125, met3/met4 0.047 ohm/sq) and area and perimeter C. One via cut per sink drop.
 - **Capacitance scaled to extraction:** wire C is scaled so each as-built net totals its extracted C (factors 1.52, 1.75, 1.85). The tech-file C counts only capacitance to substrate, not coupling.
@@ -223,11 +258,13 @@ Fmax sweep on the extracted chip (`results/post_final/post_fmax_*.res.json`), 41
 | | centre-fed | 268 | 430 | 2.58 | 0.04 | 124 |
 | | binary tree | 327 | 437 | 3.00 | 0.00 | 136 |
 
-| Topology | Clock energy per cycle | Clock power at 714 MHz |
+| Topology | Clock energy per cycle | Clock power at 454.5 MHz (post-layout Fmax, calculated) |
 |---|---:|---:|
-| as built | 1.186 pJ | 0.847 mW |
-| centre-fed | 1.207 pJ | 0.862 mW |
-| binary tree | 1.364 pJ | 0.974 mW |
+| as built | 1.186 pJ | 0.539 mW |
+| centre-fed | 1.207 pJ | 0.549 mW |
+| binary tree | 1.364 pJ | 0.620 mW |
+
+The energy is measured over one cycle of a 1.4 ns bench clock. It is set by the switched capacitance, so the power column is that energy times 454.5 MHz.
 
 ![Clock arrival per sink](plots/10_clock_tree_arrival.png)
 
@@ -235,7 +272,13 @@ Fmax sweep on the extracted chip (`results/post_final/post_fmax_*.res.json`), 41
 - **Wire resistance hardly matters at this size.** These nets are short and wide: the longest is 202 um of met3, about 29 ohm end to end.
 - **The tree removes the last sub-picosecond array skew.** It costs 60 % more `clk_ff` wire, 48 ps more delay, a slower slew and 15 % more clock energy.
 - **The remaining 2 ps** is the one off-array sink on each net (write enable, `rwckt`), which every topology still reaches by its own wire.
-- **Decision:** with a 1,400 ps period and every skew at 3 ps or less, I kept the as-built layout routing. The tree is the textbook answer, but the numbers say it buys nothing here.
+- **Decision: keep the as-built routing.** The balanced tree buys at most 0.6 ps of array skew. The cost:
+  - 60 % more `clk_ff` wire (645 against 402 um);
+  - 48 ps more `clk_ff` delay;
+  - a 100 ps slower `clk_ff` edge (330 against 230 ps);
+  - 15 % more clock energy (1.364 against 1.186 pJ per cycle).
+
+  Against the post-layout clock period of 2,200 ps (454.5 MHz, TT), 0.6 ps is 0.03 %. The tree's extra 48 ps of `clk_ff` delay is a larger change than the skew it removes. Re-routing would make the chip slower and hungrier for no measurable gain.
 
 **The tree in the full simulation.** `SRAM_CTREE=1` makes `gen_sram.py` replace the three clock nets with these as-built RC trees, with one leaf net per sink. With it, the schematic still passes:
 - 200 MHz smoke test: 68 reads, 0/0 errors.
