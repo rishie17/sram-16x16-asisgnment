@@ -12,6 +12,7 @@ Every number below comes from a file in this repo. Calculated values are labelle
 | LVS | 15 of 15 checks match uniquely, including `sram_top`, no property errors |
 | Full test, 200 MHz, extracted chip | 265 reads, 0 core errors, 0 DOUT errors |
 | **Fmax, extracted chip, TT** | **454.5 MHz** (2.2 ns passes, 2.1 ns fails; random traffic, 41 reads). The schematic reached 769 MHz; section 10 explains the drop |
+| Fmax, extracted chip, SS / FF | 312.5 MHz / at least 588.2 MHz (section 10, process corners) |
 | Energy at 200 MHz, core | 4.90 pJ per write, 4.56 pJ per read |
 | Energy at 200 MHz, I/O | 8.59 pJ per write, 8.47 pJ per read |
 | Leakage | 867 nW (382 nA core, 100 nA I/O, at 1.8 V; power calculated) |
@@ -295,9 +296,33 @@ Core energy rises from 2.34 to 2.76 pJ per write and from 2.25 to 2.67 pJ per re
 
 Static (leakage) power is listed separately in the table above.
 
+### Process corners: SS, TT, FF
+
+These runs use the same extracted chip and bench as TT, with the model corner changed (`.lib sky130.lib.spice ss|tt|ff`), at 1.8 V and 27 C. The Fmax test is the 41-read random test. The full test checks all 256 locations (265 reads) at 200 MHz. Logs and results: `results/corners/pc_*.res.json`, from `gen/post_corners.sh`.
+
+| Corner | Last pass / first fail (ns) | **Fmax (MHz)** | Full test, 200 MHz | Core E write / read at 200 MHz (pJ) | I/O E write / read at 200 MHz (pJ) | Core E write / read at Fmax (pJ) | Core power at Fmax, write / read (mW, calculated) |
+|---|---|---:|---|---|---|---|---|
+| SS | 3.2 / 3.1 | **312.5** | not completed (see note) | not run | not run | 5.20 / 5.00 | 1.62 / 1.56 |
+| TT | 2.2 / 2.1 | **454.5** | 0 / 0 errors | 4.90 / 4.56 | 8.59 / 8.47 | 5.12 / 4.92 | 2.33 / 2.24 |
+| FF | 1.7 / none found | **≥ 588.2** | 0 / 0 errors | 4.89 / 4.54 | 8.37 / 8.25 | 5.08 / 4.89 | 2.99 / 2.87 |
+
+Energy per bit equals energy per access here, because each access reads or writes one bit. Power is energy times Fmax.
+
+Passing and failing periods (core errors / DOUT errors, out of 41 reads):
+- **SS:** 2.6 ns 27/25, 3.0 ns 20/19, 3.1 ns 10/8, 3.2 ns 0/0, 3.3 ns 0/0, 3.4 ns 0/0.
+- **TT:** 2.2 ns 0/0. The full TT sweep is in the table above.
+- **FF:** 2.0 ns 0/0, 1.8 ns 0/0, 1.7 ns 0/0. The 1.6 ns run made almost no progress in 5.3 h (1.7 ns took 27 min) and was stopped, so FF Fmax has only a lower bound.
+
+**What the corners show:**
+- **Speed scales with the transistors, as expected.** SS is 31 % slower than TT. FF is at least 29 % faster than TT.
+- **Energy hardly changes.** Dynamic energy is C V^2. The capacitance and the 1.8 V supply are the same at every corner, so core energy varies by only about 2 %.
+- **The design works at every corner.** The full 256-location test passes at TT and FF. At SS, the random test passes with 0 errors from 3.2 ns up, which exercises reads and writes, but the full 256-location SS test did not complete (see the solver note).
+
+**A solver note on SS.** The first SS full run stopped at 45 ns with "Timestep too small" on the VDDIO branch. That log is kept in `sim/pc_ss_full_5ns_trapfail.*`. A rerun with `method=gear` (`gen/post.py --opt method=gear`) was started twice and lost both times to the host machine restarting (7 to 8 h runs), so there is no SS full-test result. All other runs use the default method. Reproducing TT at 2.2 ns with the new `.save` list gave the same energies to 4 digits (5.122 / 4.923 pJ), so the memory change does not affect results.
+
 ## 11. Limitations
 
-- **One corner.** Everything is TT, 1.8 V, 27 C. No slow corner, voltage or temperature sweep. Real Fmax would be lower.
+- **Process corners only.** SS, TT and FF were run at 1.8 V and 27 C. There is no voltage or temperature sweep, so the worst real case (SS, 1.62 V, 125 C) is expected to be slower than 312.5 MHz. That case was not simulated.
 - **Fmax is from 41 random reads.** The full 256-location test passed at 200 MHz, not at 454.5 MHz. Period resolution near the limit is 0.1 ns.
 - **Most wires have no resistance.** Only wordline poly R is modelled, by script.
 - **Fmax limit not re-diagnosed.** The read path was shown to be the limit on the first layout. On the final layout I measured only pass and fail, so read path is inferred.

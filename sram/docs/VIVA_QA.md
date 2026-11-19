@@ -91,3 +91,6 @@ Numbers are from this design. Schematic Fmax is from Stage 1 results; post-layou
 
 30. **Why 8 pads when the brief says 5 signals?**
     The brief limits signals, not supplies. Each of the 5 signals has its own pad, and the other three are supplies: VDD for the core, GND, and VDDIO for the output driver. The output driver switches a 5 pF load through a 6-stage buffer with 86 um fingers. A separate VDDIO keeps that current spike and its bond-wire bounce off the core supply that the bit cells and sense inverter use. Merging VDDIO into VDD would save one pad, but every DOUT edge would then bump the supply of the cells being read.
+
+31. **What about process corners?**
+    I ran SS and FF on the same extracted chip, at 1.8 V and 27 C. Fmax is 312.5 MHz at SS, 454.5 MHz at TT and at least 588.2 MHz at FF. The full 256-location test passes at TT and FF; at SS only the random test was completed, and it passes from 3.2 ns. Core energy changes by only about 2 % between corners (5.20, 5.12 and 5.08 pJ per write at Fmax), because C and V are the same and only the transistor speed changes. I did not sweep voltage or temperature, so the slow, 1.62 V, 125 C case is expected to be slower and was not simulated.
