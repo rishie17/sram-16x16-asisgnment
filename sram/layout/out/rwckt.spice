@@ -1,0 +1,30 @@
+* NGSPICE file created from rwckt.ext - technology: sky130A
+
+.subckt rw_pre PCB DL DLB VDD GND PCB_uq0 w_0_313#
+X0 DLB PCB_uq0 VDD w_0_313# sky130_fd_pr__pfet_01v8 ad=0.693 pd=3.62 as=0.4851 ps=2.03 w=1.26 l=0.15
+X1 VDD PCB DL w_0_313# sky130_fd_pr__pfet_01v8 ad=0.4851 pd=2.03 as=0.693 ps=3.62 w=1.26 l=0.15
+.ends
+
+.subckt rw_sa A Y VDD GND w_0_313# VSUBS
+X0 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.231 pd=1.94 as=0.231 ps=1.94 w=0.42 l=0.15
+X1 Y A VDD w_0_313# sky130_fd_pr__pfet_01v8 ad=0.693 pd=3.62 as=0.693 ps=3.62 w=1.26 l=0.15
+.ends
+
+.subckt rw_wr WE DINB DIN DL DLB VDD GND WE_uq0 VSUBS
+X0 GND DINB a_184_47# VSUBS sky130_fd_pr__nfet_01v8 ad=0.6468 pd=2.45 as=0.6468 ps=2.45 w=1.68 l=0.15
+X1 a_184_47# WE DL VSUBS sky130_fd_pr__nfet_01v8 ad=0.6468 pd=2.45 as=0.924 ps=4.46 w=1.68 l=0.15
+X2 a_552_47# DIN GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.6468 pd=2.45 as=0.6468 ps=2.45 w=1.68 l=0.15
+X3 DLB WE_uq0 a_552_47# VSUBS sky130_fd_pr__nfet_01v8 ad=0.924 pd=4.46 as=0.6468 ps=2.45 w=1.68 l=0.15
+.ends
+
+.subckt rw_eq PCB DL DLB VDD GND w_0_468#
+X0 DLB PCB DL w_0_468# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.94 as=0.231 ps=1.94 w=0.42 l=0.15
+.ends
+
+.subckt rwckt DIN DINB RD DL DLB WE PCB VDD GND
+Xp PCB DL DLB VDD GND PCB VDD rw_pre
+Xs DL RD VDD GND VDD GND rw_sa
+Xw WE DINB DIN DL DLB VDD GND WE GND rw_wr
+Xe PCB DL DLB VDD GND VDD rw_eq
+.ends
+

@@ -1,0 +1,60 @@
+** sch_path: /foss/designs/sram/xschem/outbuf.sch
+.subckt outbuf a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+X1 a n1 vdd vss inv
+X2 n1 n2 vdd vss inv_wn1p68_wp3p36
+X3 n2 n3 vdd vss inv_wn6p72_wp13p44
+XMP4_0 n4 n3 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=55.0 nf=1
+XMN4_0 n4 n3 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=27.0 nf=1
+XMP5_0 n5 n4 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=71.67 nf=1
+XMP5_1 n5 n4 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=71.67 nf=1
+XMP5_2 n5 n4 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=71.67 nf=1
+XMN5_0 n5 n4 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=54.0 nf=1
+XMN5_1 n5 n4 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=54.0 nf=1
+XMP6_0 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_1 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_2 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_3 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_4 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_5 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_6 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_7 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_8 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_9 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMN6_0 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1
+XMN6_1 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1
+XMN6_2 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1
+XMN6_3 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1
+XMN6_4 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1
+Rterm yd y 20
+.ends
+
+* expanding   symbol:  inv.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inv.sym
+** sch_path: /foss/designs/sram/xschem/inv.sch
+.subckt inv a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1
+.ends
+
+
+* expanding   symbol:  inv_wn1p68_wp3p36.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inv_wn1p68_wp3p36.sym
+** sch_path: /foss/designs/sram/xschem/inv_wn1p68_wp3p36.sch
+.subckt inv_wn1p68_wp3p36 a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=3.36 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1
+.ends
+
+
+* expanding   symbol:  inv_wn6p72_wp13p44.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inv_wn6p72_wp13p44.sym
+** sch_path: /foss/designs/sram/xschem/inv_wn6p72_wp13p44.sch
+.subckt inv_wn6p72_wp13p44 a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=13.44 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=6.72 nf=1
+.ends
+

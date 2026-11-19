@@ -1,0 +1,693 @@
+** sch_path: /foss/designs/sram/xschem/sram256.sch
+.subckt sram256 CLK ADDR RW DIN DOUT vdd vddio vss
+*.PININFO CLK:I ADDR:I RW:I DIN:I DOUT:O vdd:B vddio:B vss:B
+Xpad_CLK CLK clk_pad vddio vss bondpad
+Xib_CLK clk_pad clk_in vdd vss inbuf
+Xpad_ADDR ADDR addr_pad vddio vss bondpad
+Xib_ADDR addr_pad addr_in vdd vss inbuf
+Xpad_RW RW rw_pad vddio vss bondpad
+Xib_RW rw_pad rw_in vdd vss inbuf
+Xpad_DIN DIN din_pad vddio vss bondpad
+Xib_DIN din_pad din_in vdd vss inbuf
+Xpad_DOUT DOUT dout_pad vddio vss bondpad
+Xck_r1 clk_in ckr_b vdd vss inv_wn1p68_wp3p36
+Xck_r2 ckr_b ckr vdd vss inv_wn3p36_wp6p72
+Xck_a1 ckr cka_b vdd vss inv_wn0p84_wp1p68
+Xck_a2 cka_b clk_ff vdd vss inv_wn1p68_wp3p36
+Xck_b1 ckr ckb1 vdd vss inv_wn0p84_wp1p68
+Xck_b2 ckb1 ckb2 vdd vss inv_wn1p26_wp2p52
+Xck_b3 ckb2 clkb vdd vss inv_wn2p52_wp5p04
+Xck_d1 ckr d1 vdd vss inv
+Xck_d2 d1 d2 vdd vss inv
+Xck_d3 d2 d3 vdd vss inv
+Xck_d4 d3 d4 vdd vss inv
+Xck_d5 d4 d5 vdd vss inv
+Xck_d6 d5 d6 vdd vss inv
+Xck_d7 d6 d7 vdd vss inv
+Xck_d8 d7 ckd vdd vss inv
+Xck_c1 ckr ckd pc0 vdd vss nand2_wn1p68_wp1p68
+Xck_c2 pc0 pc1 vdd vss inv_wn0p84_wp1p68
+Xck_c3 pc1 pcb vdd vss inv_wn2p52_wp5p04
+Xff_a0 addr_in clk_ff a0 ab0 vdd vss dff
+Xff_a1 a0 clk_ff a1 ab1 vdd vss dff
+Xff_a2 a1 clk_ff a2 ab2 vdd vss dff
+Xff_a3 a2 clk_ff a3 ab3 vdd vss dff
+Xff_a4 a3 clk_ff a4 ab4 vdd vss dff
+Xff_a5 a4 clk_ff a5 ab5 vdd vss dff
+Xff_a6 a5 clk_ff a6 ab6 vdd vss dff
+Xff_a7 a6 clk_ff a7 ab7 vdd vss dff
+Xff_rw rw_in clk_ff rwq rwqb vdd vss dff
+Xff_din din_in clk_ff dinq dinqb vdd vss dff
+Xpd_rh0 ab7 ab6 rhb0 vdd vss nand2
+Xpi_rh0 rhb0 rh0 vdd vss inv_wn0p84_wp1p68
+Xpd_rh1 ab7 a6 rhb1 vdd vss nand2
+Xpi_rh1 rhb1 rh1 vdd vss inv_wn0p84_wp1p68
+Xpd_rh2 a7 ab6 rhb2 vdd vss nand2
+Xpi_rh2 rhb2 rh2 vdd vss inv_wn0p84_wp1p68
+Xpd_rh3 a7 a6 rhb3 vdd vss nand2
+Xpi_rh3 rhb3 rh3 vdd vss inv_wn0p84_wp1p68
+Xpd_rl0 ab5 ab4 rlb0 vdd vss nand2
+Xpi_rl0 rlb0 rl0 vdd vss inv_wn0p84_wp1p68
+Xpd_rl1 ab5 a4 rlb1 vdd vss nand2
+Xpi_rl1 rlb1 rl1 vdd vss inv_wn0p84_wp1p68
+Xpd_rl2 a5 ab4 rlb2 vdd vss nand2
+Xpi_rl2 rlb2 rl2 vdd vss inv_wn0p84_wp1p68
+Xpd_rl3 a5 a4 rlb3 vdd vss nand2
+Xpi_rl3 rlb3 rl3 vdd vss inv_wn0p84_wp1p68
+Xpd_ch0 ab3 ab2 chb0 vdd vss nand2
+Xpi_ch0 chb0 ch0 vdd vss inv_wn0p84_wp1p68
+Xpd_ch1 ab3 a2 chb1 vdd vss nand2
+Xpi_ch1 chb1 ch1 vdd vss inv_wn0p84_wp1p68
+Xpd_ch2 a3 ab2 chb2 vdd vss nand2
+Xpi_ch2 chb2 ch2 vdd vss inv_wn0p84_wp1p68
+Xpd_ch3 a3 a2 chb3 vdd vss nand2
+Xpi_ch3 chb3 ch3 vdd vss inv_wn0p84_wp1p68
+Xpd_cl0 ab1 ab0 clb0 vdd vss nand2
+Xpi_cl0 clb0 cl0 vdd vss inv_wn0p84_wp1p68
+Xpd_cl1 ab1 a0 clb1 vdd vss nand2
+Xpi_cl1 clb1 cl1 vdd vss inv_wn0p84_wp1p68
+Xpd_cl2 a1 ab0 clb2 vdd vss nand2
+Xpi_cl2 clb2 cl2 vdd vss inv_wn0p84_wp1p68
+Xpd_cl3 a1 a0 clb3 vdd vss nand2
+Xpi_cl3 clb3 cl3 vdd vss inv_wn0p84_wp1p68
+Xrd0 rh0 rl0 clkb wlb0 vdd vss nand3
+Xwd0 wlb0 wl0 vdd vss inv_wn0p84_wp1p68
+Xrd1 rh0 rl1 clkb wlb1 vdd vss nand3
+Xwd1 wlb1 wl1 vdd vss inv_wn0p84_wp1p68
+Xrd2 rh0 rl2 clkb wlb2 vdd vss nand3
+Xwd2 wlb2 wl2 vdd vss inv_wn0p84_wp1p68
+Xrd3 rh0 rl3 clkb wlb3 vdd vss nand3
+Xwd3 wlb3 wl3 vdd vss inv_wn0p84_wp1p68
+Xrd4 rh1 rl0 clkb wlb4 vdd vss nand3
+Xwd4 wlb4 wl4 vdd vss inv_wn0p84_wp1p68
+Xrd5 rh1 rl1 clkb wlb5 vdd vss nand3
+Xwd5 wlb5 wl5 vdd vss inv_wn0p84_wp1p68
+Xrd6 rh1 rl2 clkb wlb6 vdd vss nand3
+Xwd6 wlb6 wl6 vdd vss inv_wn0p84_wp1p68
+Xrd7 rh1 rl3 clkb wlb7 vdd vss nand3
+Xwd7 wlb7 wl7 vdd vss inv_wn0p84_wp1p68
+Xrd8 rh2 rl0 clkb wlb8 vdd vss nand3
+Xwd8 wlb8 wl8 vdd vss inv_wn0p84_wp1p68
+Xrd9 rh2 rl1 clkb wlb9 vdd vss nand3
+Xwd9 wlb9 wl9 vdd vss inv_wn0p84_wp1p68
+Xrd10 rh2 rl2 clkb wlb10 vdd vss nand3
+Xwd10 wlb10 wl10 vdd vss inv_wn0p84_wp1p68
+Xrd11 rh2 rl3 clkb wlb11 vdd vss nand3
+Xwd11 wlb11 wl11 vdd vss inv_wn0p84_wp1p68
+Xrd12 rh3 rl0 clkb wlb12 vdd vss nand3
+Xwd12 wlb12 wl12 vdd vss inv_wn0p84_wp1p68
+Xrd13 rh3 rl1 clkb wlb13 vdd vss nand3
+Xwd13 wlb13 wl13 vdd vss inv_wn0p84_wp1p68
+Xrd14 rh3 rl2 clkb wlb14 vdd vss nand3
+Xwd14 wlb14 wl14 vdd vss inv_wn0p84_wp1p68
+Xrd15 rh3 rl3 clkb wlb15 vdd vss nand3
+Xwd15 wlb15 wl15 vdd vss inv_wn0p84_wp1p68
+Xcd0 ch0 cl0 cselb0 vdd vss nand2
+Xcs0 cselb0 csel0 vdd vss inv_wn0p84_wp1p68
+Xcd1 ch0 cl1 cselb1 vdd vss nand2
+Xcs1 cselb1 csel1 vdd vss inv_wn0p84_wp1p68
+Xcd2 ch0 cl2 cselb2 vdd vss nand2
+Xcs2 cselb2 csel2 vdd vss inv_wn0p84_wp1p68
+Xcd3 ch0 cl3 cselb3 vdd vss nand2
+Xcs3 cselb3 csel3 vdd vss inv_wn0p84_wp1p68
+Xcd4 ch1 cl0 cselb4 vdd vss nand2
+Xcs4 cselb4 csel4 vdd vss inv_wn0p84_wp1p68
+Xcd5 ch1 cl1 cselb5 vdd vss nand2
+Xcs5 cselb5 csel5 vdd vss inv_wn0p84_wp1p68
+Xcd6 ch1 cl2 cselb6 vdd vss nand2
+Xcs6 cselb6 csel6 vdd vss inv_wn0p84_wp1p68
+Xcd7 ch1 cl3 cselb7 vdd vss nand2
+Xcs7 cselb7 csel7 vdd vss inv_wn0p84_wp1p68
+Xcd8 ch2 cl0 cselb8 vdd vss nand2
+Xcs8 cselb8 csel8 vdd vss inv_wn0p84_wp1p68
+Xcd9 ch2 cl1 cselb9 vdd vss nand2
+Xcs9 cselb9 csel9 vdd vss inv_wn0p84_wp1p68
+Xcd10 ch2 cl2 cselb10 vdd vss nand2
+Xcs10 cselb10 csel10 vdd vss inv_wn0p84_wp1p68
+Xcd11 ch2 cl3 cselb11 vdd vss nand2
+Xcs11 cselb11 csel11 vdd vss inv_wn0p84_wp1p68
+Xcd12 ch3 cl0 cselb12 vdd vss nand2
+Xcs12 cselb12 csel12 vdd vss inv_wn0p84_wp1p68
+Xcd13 ch3 cl1 cselb13 vdd vss nand2
+Xcs13 cselb13 csel13 vdd vss inv_wn0p84_wp1p68
+Xcd14 ch3 cl2 cselb14 vdd vss nand2
+Xcs14 cselb14 csel14 vdd vss inv_wn0p84_wp1p68
+Xcd15 ch3 cl3 cselb15 vdd vss nand2
+Xcs15 cselb15 csel15 vdd vss inv_wn0p84_wp1p68
+Xc_0_0 bl0 blb0 wl0 vdd vss bitcell
+Xc_0_1 bl1 blb1 wl0 vdd vss bitcell
+Xc_0_2 bl2 blb2 wl0 vdd vss bitcell
+Xc_0_3 bl3 blb3 wl0 vdd vss bitcell
+Xc_0_4 bl4 blb4 wl0 vdd vss bitcell
+Xc_0_5 bl5 blb5 wl0 vdd vss bitcell
+Xc_0_6 bl6 blb6 wl0 vdd vss bitcell
+Xc_0_7 bl7 blb7 wl0 vdd vss bitcell
+Xc_0_8 bl8 blb8 wl0 vdd vss bitcell
+Xc_0_9 bl9 blb9 wl0 vdd vss bitcell
+Xc_0_10 bl10 blb10 wl0 vdd vss bitcell
+Xc_0_11 bl11 blb11 wl0 vdd vss bitcell
+Xc_0_12 bl12 blb12 wl0 vdd vss bitcell
+Xc_0_13 bl13 blb13 wl0 vdd vss bitcell
+Xc_0_14 bl14 blb14 wl0 vdd vss bitcell
+Xc_0_15 bl15 blb15 wl0 vdd vss bitcell
+Xc_1_0 bl0 blb0 wl1 vdd vss bitcell
+Xc_1_1 bl1 blb1 wl1 vdd vss bitcell
+Xc_1_2 bl2 blb2 wl1 vdd vss bitcell
+Xc_1_3 bl3 blb3 wl1 vdd vss bitcell
+Xc_1_4 bl4 blb4 wl1 vdd vss bitcell
+Xc_1_5 bl5 blb5 wl1 vdd vss bitcell
+Xc_1_6 bl6 blb6 wl1 vdd vss bitcell
+Xc_1_7 bl7 blb7 wl1 vdd vss bitcell
+Xc_1_8 bl8 blb8 wl1 vdd vss bitcell
+Xc_1_9 bl9 blb9 wl1 vdd vss bitcell
+Xc_1_10 bl10 blb10 wl1 vdd vss bitcell
+Xc_1_11 bl11 blb11 wl1 vdd vss bitcell
+Xc_1_12 bl12 blb12 wl1 vdd vss bitcell
+Xc_1_13 bl13 blb13 wl1 vdd vss bitcell
+Xc_1_14 bl14 blb14 wl1 vdd vss bitcell
+Xc_1_15 bl15 blb15 wl1 vdd vss bitcell
+Xc_2_0 bl0 blb0 wl2 vdd vss bitcell
+Xc_2_1 bl1 blb1 wl2 vdd vss bitcell
+Xc_2_2 bl2 blb2 wl2 vdd vss bitcell
+Xc_2_3 bl3 blb3 wl2 vdd vss bitcell
+Xc_2_4 bl4 blb4 wl2 vdd vss bitcell
+Xc_2_5 bl5 blb5 wl2 vdd vss bitcell
+Xc_2_6 bl6 blb6 wl2 vdd vss bitcell
+Xc_2_7 bl7 blb7 wl2 vdd vss bitcell
+Xc_2_8 bl8 blb8 wl2 vdd vss bitcell
+Xc_2_9 bl9 blb9 wl2 vdd vss bitcell
+Xc_2_10 bl10 blb10 wl2 vdd vss bitcell
+Xc_2_11 bl11 blb11 wl2 vdd vss bitcell
+Xc_2_12 bl12 blb12 wl2 vdd vss bitcell
+Xc_2_13 bl13 blb13 wl2 vdd vss bitcell
+Xc_2_14 bl14 blb14 wl2 vdd vss bitcell
+Xc_2_15 bl15 blb15 wl2 vdd vss bitcell
+Xc_3_0 bl0 blb0 wl3 vdd vss bitcell
+Xc_3_1 bl1 blb1 wl3 vdd vss bitcell
+Xc_3_2 bl2 blb2 wl3 vdd vss bitcell
+Xc_3_3 bl3 blb3 wl3 vdd vss bitcell
+Xc_3_4 bl4 blb4 wl3 vdd vss bitcell
+Xc_3_5 bl5 blb5 wl3 vdd vss bitcell
+Xc_3_6 bl6 blb6 wl3 vdd vss bitcell
+Xc_3_7 bl7 blb7 wl3 vdd vss bitcell
+Xc_3_8 bl8 blb8 wl3 vdd vss bitcell
+Xc_3_9 bl9 blb9 wl3 vdd vss bitcell
+Xc_3_10 bl10 blb10 wl3 vdd vss bitcell
+Xc_3_11 bl11 blb11 wl3 vdd vss bitcell
+Xc_3_12 bl12 blb12 wl3 vdd vss bitcell
+Xc_3_13 bl13 blb13 wl3 vdd vss bitcell
+Xc_3_14 bl14 blb14 wl3 vdd vss bitcell
+Xc_3_15 bl15 blb15 wl3 vdd vss bitcell
+Xc_4_0 bl0 blb0 wl4 vdd vss bitcell
+Xc_4_1 bl1 blb1 wl4 vdd vss bitcell
+Xc_4_2 bl2 blb2 wl4 vdd vss bitcell
+Xc_4_3 bl3 blb3 wl4 vdd vss bitcell
+Xc_4_4 bl4 blb4 wl4 vdd vss bitcell
+Xc_4_5 bl5 blb5 wl4 vdd vss bitcell
+Xc_4_6 bl6 blb6 wl4 vdd vss bitcell
+Xc_4_7 bl7 blb7 wl4 vdd vss bitcell
+Xc_4_8 bl8 blb8 wl4 vdd vss bitcell
+Xc_4_9 bl9 blb9 wl4 vdd vss bitcell
+Xc_4_10 bl10 blb10 wl4 vdd vss bitcell
+Xc_4_11 bl11 blb11 wl4 vdd vss bitcell
+Xc_4_12 bl12 blb12 wl4 vdd vss bitcell
+Xc_4_13 bl13 blb13 wl4 vdd vss bitcell
+Xc_4_14 bl14 blb14 wl4 vdd vss bitcell
+Xc_4_15 bl15 blb15 wl4 vdd vss bitcell
+Xc_5_0 bl0 blb0 wl5 vdd vss bitcell
+Xc_5_1 bl1 blb1 wl5 vdd vss bitcell
+Xc_5_2 bl2 blb2 wl5 vdd vss bitcell
+Xc_5_3 bl3 blb3 wl5 vdd vss bitcell
+Xc_5_4 bl4 blb4 wl5 vdd vss bitcell
+Xc_5_5 bl5 blb5 wl5 vdd vss bitcell
+Xc_5_6 bl6 blb6 wl5 vdd vss bitcell
+Xc_5_7 bl7 blb7 wl5 vdd vss bitcell
+Xc_5_8 bl8 blb8 wl5 vdd vss bitcell
+Xc_5_9 bl9 blb9 wl5 vdd vss bitcell
+Xc_5_10 bl10 blb10 wl5 vdd vss bitcell
+Xc_5_11 bl11 blb11 wl5 vdd vss bitcell
+Xc_5_12 bl12 blb12 wl5 vdd vss bitcell
+Xc_5_13 bl13 blb13 wl5 vdd vss bitcell
+Xc_5_14 bl14 blb14 wl5 vdd vss bitcell
+Xc_5_15 bl15 blb15 wl5 vdd vss bitcell
+Xc_6_0 bl0 blb0 wl6 vdd vss bitcell
+Xc_6_1 bl1 blb1 wl6 vdd vss bitcell
+Xc_6_2 bl2 blb2 wl6 vdd vss bitcell
+Xc_6_3 bl3 blb3 wl6 vdd vss bitcell
+Xc_6_4 bl4 blb4 wl6 vdd vss bitcell
+Xc_6_5 bl5 blb5 wl6 vdd vss bitcell
+Xc_6_6 bl6 blb6 wl6 vdd vss bitcell
+Xc_6_7 bl7 blb7 wl6 vdd vss bitcell
+Xc_6_8 bl8 blb8 wl6 vdd vss bitcell
+Xc_6_9 bl9 blb9 wl6 vdd vss bitcell
+Xc_6_10 bl10 blb10 wl6 vdd vss bitcell
+Xc_6_11 bl11 blb11 wl6 vdd vss bitcell
+Xc_6_12 bl12 blb12 wl6 vdd vss bitcell
+Xc_6_13 bl13 blb13 wl6 vdd vss bitcell
+Xc_6_14 bl14 blb14 wl6 vdd vss bitcell
+Xc_6_15 bl15 blb15 wl6 vdd vss bitcell
+Xc_7_0 bl0 blb0 wl7 vdd vss bitcell
+Xc_7_1 bl1 blb1 wl7 vdd vss bitcell
+Xc_7_2 bl2 blb2 wl7 vdd vss bitcell
+Xc_7_3 bl3 blb3 wl7 vdd vss bitcell
+Xc_7_4 bl4 blb4 wl7 vdd vss bitcell
+Xc_7_5 bl5 blb5 wl7 vdd vss bitcell
+Xc_7_6 bl6 blb6 wl7 vdd vss bitcell
+Xc_7_7 bl7 blb7 wl7 vdd vss bitcell
+Xc_7_8 bl8 blb8 wl7 vdd vss bitcell
+Xc_7_9 bl9 blb9 wl7 vdd vss bitcell
+Xc_7_10 bl10 blb10 wl7 vdd vss bitcell
+Xc_7_11 bl11 blb11 wl7 vdd vss bitcell
+Xc_7_12 bl12 blb12 wl7 vdd vss bitcell
+Xc_7_13 bl13 blb13 wl7 vdd vss bitcell
+Xc_7_14 bl14 blb14 wl7 vdd vss bitcell
+Xc_7_15 bl15 blb15 wl7 vdd vss bitcell
+Xc_8_0 bl0 blb0 wl8 vdd vss bitcell
+Xc_8_1 bl1 blb1 wl8 vdd vss bitcell
+Xc_8_2 bl2 blb2 wl8 vdd vss bitcell
+Xc_8_3 bl3 blb3 wl8 vdd vss bitcell
+Xc_8_4 bl4 blb4 wl8 vdd vss bitcell
+Xc_8_5 bl5 blb5 wl8 vdd vss bitcell
+Xc_8_6 bl6 blb6 wl8 vdd vss bitcell
+Xc_8_7 bl7 blb7 wl8 vdd vss bitcell
+Xc_8_8 bl8 blb8 wl8 vdd vss bitcell
+Xc_8_9 bl9 blb9 wl8 vdd vss bitcell
+Xc_8_10 bl10 blb10 wl8 vdd vss bitcell
+Xc_8_11 bl11 blb11 wl8 vdd vss bitcell
+Xc_8_12 bl12 blb12 wl8 vdd vss bitcell
+Xc_8_13 bl13 blb13 wl8 vdd vss bitcell
+Xc_8_14 bl14 blb14 wl8 vdd vss bitcell
+Xc_8_15 bl15 blb15 wl8 vdd vss bitcell
+Xc_9_0 bl0 blb0 wl9 vdd vss bitcell
+Xc_9_1 bl1 blb1 wl9 vdd vss bitcell
+Xc_9_2 bl2 blb2 wl9 vdd vss bitcell
+Xc_9_3 bl3 blb3 wl9 vdd vss bitcell
+Xc_9_4 bl4 blb4 wl9 vdd vss bitcell
+Xc_9_5 bl5 blb5 wl9 vdd vss bitcell
+Xc_9_6 bl6 blb6 wl9 vdd vss bitcell
+Xc_9_7 bl7 blb7 wl9 vdd vss bitcell
+Xc_9_8 bl8 blb8 wl9 vdd vss bitcell
+Xc_9_9 bl9 blb9 wl9 vdd vss bitcell
+Xc_9_10 bl10 blb10 wl9 vdd vss bitcell
+Xc_9_11 bl11 blb11 wl9 vdd vss bitcell
+Xc_9_12 bl12 blb12 wl9 vdd vss bitcell
+Xc_9_13 bl13 blb13 wl9 vdd vss bitcell
+Xc_9_14 bl14 blb14 wl9 vdd vss bitcell
+Xc_9_15 bl15 blb15 wl9 vdd vss bitcell
+Xc_10_0 bl0 blb0 wl10 vdd vss bitcell
+Xc_10_1 bl1 blb1 wl10 vdd vss bitcell
+Xc_10_2 bl2 blb2 wl10 vdd vss bitcell
+Xc_10_3 bl3 blb3 wl10 vdd vss bitcell
+Xc_10_4 bl4 blb4 wl10 vdd vss bitcell
+Xc_10_5 bl5 blb5 wl10 vdd vss bitcell
+Xc_10_6 bl6 blb6 wl10 vdd vss bitcell
+Xc_10_7 bl7 blb7 wl10 vdd vss bitcell
+Xc_10_8 bl8 blb8 wl10 vdd vss bitcell
+Xc_10_9 bl9 blb9 wl10 vdd vss bitcell
+Xc_10_10 bl10 blb10 wl10 vdd vss bitcell
+Xc_10_11 bl11 blb11 wl10 vdd vss bitcell
+Xc_10_12 bl12 blb12 wl10 vdd vss bitcell
+Xc_10_13 bl13 blb13 wl10 vdd vss bitcell
+Xc_10_14 bl14 blb14 wl10 vdd vss bitcell
+Xc_10_15 bl15 blb15 wl10 vdd vss bitcell
+Xc_11_0 bl0 blb0 wl11 vdd vss bitcell
+Xc_11_1 bl1 blb1 wl11 vdd vss bitcell
+Xc_11_2 bl2 blb2 wl11 vdd vss bitcell
+Xc_11_3 bl3 blb3 wl11 vdd vss bitcell
+Xc_11_4 bl4 blb4 wl11 vdd vss bitcell
+Xc_11_5 bl5 blb5 wl11 vdd vss bitcell
+Xc_11_6 bl6 blb6 wl11 vdd vss bitcell
+Xc_11_7 bl7 blb7 wl11 vdd vss bitcell
+Xc_11_8 bl8 blb8 wl11 vdd vss bitcell
+Xc_11_9 bl9 blb9 wl11 vdd vss bitcell
+Xc_11_10 bl10 blb10 wl11 vdd vss bitcell
+Xc_11_11 bl11 blb11 wl11 vdd vss bitcell
+Xc_11_12 bl12 blb12 wl11 vdd vss bitcell
+Xc_11_13 bl13 blb13 wl11 vdd vss bitcell
+Xc_11_14 bl14 blb14 wl11 vdd vss bitcell
+Xc_11_15 bl15 blb15 wl11 vdd vss bitcell
+Xc_12_0 bl0 blb0 wl12 vdd vss bitcell
+Xc_12_1 bl1 blb1 wl12 vdd vss bitcell
+Xc_12_2 bl2 blb2 wl12 vdd vss bitcell
+Xc_12_3 bl3 blb3 wl12 vdd vss bitcell
+Xc_12_4 bl4 blb4 wl12 vdd vss bitcell
+Xc_12_5 bl5 blb5 wl12 vdd vss bitcell
+Xc_12_6 bl6 blb6 wl12 vdd vss bitcell
+Xc_12_7 bl7 blb7 wl12 vdd vss bitcell
+Xc_12_8 bl8 blb8 wl12 vdd vss bitcell
+Xc_12_9 bl9 blb9 wl12 vdd vss bitcell
+Xc_12_10 bl10 blb10 wl12 vdd vss bitcell
+Xc_12_11 bl11 blb11 wl12 vdd vss bitcell
+Xc_12_12 bl12 blb12 wl12 vdd vss bitcell
+Xc_12_13 bl13 blb13 wl12 vdd vss bitcell
+Xc_12_14 bl14 blb14 wl12 vdd vss bitcell
+Xc_12_15 bl15 blb15 wl12 vdd vss bitcell
+Xc_13_0 bl0 blb0 wl13 vdd vss bitcell
+Xc_13_1 bl1 blb1 wl13 vdd vss bitcell
+Xc_13_2 bl2 blb2 wl13 vdd vss bitcell
+Xc_13_3 bl3 blb3 wl13 vdd vss bitcell
+Xc_13_4 bl4 blb4 wl13 vdd vss bitcell
+Xc_13_5 bl5 blb5 wl13 vdd vss bitcell
+Xc_13_6 bl6 blb6 wl13 vdd vss bitcell
+Xc_13_7 bl7 blb7 wl13 vdd vss bitcell
+Xc_13_8 bl8 blb8 wl13 vdd vss bitcell
+Xc_13_9 bl9 blb9 wl13 vdd vss bitcell
+Xc_13_10 bl10 blb10 wl13 vdd vss bitcell
+Xc_13_11 bl11 blb11 wl13 vdd vss bitcell
+Xc_13_12 bl12 blb12 wl13 vdd vss bitcell
+Xc_13_13 bl13 blb13 wl13 vdd vss bitcell
+Xc_13_14 bl14 blb14 wl13 vdd vss bitcell
+Xc_13_15 bl15 blb15 wl13 vdd vss bitcell
+Xc_14_0 bl0 blb0 wl14 vdd vss bitcell
+Xc_14_1 bl1 blb1 wl14 vdd vss bitcell
+Xc_14_2 bl2 blb2 wl14 vdd vss bitcell
+Xc_14_3 bl3 blb3 wl14 vdd vss bitcell
+Xc_14_4 bl4 blb4 wl14 vdd vss bitcell
+Xc_14_5 bl5 blb5 wl14 vdd vss bitcell
+Xc_14_6 bl6 blb6 wl14 vdd vss bitcell
+Xc_14_7 bl7 blb7 wl14 vdd vss bitcell
+Xc_14_8 bl8 blb8 wl14 vdd vss bitcell
+Xc_14_9 bl9 blb9 wl14 vdd vss bitcell
+Xc_14_10 bl10 blb10 wl14 vdd vss bitcell
+Xc_14_11 bl11 blb11 wl14 vdd vss bitcell
+Xc_14_12 bl12 blb12 wl14 vdd vss bitcell
+Xc_14_13 bl13 blb13 wl14 vdd vss bitcell
+Xc_14_14 bl14 blb14 wl14 vdd vss bitcell
+Xc_14_15 bl15 blb15 wl14 vdd vss bitcell
+Xc_15_0 bl0 blb0 wl15 vdd vss bitcell
+Xc_15_1 bl1 blb1 wl15 vdd vss bitcell
+Xc_15_2 bl2 blb2 wl15 vdd vss bitcell
+Xc_15_3 bl3 blb3 wl15 vdd vss bitcell
+Xc_15_4 bl4 blb4 wl15 vdd vss bitcell
+Xc_15_5 bl5 blb5 wl15 vdd vss bitcell
+Xc_15_6 bl6 blb6 wl15 vdd vss bitcell
+Xc_15_7 bl7 blb7 wl15 vdd vss bitcell
+Xc_15_8 bl8 blb8 wl15 vdd vss bitcell
+Xc_15_9 bl9 blb9 wl15 vdd vss bitcell
+Xc_15_10 bl10 blb10 wl15 vdd vss bitcell
+Xc_15_11 bl11 blb11 wl15 vdd vss bitcell
+Xc_15_12 bl12 blb12 wl15 vdd vss bitcell
+Xc_15_13 bl13 blb13 wl15 vdd vss bitcell
+Xc_15_14 bl14 blb14 wl15 vdd vss bitcell
+Xc_15_15 bl15 blb15 wl15 vdd vss bitcell
+Xpre0 bl0 blb0 pcb vdd precharge
+Xmux0 bl0 blb0 dl dlb csel0 vss colmux
+Xpre1 bl1 blb1 pcb vdd precharge
+Xmux1 bl1 blb1 dl dlb csel1 vss colmux
+Xpre2 bl2 blb2 pcb vdd precharge
+Xmux2 bl2 blb2 dl dlb csel2 vss colmux
+Xpre3 bl3 blb3 pcb vdd precharge
+Xmux3 bl3 blb3 dl dlb csel3 vss colmux
+Xpre4 bl4 blb4 pcb vdd precharge
+Xmux4 bl4 blb4 dl dlb csel4 vss colmux
+Xpre5 bl5 blb5 pcb vdd precharge
+Xmux5 bl5 blb5 dl dlb csel5 vss colmux
+Xpre6 bl6 blb6 pcb vdd precharge
+Xmux6 bl6 blb6 dl dlb csel6 vss colmux
+Xpre7 bl7 blb7 pcb vdd precharge
+Xmux7 bl7 blb7 dl dlb csel7 vss colmux
+Xpre8 bl8 blb8 pcb vdd precharge
+Xmux8 bl8 blb8 dl dlb csel8 vss colmux
+Xpre9 bl9 blb9 pcb vdd precharge
+Xmux9 bl9 blb9 dl dlb csel9 vss colmux
+Xpre10 bl10 blb10 pcb vdd precharge
+Xmux10 bl10 blb10 dl dlb csel10 vss colmux
+Xpre11 bl11 blb11 pcb vdd precharge
+Xmux11 bl11 blb11 dl dlb csel11 vss colmux
+Xpre12 bl12 blb12 pcb vdd precharge
+Xmux12 bl12 blb12 dl dlb csel12 vss colmux
+Xpre13 bl13 blb13 pcb vdd precharge
+Xmux13 bl13 blb13 dl dlb csel13 vss colmux
+Xpre14 bl14 blb14 pcb vdd precharge
+Xmux14 bl14 blb14 dl dlb csel14 vss colmux
+Xpre15 bl15 blb15 pcb vdd precharge
+Xmux15 bl15 blb15 dl dlb csel15 vss colmux
+Xwe1 rwq clkb web vdd vss nand2
+Xwe2 web we vdd vss inv_wn1p26_wp2p52
+Xrw dl dlb we dinq dinqb pcb rd vdd vss rwckt
+Xff_out rd clk_ff rdq rdqb vdd vss dff
+Xob rdqb dout_pad vddio vss outbuf
+.ends
+
+* expanding   symbol:  bondpad.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/bondpad.sym
+** sch_path: /foss/designs/sram/xschem/bondpad.sch
+.subckt bondpad ext pad vddio vss
+*.PININFO ext:B pad:B vddio:B vss:B
+Rbw ext n1 0.2
+Lbw n1 pad 2n
+Cpad pad vss 1p
+D1 pad vddio desd area=1
+D2 vss pad desd area=1
+**** begin user architecture code
+
+.model desd D(is=1e-14 cjo=0.2p rs=2)
+
+**** end user architecture code
+.ends
+
+
+* expanding   symbol:  inbuf.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inbuf.sym
+** sch_path: /foss/designs/sram/xschem/inbuf.sch
+.subckt inbuf pad y vdd vss
+*.PININFO pad:B y:B vdd:B vss:B
+X1 pad n1 vdd vss inv_wn0p84_wp1p68
+X2 n1 y vdd vss inv_wn1p68_wp3p36
+.ends
+
+
+* expanding   symbol:  inv_wn1p68_wp3p36.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inv_wn1p68_wp3p36.sym
+** sch_path: /foss/designs/sram/xschem/inv_wn1p68_wp3p36.sch
+.subckt inv_wn1p68_wp3p36 a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=3.36 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1
+.ends
+
+
+* expanding   symbol:  inv_wn3p36_wp6p72.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inv_wn3p36_wp6p72.sym
+** sch_path: /foss/designs/sram/xschem/inv_wn3p36_wp6p72.sch
+.subckt inv_wn3p36_wp6p72 a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=6.72 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=3.36 nf=1
+.ends
+
+
+* expanding   symbol:  inv_wn0p84_wp1p68.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inv_wn0p84_wp1p68.sym
+** sch_path: /foss/designs/sram/xschem/inv_wn0p84_wp1p68.sch
+.subckt inv_wn0p84_wp1p68 a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1.68 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.84 nf=1
+.ends
+
+
+* expanding   symbol:  inv_wn1p26_wp2p52.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inv_wn1p26_wp2p52.sym
+** sch_path: /foss/designs/sram/xschem/inv_wn1p26_wp2p52.sch
+.subckt inv_wn1p26_wp2p52 a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=2.52 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.26 nf=1
+.ends
+
+
+* expanding   symbol:  inv_wn2p52_wp5p04.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inv_wn2p52_wp5p04.sym
+** sch_path: /foss/designs/sram/xschem/inv_wn2p52_wp5p04.sch
+.subckt inv_wn2p52_wp5p04 a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=5.04 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=2.52 nf=1
+.ends
+
+
+* expanding   symbol:  inv.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inv.sym
+** sch_path: /foss/designs/sram/xschem/inv.sch
+.subckt inv a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1
+.ends
+
+
+* expanding   symbol:  nand2_wn1p68_wp1p68.sym # of pins=5
+** sym_path: /foss/designs/sram/xschem/nand2_wn1p68_wp1p68.sym
+** sch_path: /foss/designs/sram/xschem/nand2_wn1p68_wp1p68.sch
+.subckt nand2_wn1p68_wp1p68 a b y vdd vss
+*.PININFO a:B b:B y:B vdd:B vss:B
+XMP1 y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1.68 nf=1
+XMP2 y b vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1.68 nf=1
+XMN1 y a n1 vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1
+XMN2 n1 b vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1
+.ends
+
+
+* expanding   symbol:  dff.sym # of pins=6
+** sym_path: /foss/designs/sram/xschem/dff.sym
+** sch_path: /foss/designs/sram/xschem/dff.sch
+.subckt dff d clk q qb vdd vss
+*.PININFO d:B clk:B q:B qb:B vdd:B vss:B
+XCI clk ckb vdd vss inv
+XCI2 ckb ck vdd vss inv
+XMT1N d ckb m1 vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1
+XMT1P d ck m1 vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.42 nf=1
+XM1 m1 m2 vdd vss inv
+XM2 m2 m3 vdd vss inv
+XMT2N m3 ck m1 vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1
+XMT2P m3 ckb m1 vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.42 nf=1
+XMT3N m2 ck s1 vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1
+XMT3P m2 ckb s1 vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.42 nf=1
+XS1 s1 q vdd vss inv_wn0p63_wp1p26
+XS2 q qb vdd vss inv
+XMT4N qb ckb s1 vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1
+XMT4P qb ck s1 vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.42 nf=1
+.ends
+
+
+* expanding   symbol:  nand2.sym # of pins=5
+** sym_path: /foss/designs/sram/xschem/nand2.sym
+** sch_path: /foss/designs/sram/xschem/nand2.sch
+.subckt nand2 a b y vdd vss
+*.PININFO a:B b:B y:B vdd:B vss:B
+XMP1 y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1
+XMP2 y b vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1
+XMN1 y a n1 vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.84 nf=1
+XMN2 n1 b vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.84 nf=1
+.ends
+
+
+* expanding   symbol:  nand3.sym # of pins=6
+** sym_path: /foss/designs/sram/xschem/nand3.sym
+** sch_path: /foss/designs/sram/xschem/nand3.sch
+.subckt nand3 a b c y vdd vss
+*.PININFO a:B b:B c:B y:B vdd:B vss:B
+XMP1 y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1
+XMP2 y b vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1
+XMP3 y c vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1
+XMN1 y a n1 vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.26 nf=1
+XMN2 n1 b n2 vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.26 nf=1
+XMN3 n2 c vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.26 nf=1
+.ends
+
+
+* expanding   symbol:  bitcell.sym # of pins=5
+** sym_path: /foss/designs/sram/xschem/bitcell.sym
+** sch_path: /foss/designs/sram/xschem/bitcell.sch
+.subckt bitcell bl blb wl vdd vss
+*.PININFO bl:B blb:B wl:B vdd:B vss:B
+XMPU1 q qb vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.42 nf=1
+XMPD1 q qb vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.63 nf=1
+XMPU2 qb q vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.42 nf=1
+XMPD2 qb q vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.63 nf=1
+XMPG1 bl wl q vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1
+XMPG2 blb wl qb vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1
+.ends
+
+
+* expanding   symbol:  precharge.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/precharge.sym
+** sch_path: /foss/designs/sram/xschem/precharge.sch
+.subckt precharge bl blb pcb vdd
+*.PININFO bl:B blb:B pcb:B vdd:B
+XMP1 bl pcb vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1
+XMP2 blb pcb vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1
+XMP3 bl pcb blb vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.42 nf=1
+.ends
+
+
+* expanding   symbol:  colmux.sym # of pins=6
+** sym_path: /foss/designs/sram/xschem/colmux.sym
+** sch_path: /foss/designs/sram/xschem/colmux.sch
+.subckt colmux bl blb dl dlb csel vss
+*.PININFO bl:B blb:B dl:B dlb:B csel:B vss:B
+XMN1 bl csel dl vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.84 nf=1
+XMN2 blb csel dlb vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.84 nf=1
+.ends
+
+
+* expanding   symbol:  rwckt.sym # of pins=9
+** sym_path: /foss/designs/sram/xschem/rwckt.sym
+** sch_path: /foss/designs/sram/xschem/rwckt.sch
+.subckt rwckt dl dlb we din dinb pcb rd vdd vss
+*.PININFO dl:B dlb:B we:B din:B dinb:B pcb:B rd:B vdd:B vss:B
+XMPD1 dl pcb vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1.26 nf=1
+XMPD2 dlb pcb vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1.26 nf=1
+XMPE dl pcb dlb vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.42 nf=1
+XMW1 dl we w1 vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1
+XMW2 w1 dinb vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1
+XMW3 dlb we w2 vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1
+XMW4 w2 din vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=1.68 nf=1
+XSA dl rd vdd vss inv_wp1p26
+.ends
+
+
+* expanding   symbol:  outbuf.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/outbuf.sym
+** sch_path: /foss/designs/sram/xschem/outbuf.sch
+.subckt outbuf a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+X1 a n1 vdd vss inv
+X2 n1 n2 vdd vss inv_wn1p68_wp3p36
+X3 n2 n3 vdd vss inv_wn6p72_wp13p44
+XMP4_0 n4 n3 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=55.0 nf=1
+XMN4_0 n4 n3 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=27.0 nf=1
+XMP5_0 n5 n4 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=71.67 nf=1
+XMP5_1 n5 n4 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=71.67 nf=1
+XMP5_2 n5 n4 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=71.67 nf=1
+XMN5_0 n5 n4 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=54.0 nf=1
+XMN5_1 n5 n4 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=54.0 nf=1
+XMP6_0 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_1 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_2 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_3 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_4 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_5 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_6 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_7 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_8 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMP6_9 yd n5 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=86.0 nf=1
+XMN6_0 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1
+XMN6_1 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1
+XMN6_2 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1
+XMN6_3 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1
+XMN6_4 yd n5 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=86.0 nf=1
+Rterm yd y 20
+.ends
+
+
+* expanding   symbol:  inv_wn0p63_wp1p26.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inv_wn0p63_wp1p26.sym
+** sch_path: /foss/designs/sram/xschem/inv_wn0p63_wp1p26.sch
+.subckt inv_wn0p63_wp1p26 a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1.26 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.63 nf=1
+.ends
+
+
+* expanding   symbol:  inv_wp1p26.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inv_wp1p26.sym
+** sch_path: /foss/designs/sram/xschem/inv_wp1p26.sch
+.subckt inv_wp1p26 a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1.26 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1
+.ends
+
+
+* expanding   symbol:  inv_wn6p72_wp13p44.sym # of pins=4
+** sym_path: /foss/designs/sram/xschem/inv_wn6p72_wp13p44.sym
+** sch_path: /foss/designs/sram/xschem/inv_wn6p72_wp13p44.sch
+.subckt inv_wn6p72_wp13p44 a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=13.44 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=6.72 nf=1
+.ends
+

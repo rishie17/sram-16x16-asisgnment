@@ -1,0 +1,7 @@
+* NGSPICE file created from rw_sa.ext - technology: sky130A
+
+.subckt rw_sa A Y VDD GND
+X0 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.231 pd=1.94 as=0.231 ps=1.94 w=0.42 l=0.15
+X1 Y A VDD w_0_313# sky130_fd_pr__pfet_01v8 ad=0.693 pd=3.62 as=0.693 ps=3.62 w=1.26 l=0.15
+.ends
+

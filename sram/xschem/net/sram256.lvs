@@ -1,0 +1,87 @@
+
+Circuit 1 cell sky130_fd_pr__pfet_01v8 and Circuit 2 cell sky130_fd_pr__pfet_01v8 are black boxes.
+Warning: Equate pins:  cell sky130_fd_pr__pfet_01v8 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell sky130_fd_pr__pfet_01v8 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: sky130_fd_pr__pfet_01v8         |Circuit 2: sky130_fd_pr__pfet_01v8         
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes sky130_fd_pr__pfet_01v8 and sky130_fd_pr__pfet_01v8 are equivalent.
+
+Circuit 1 cell sky130_fd_pr__nfet_01v8 and Circuit 2 cell sky130_fd_pr__nfet_01v8 are black boxes.
+Warning: Equate pins:  cell sky130_fd_pr__nfet_01v8 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell sky130_fd_pr__nfet_01v8 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: sky130_fd_pr__nfet_01v8         |Circuit 2: sky130_fd_pr__nfet_01v8         
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes sky130_fd_pr__nfet_01v8 and sky130_fd_pr__nfet_01v8 are equivalent.
+Flattening unmatched subcell bondpad in circuit sram256 (0)(5 instances)
+Flattening unmatched subcell inbuf in circuit sram256 (0)(4 instances)
+Flattening unmatched subcell inv_wn0p84_wp1p68 in circuit sram256 (0)(55 instances)
+Flattening unmatched subcell inv_wn1p68_wp3p36 in circuit sram256 (0)(6 instances)
+Flattening unmatched subcell inv_wn3p36_wp6p72 in circuit sram256 (0)(1 instance)
+Flattening unmatched subcell inv_wn1p26_wp2p52 in circuit sram256 (0)(2 instances)
+Flattening unmatched subcell inv_wn2p52_wp5p04 in circuit sram256 (0)(2 instances)
+Flattening unmatched subcell inv in circuit sram256 (0)(8 instances)
+Flattening unmatched subcell nand2_wn1p68_wp1p68 in circuit sram256 (0)(1 instance)
+Flattening unmatched subcell dff in circuit sram256 (0)(11 instances)
+Flattening unmatched subcell inv in circuit sram256 (0)(55 instances)
+Flattening unmatched subcell inv_wn0p63_wp1p26 in circuit sram256 (0)(11 instances)
+Flattening unmatched subcell nand2 in circuit sram256 (0)(33 instances)
+Flattening unmatched subcell nand3 in circuit sram256 (0)(16 instances)
+Flattening unmatched subcell bitcell in circuit sram256 (0)(256 instances)
+Flattening unmatched subcell precharge in circuit sram256 (0)(16 instances)
+Flattening unmatched subcell colmux in circuit sram256 (0)(16 instances)
+Flattening unmatched subcell rwckt in circuit sram256 (0)(1 instance)
+Flattening unmatched subcell inv_wp1p26 in circuit sram256 (0)(1 instance)
+Flattening unmatched subcell outbuf in circuit sram256 (0)(1 instance)
+Flattening unmatched subcell inv in circuit sram256 (0)(1 instance)
+Flattening unmatched subcell inv_wn1p68_wp3p36 in circuit sram256 (0)(1 instance)
+Flattening unmatched subcell inv_wn6p72_wp13p44 in circuit sram256 (0)(1 instance)
+
+Class sram256 (0):  Merged 16 parallel devices.
+Class sram256 (1):  Merged 16 parallel devices.
+Subcircuit summary:
+Circuit 1: sram256                         |Circuit 2: sram256                         
+-------------------------------------------|-------------------------------------------
+r (6)                                      |r (6)                                      
+l (5)                                      |l (5)                                      
+c (5)                                      |c (5)                                      
+desd (10)                                  |desd (10)                                  
+sky130_fd_pr__pfet_01v8 (881->870)         |sky130_fd_pr__pfet_01v8 (881->870)         
+sky130_fd_pr__nfet_01v8 (1372->1367)       |sky130_fd_pr__nfet_01v8 (1372->1367)       
+Number of devices: 2263                    |Number of devices: 2263                    
+Number of nets: 851                        |Number of nets: 851                        
+---------------------------------------------------------------------------------------
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: sram256                         |Circuit 2: sram256                         
+-------------------------------------------|-------------------------------------------
+vdd                                        |vdd                                        
+vss                                        |vss                                        
+vddio                                      |vddio                                      
+DOUT                                       |DOUT                                       
+CLK                                        |CLK                                        
+DIN                                        |DIN                                        
+RW                                         |RW                                         
+ADDR                                       |ADDR                                       
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes sram256 and sram256 are equivalent.
+
+Final result: Circuits match uniquely.
+.

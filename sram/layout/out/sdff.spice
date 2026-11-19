@@ -1,0 +1,35 @@
+* NGSPICE file created from sdff.ext - technology: sky130A
+
+.subckt tg A B GN GP VDD GND w_0_481# VSUBS
+X0 B GN A VSUBS sky130_fd_pr__nfet_01v8 ad=0.4578 pd=3.02 as=0.2394 ps=1.98 w=0.42 l=0.15
+X1 B GP A w_0_481# sky130_fd_pr__pfet_01v8 ad=0.2394 pd=1.98 as=0.4578 ps=3.02 w=0.42 l=0.15
+.ends
+
+.subckt inv_s1 A Y VDD GND w_0_313# VSUBS
+X0 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.3465 pd=2.36 as=0.3465 ps=2.36 w=0.63 l=0.15
+X1 Y A VDD w_0_313# sky130_fd_pr__pfet_01v8 ad=0.693 pd=3.62 as=0.693 ps=3.62 w=1.26 l=0.15
+.ends
+
+.subckt inv_ff A Y VDD GND w_0_397# VSUBS
+X0 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.231 pd=1.94 as=0.231 ps=1.94 w=0.42 l=0.15
+X1 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.462 pd=2.78 as=0.462 ps=2.78 w=0.84 l=0.15
+.ends
+
+.subckt inv_s2 A Y VDD GND w_0_397# VSUBS
+X0 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.2688 pd=2.12 as=0.2688 ps=2.12 w=0.42 l=0.15
+X1 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.5376 pd=2.96 as=0.5376 ps=2.96 w=0.84 l=0.15
+.ends
+
+.subckt sdff D CLK Q QB VDD GND
+Xt1 D t2/B ci/Y t4/GP VDD GND t4/w_0_481# VSUBS tg
+Xs1 t4/B Q VDD GND t4/w_0_481# VSUBS inv_s1
+Xt2 t2/A t2/B t4/GP ci/Y VDD GND t4/w_0_481# VSUBS tg
+Xci CLK ci/Y VDD GND t4/w_0_481# VSUBS inv_ff
+Xs2 Q QB VDD GND t4/w_0_481# VSUBS inv_s2
+Xt3 t3/A t4/B t4/GP ci/Y VDD GND t4/w_0_481# VSUBS tg
+Xt4 QB t4/B ci/Y t4/GP VDD GND t4/w_0_481# VSUBS tg
+Xm1 t2/B t3/A VDD GND t4/w_0_481# VSUBS inv_ff
+Xm2 t3/A t2/A VDD GND t4/w_0_481# VSUBS inv_ff
+Xci2 ci/Y t4/GP VDD GND t4/w_0_481# VSUBS inv_ff
+.ends
+

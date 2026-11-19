@@ -1,0 +1,36 @@
+Warning: m=xx on .subckt line will override multiplier m hierarchy!
+
+
+Note: Compatibility modes selected: hs a
+
+
+Circuit: ** sch_path: /foss/designs/sram/xschem/tb_bitcell.sch
+
+option SCALE: Scale is set to 1e-06 for instance and model parameters
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+xcell.q                                    1.8
+xcell.qb                                     0
+vdd                                        1.8
+bl                                         1.8
+wl                                           0
+blb                                        1.8
+pcb                                          0
+w0                                           0
+w1                                           0
+vw1#branch                                   0
+vw0#branch                                   0
+vwl#branch                                   0
+vpcb#branch                                  0
+vvdd#branch                       -2.40314e-11
+
+ Reference value :  0.00000e+00 Reference value :  8.10500e-09
+No. of Data Rows : 1298
+Note: Simulation executed from .control section 

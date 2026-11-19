@@ -1,0 +1,7 @@
+* NGSPICE file created from c1p.ext - technology: sky130A
+
+.subckt c1p A B Y VDD GND Y_uq0
+X0 VDD A Y w_0_229# sky130_fd_pr__pfet_01v8 ad=0.6468 pd=2.45 as=0.924 ps=4.46 w=1.68 l=0.15
+X1 Y_uq0 B VDD w_0_229# sky130_fd_pr__pfet_01v8 ad=0.924 pd=4.46 as=0.6468 ps=2.45 w=1.68 l=0.15
+.ends
+

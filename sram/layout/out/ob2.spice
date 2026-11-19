@@ -1,0 +1,7 @@
+* NGSPICE file created from ob2.ext - technology: sky130A
+
+.subckt ob2 A Y VDD GND
+X0 Y A GND GND sky130_fd_pr__nfet_01v8 ad=0.7392 pd=4.24 as=0.7392 ps=4.24 w=1.68 l=0.15
+X1 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=1.4784 pd=7.6 as=1.4784 ps=7.6 w=3.36 l=0.15
+.ends
+

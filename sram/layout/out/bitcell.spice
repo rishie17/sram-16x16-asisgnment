@@ -1,0 +1,11 @@
+* NGSPICE file created from bitcell.ext - technology: sky130A
+
+.subckt bitcell BL BLB WL VDD GND Q QB
+X0 QB Q VDD VDD sky130_fd_pr__pfet_01v8 ad=0.1848 pd=1.72 as=0.1155 ps=0.97 w=0.42 l=0.15
+X1 VDD QB Q VDD sky130_fd_pr__pfet_01v8 ad=0.1155 pd=0.97 as=0.1848 ps=1.72 w=0.42 l=0.15
+X2 GND QB Q GND sky130_fd_pr__nfet_01v8 ad=0.17325 pd=1.18 as=0.14437 ps=1.18 w=0.63 l=0.15
+X3 Q WL BL GND sky130_fd_pr__nfet_01v8 ad=0.14437 pd=1.18 as=0.1848 ps=1.72 w=0.42 l=0.15
+X4 QB Q GND GND sky130_fd_pr__nfet_01v8 ad=0.14437 pd=1.18 as=0.17325 ps=1.18 w=0.63 l=0.15
+X5 BLB WL QB GND sky130_fd_pr__nfet_01v8 ad=0.1848 pd=1.72 as=0.14437 ps=1.18 w=0.42 l=0.15
+.ends
+

@@ -1,0 +1,36 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1794013109
+<< checkpaint >>
+rect -1260 -1296 5294 1970
+<< locali >>
+rect 322 261 356 295
+rect 906 267 940 301
+<< metal1 >>
+rect 173 631 207 665
+rect 3116 512 3150 546
+rect 3490 512 3524 546
+rect 173 -17 207 17
+use tap  t
+timestamp 1794013107
+transform 1 0 0 0 1 0
+box 0 -36 170 710
+use sdff  u
+timestamp 1794013107
+transform 1 0 170 0 1 0
+box 0 -36 3864 710
+<< labels >>
+rlabel locali 923 284 923 284 0 D
+port 1 nsew
+rlabel locali 339 278 339 278 0 CLK
+port 2 nsew
+rlabel metal1 3133 529 3133 529 0 Q
+port 3 nsew
+rlabel metal1 3507 529 3507 529 0 QB
+port 4 nsew
+rlabel metal1 190 648 190 648 0 VDD
+port 5 nsew
+rlabel metal1 190 0 190 0 0 GND
+port 6 nsew
+<< end >>

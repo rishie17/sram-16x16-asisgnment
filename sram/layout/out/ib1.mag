@@ -1,0 +1,110 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1794013107
+<< checkpaint >>
+rect -1260 -1296 1694 1970
+<< nwell >>
+rect 0 397 434 710
+<< nmos >>
+rect 132 47 162 131
+rect 272 47 302 131
+<< pmos >>
+rect 132 433 162 601
+rect 272 433 302 601
+<< ndiff >>
+rect 44 106 132 131
+rect 44 72 60 106
+rect 94 72 132 106
+rect 44 47 132 72
+rect 162 106 272 131
+rect 162 72 200 106
+rect 234 72 272 106
+rect 162 47 272 72
+rect 302 106 390 131
+rect 302 72 340 106
+rect 374 72 390 106
+rect 302 47 390 72
+<< pdiff >>
+rect 44 546 132 601
+rect 44 512 60 546
+rect 94 512 132 546
+rect 44 433 132 512
+rect 162 546 272 601
+rect 162 512 200 546
+rect 234 512 272 546
+rect 162 433 272 512
+rect 302 546 390 601
+rect 302 512 340 546
+rect 374 512 390 546
+rect 302 433 390 512
+<< ndiffc >>
+rect 60 72 94 106
+rect 200 72 234 106
+rect 340 72 374 106
+<< pdiffc >>
+rect 60 512 94 546
+rect 200 512 234 546
+rect 340 512 374 546
+<< poly >>
+rect 132 601 162 627
+rect 272 601 302 627
+rect 132 305 162 433
+rect 114 297 180 305
+rect 272 297 302 433
+rect 114 295 302 297
+rect 114 261 130 295
+rect 164 267 302 295
+rect 164 261 180 267
+rect 114 251 180 261
+rect 132 131 162 251
+rect 272 131 302 267
+rect 132 21 162 47
+rect 272 21 302 47
+<< polycont >>
+rect 130 261 164 295
+<< locali >>
+rect 60 546 94 631
+rect 60 494 94 512
+rect 200 546 234 564
+rect 130 295 164 311
+rect 130 245 164 261
+rect 60 106 94 124
+rect 60 17 94 72
+rect 200 106 234 512
+rect 340 546 374 631
+rect 340 494 374 512
+rect 200 54 234 72
+rect 340 106 374 124
+rect 340 17 374 72
+<< viali >>
+rect 60 631 94 665
+rect 340 631 374 665
+rect 200 512 234 546
+rect 60 -17 94 17
+rect 340 -17 374 17
+<< metal1 >>
+rect 0 665 434 684
+rect 0 631 60 665
+rect 94 631 340 665
+rect 374 631 434 665
+rect 0 612 434 631
+rect 185 546 249 561
+rect 185 512 200 546
+rect 234 512 249 546
+rect 185 497 249 512
+rect 0 17 434 36
+rect 0 -17 60 17
+rect 94 -17 340 17
+rect 374 -17 434 17
+rect 0 -36 434 -17
+<< labels >>
+rlabel polycont 147 278 147 278 0 A
+port 1 nsew
+rlabel viali 217 529 217 529 0 Y
+port 2 nsew
+rlabel metal1 20 648 20 648 0 VDD
+port 3 nsew
+rlabel metal1 20 0 20 0 0 GND
+port 4 nsew
+<< end >>

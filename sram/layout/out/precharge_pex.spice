@@ -1,0 +1,17 @@
+* NGSPICE file created from precharge.ext - technology: sky130A
+
+.subckt precharge PCB VDD BL BLB
+X0 BLB PCB BL VDD sky130_fd_pr__pfet_01v8 ad=0.6258 pd=3.82 as=0.6258 ps=3.82 w=0.42 l=0.15
+X1 BLB PCB VDD VDD sky130_fd_pr__pfet_01v8 ad=0.6636 pd=3.26 as=0.525 ps=2.09 w=0.84 l=0.15
+X2 VDD PCB BL VDD sky130_fd_pr__pfet_01v8 ad=0.525 pd=2.09 as=0.6636 ps=3.26 w=0.84 l=0.15
+C0 BLB VDD 0.15509f
+C1 BLB PCB 0.01257f
+C2 BLB BL 0.05502f
+C3 VDD PCB 0.33737f
+C4 VDD BL 0.1558f
+C5 PCB BL 0.01257f
+C6 BLB VSUBS 0.23591f
+C7 BL VSUBS 0.23591f
+C8 VDD VSUBS 1.4606f
+.ends
+

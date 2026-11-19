@@ -1,0 +1,77 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1794013107
+<< checkpaint >>
+rect -1260 -1296 1782 1970
+<< nwell >>
+rect 0 313 522 710
+<< pmos >>
+rect 154 349 184 601
+rect 338 349 368 601
+<< pdiff >>
+rect 44 492 154 601
+rect 44 458 60 492
+rect 94 458 154 492
+rect 44 349 154 458
+rect 184 492 338 601
+rect 184 458 244 492
+rect 278 458 338 492
+rect 184 349 338 458
+rect 368 492 478 601
+rect 368 458 428 492
+rect 462 458 478 492
+rect 368 349 478 458
+<< pdiffc >>
+rect 60 458 94 492
+rect 244 458 278 492
+rect 428 458 462 492
+<< poly >>
+rect 154 601 184 627
+rect 338 601 368 627
+rect 154 312 184 349
+rect 338 312 368 349
+rect 136 302 202 312
+rect 136 268 152 302
+rect 186 268 202 302
+rect 136 258 202 268
+rect 320 302 386 312
+rect 320 268 336 302
+rect 370 268 386 302
+rect 320 258 386 268
+<< polycont >>
+rect 152 268 186 302
+rect 336 268 370 302
+<< locali >>
+rect 60 492 94 510
+rect 60 440 94 458
+rect 244 492 278 631
+rect 244 440 278 458
+rect 428 492 462 510
+rect 428 440 462 458
+rect 152 302 186 318
+rect 152 252 186 268
+rect 336 302 370 318
+rect 336 252 370 268
+<< viali >>
+rect 244 631 278 665
+<< metal1 >>
+rect 0 665 522 684
+rect 0 631 244 665
+rect 278 631 522 665
+rect 0 612 522 631
+rect 0 -36 522 36
+<< labels >>
+rlabel polycont 169 285 169 285 0 PCB
+port 1 nsew
+rlabel polycont 353 285 353 285 0 PCB
+port 1 nsew
+rlabel pdiffc 77 475 77 475 0 DL
+port 2 nsew
+rlabel pdiffc 445 475 445 475 0 DLB
+port 3 nsew
+rlabel metal1 20 648 20 648 0 VDD
+port 4 nsew
+rlabel metal1 20 0 20 0 0 GND
+port 5 nsew
+<< end >>

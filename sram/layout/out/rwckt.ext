@@ -1,0 +1,151 @@
+timestamp 1794013107
+version 8.3
+tech sky130A
+style ngspice()
+scale 1000 1 500000
+resistclasses 4400000 2200000 950000 3050000 120000 197000 114000 191000 120000 197000 114000 191000 48200 319800 2000000 48200 48200 12800 125 125 47 47 29 5
+use rw_wr w 1 0 170 0 1 0
+use tap t3 1 0 2428 0 1 0
+use ptap t2 1 0 1060 0 1 0
+use ptap t 1 0 0 0 1 0
+use rw_sa s 1 0 2090 0 1 0
+use rw_pre p 1 0 1230 0 1 0
+use rw_eq e 1 0 1752 0 1 0
+port "GND" 9 20 0 20 0 m1
+port "RD" 3 2351 529 2351 529 m1
+port "VDD" 8 20 648 20 648 m1
+port "PCB" 7 1399 285 1399 285 v0
+port "DIN" 1 707 447 707 447 li
+port "DINB" 2 523 447 523 447 li
+port "WE" 6 339 447 339 447 v0
+port "DLB" 5 983 215 983 215 v0
+port "DL" 4 247 215 247 215 v0
+node "GND" 0 25.8586 20 0 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1156 136 0 0 0 0 0 0 0 0 0 0
+node "RD" 0 24.2471 2351 529 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1156 136 0 0 0 0 0 0 0 0 0 0
+node "VDD" 0 25.8586 20 648 m1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1156 136 0 0 0 0 0 0 0 0 0 0
+node "PCB" 131 350.986 1399 285 v0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3468 408 12288 768 29720 1588 39732 1336 0 0 0 0 0 0
+node "DIN" 13 19.3694 707 447 li 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1156 136 0 0 0 0 0 0 0 0 0 0 0 0
+node "DINB" 13 19.3694 523 447 li 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1156 136 0 0 0 0 0 0 0 0 0 0 0 0
+node "WE" 78 457.242 339 447 v0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2312 272 8192 512 25920 1568 41712 1396 0 0 0 0 0 0
+node "DLB" 132 643.903 983 215 v0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3468 408 12288 768 34324 1830 73260 2352 0 0 0 0 0 0
+node "DL" 188 1217.27 247 215 v0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4624 544 16384 1024 58888 3452 138072 4316 0 0 0 0 0 0
+node "w_2428_313#" 1272 64.77 2428 313 nw 0 0 0 0 21590 594 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+substrate "VSUBS" 0 0 -1073741817 -1073741817 space 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cap "DIN" "WE" 4.62276
+cap "DIN" "DL" 0.149959
+cap "WE" "PCB" 5.77443
+cap "WE" "DL" 217.248
+cap "DL" "PCB" 325.399
+cap "DLB" "w_2428_313#" 4.05194
+cap "DINB" "DIN" 2.43539
+cap "DINB" "WE" 4.62276
+cap "WE" "DLB" 70.4053
+cap "DLB" "PCB" 270.156
+cap "DINB" "DL" 0.149959
+cap "DLB" "DL" 246.201
+cap "GND" "VDD" 1.12651
+cap "DLB" "RD" 2.46123
+cap "WE" "w_2428_313#" 0.0178695
+cap "w_2428_313#" "PCB" 0.447339
+cap "w/DLB" "p/PCB" 5.61906
+cap "p/PCB" "w/DINB" 0.129965
+cap "w/DL" "w/GND" 127.283
+cap "w/DLB" "w/DL" 15.7581
+cap "w/WE" "w/a_184_47#" 24.6621
+cap "w/WE" "w/DIN" 8.2159
+cap "w/DL" "w/DINB" 3.49491
+cap "w/VDD" "w/WE" 31.2592
+cap "w/VDD" "w/a_184_47#" -1.00318
+cap "w/a_552_47#" "p/PCB" 1.69375
+cap "w/a_552_47#" "w/DL" 11.851
+cap "s/Y" "w/WE" 0.0476814
+cap "w/DL" "p/PCB" 8.32127
+cap "w/DIN" "w/GND" 0.039092
+cap "w/WE" "w/GND" 48.2904
+cap "w/VDD" "w/GND" -13.753
+cap "w/DLB" "w/WE" 10.1649
+cap "w/DLB" "w/a_184_47#" 2.40452
+cap "w/DLB" "w/DIN" 1.27334
+cap "w/DLB" "w/VDD" 21.7409
+cap "w/DIN" "w/DINB" -2.43539
+cap "w/WE" "w/DINB" 8.2159
+cap "w/DLB" "s/Y" 0.114261
+cap "w/WE" "w/a_552_47#" 24.6621
+cap "w/WE" "p/PCB" 1.11337
+cap "w/VDD" "w/a_552_47#" -1.00318
+cap "w/DIN" "p/PCB" 0.205685
+cap "w/a_184_47#" "p/PCB" 0.697465
+cap "w/WE" "w/DL" 19.8117
+cap "w/VDD" "p/PCB" 3.53795
+cap "w/a_184_47#" "w/DL" 15.2663
+cap "w/DIN" "w/DL" 3.00317
+cap "w/DLB" "w/GND" 12.0953
+cap "w/VDD" "w/DL" 31.195
+cap "w/GND" "w/DINB" 0.039092
+cap "w/DLB" "w/DINB" 0.839937
+cap "p/PCB" "w/GND" 4.29063
+cap "w/DLB" "w/a_552_47#" 5.44783
+cap "w/DL" "w/GND" 103.906
+cap "w/DL" "w/a_552_47#" 0.0214984
+cap "w/DL" "w/DIN" 0.00297545
+cap "w/DL" "w/WE" 0.159767
+cap "w/VDD" "s/Y" 22.4274
+cap "w/DL" "w/DLB" 17.19
+cap "p/PCB" "w/DL" 12.1854
+cap "w/GND" "s/Y" -0.642258
+cap "w/a_552_47#" "s/Y" 0.185078
+cap "w/VDD" "w/GND" -13.6946
+cap "w/WE" "s/Y" 0.0878493
+cap "s/Y" "w/DLB" 12.113
+cap "p/PCB" "w/DINB" 0.000925008
+cap "p/PCB" "s/Y" 6.53161
+cap "w/a_552_47#" "w/GND" 0.163142
+cap "w/VDD" "w/DLB" 130.823
+cap "w/VDD" "p/PCB" 58.3448
+cap "w/DIN" "w/GND" 0.0223562
+cap "w/WE" "w/GND" 0.0293197
+cap "w/GND" "w/DLB" 9.82561
+cap "p/PCB" "w/GND" 20.4682
+cap "p/PCB" "w/DIN" 0.00123326
+cap "w/DL" "s/Y" 18.0291
+cap "p/PCB" "w/WE" 0.192979
+cap "p/PCB" "w/DLB" 22.8983
+cap "w/VDD" "w/DL" 69.0843
+merge "e/VDD" "p/VDD" -397.048 0 0 0 0 -3400 -2142 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1156 -1000 0 0 0 0 0 0 0 0 0 0
+merge "p/VDD" "t/VDD"
+merge "t/VDD" "VDD"
+merge "VDD" "t2/VDD"
+merge "t2/VDD" "w/VDD"
+merge "w/VDD" "e/w_0_468#"
+merge "e/w_0_468#" "p/w_0_313#"
+merge "p/w_0_313#" "s/VDD"
+merge "s/VDD" "s/w_0_313#"
+merge "s/w_0_313#" "t3/VDD"
+merge "t3/VDD" "w_2428_313#"
+merge "e/VSUBS" "e/GND" -251.978 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1156 -1000 0 0 0 0 0 0 0 0 0 0
+merge "e/GND" "p/VSUBS"
+merge "p/VSUBS" "p/GND"
+merge "p/GND" "s/VSUBS"
+merge "s/VSUBS" "s/GND"
+merge "s/GND" "t/GND"
+merge "t/GND" "GND"
+merge "GND" "t2/GND"
+merge "t2/GND" "w/GND"
+merge "w/GND" "t3/GND"
+merge "t3/GND" "w/VSUBS"
+merge "w/VSUBS" "VSUBS"
+merge "e/PCB" "p/PCB_uq0" -227.335 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -3468 -408 0 0 0 0 0 0 0 0 0 0 0 0
+merge "p/PCB_uq0" "p/PCB"
+merge "p/PCB" "PCB"
+merge "e/DL" "p/DL" -412.027 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -4624 -544 0 0 0 0 0 0 0 0 0 0 0 0
+merge "p/DL" "s/A"
+merge "s/A" "w/DL"
+merge "w/DL" "DL"
+merge "w/DINB" "DINB" -19.3694 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1156 -136 0 0 0 0 0 0 0 0 0 0 0 0
+merge "w/DIN" "DIN" -19.3694 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1156 -136 0 0 0 0 0 0 0 0 0 0 0 0
+merge "e/DLB" "p/DLB" -321.585 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -3468 -408 0 0 0 0 0 0 0 0 0 0 0 0
+merge "p/DLB" "w/DLB"
+merge "w/DLB" "DLB"
+merge "w/WE_uq0" "w/WE" -213.01 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2312 -272 0 0 0 0 0 0 0 0 0 0 0 0
+merge "w/WE" "WE"
+merge "s/Y" "RD" -64.6928 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1156 -136 0 0 0 0 0 0 0 0 0 0

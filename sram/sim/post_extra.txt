@@ -1,0 +1,2 @@
+['i(vdd) = -3.81956e-07', 'i(vddio) = -9.99176e-08']
+{"rise_delay_ps_from_pin": {"ckr": 240.0, "clk_ff": 425.0, "clkb": 440.0}}

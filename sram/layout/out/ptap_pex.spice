@@ -1,0 +1,6 @@
+* NGSPICE file created from ptap.ext - technology: sky130A
+
+.subckt ptap VDD GND
+C0 VDD GND 0.09909f
+.ends
+

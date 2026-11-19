@@ -1,0 +1,14 @@
+** sch_path: /foss/designs/sram/xschem/bondpad.sch
+.subckt bondpad ext pad vddio vss
+*.PININFO ext:B pad:B vddio:B vss:B
+Rbw ext n1 0.2
+Lbw n1 pad 2n
+Cpad pad vss 1p
+D1 pad vddio desd area=1
+D2 vss pad desd area=1
+**** begin user architecture code
+
+.model desd D(is=1e-14 cjo=0.2p rs=2)
+
+**** end user architecture code
+.ends

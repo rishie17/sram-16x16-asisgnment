@@ -1,0 +1,30 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1794013109
+<< checkpaint >>
+rect -1260 -1296 1864 1970
+<< locali >>
+rect 300 261 334 295
+<< metal1 >>
+rect 173 631 207 665
+rect 370 512 404 546
+rect 173 -17 207 17
+use tap  t
+timestamp 1794013107
+transform 1 0 0 0 1 0
+box 0 -36 170 710
+use ib1  u
+timestamp 1794013107
+transform 1 0 170 0 1 0
+box 0 -36 434 710
+<< labels >>
+rlabel locali 317 278 317 278 0 A
+port 1 nsew
+rlabel metal1 387 529 387 529 0 Y
+port 2 nsew
+rlabel metal1 190 648 190 648 0 VDD
+port 3 nsew
+rlabel metal1 190 0 190 0 0 GND
+port 4 nsew
+<< end >>

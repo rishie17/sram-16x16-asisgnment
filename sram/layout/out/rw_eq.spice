@@ -1,0 +1,6 @@
+* NGSPICE file created from rw_eq.ext - technology: sky130A
+
+.subckt rw_eq PCB DL DLB VDD GND
+X0 DLB PCB DL w_0_468# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.94 as=0.231 ps=1.94 w=0.42 l=0.15
+.ends
+

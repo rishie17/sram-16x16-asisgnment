@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/foss/designs/sram/gen/post.py", line 69, in <module>
+    if __name__ == "__main__": main()
+                               ^^^^^^
+  File "/foss/designs/sram/gen/post.py", line 63, in main
+    D = rc.load(os.path.join(SIM, f"{tag}.dat"))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/foss/designs/sram/gen/run_check.py", line 32, in load
+    with open(dat) as f:
+         ^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/foss/designs/sram/sim/pc_ff_fmax_1.6.dat'

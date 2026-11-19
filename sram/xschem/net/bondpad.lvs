@@ -1,0 +1,26 @@
+
+Subcircuit summary:
+Circuit 1: bondpad                         |Circuit 2: bondpad                         
+-------------------------------------------|-------------------------------------------
+r (1)                                      |r (1)                                      
+l (1)                                      |l (1)                                      
+c (1)                                      |c (1)                                      
+desd (2)                                   |desd (2)                                   
+Number of devices: 5                       |Number of devices: 5                       
+Number of nets: 5                          |Number of nets: 5                          
+---------------------------------------------------------------------------------------
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: bondpad                         |Circuit 2: bondpad                         
+-------------------------------------------|-------------------------------------------
+pad                                        |pad                                        
+vss                                        |vss                                        
+ext                                        |ext                                        
+vddio                                      |vddio                                      
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes bondpad and bondpad are equivalent.
+
+Final result: Circuits match uniquely.
+.

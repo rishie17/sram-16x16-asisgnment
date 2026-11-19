@@ -1,0 +1,23 @@
+* NGSPICE file created from csdrv.ext - technology: sky130A
+
+.subckt csdrv A Y VDD GND
+X0 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.231 pd=1.94 as=0.1617 ps=1.19 w=0.42 l=0.15
+X1 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.1617 pd=1.19 as=0.231 ps=1.94 w=0.42 l=0.15
+X2 VDD A Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.462 pd=2.78 as=0.3234 ps=1.61 w=0.84 l=0.15
+X3 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.3234 pd=1.61 as=0.462 ps=2.78 w=0.84 l=0.15
+C0 Y GND 0.04022f
+C1 A Y 0.066f
+C2 Y VDD 0.0613f
+C3 Y w_0_397# 0.01664f
+C4 A GND 0.02505f
+C5 GND VDD 0.02533f
+C6 A VDD 0.02613f
+C7 GND w_0_397# 0.00551f
+C8 A w_0_397# 0.07896f
+C9 w_0_397# VDD 0.06891f
+C10 GND VSUBS 0.50572f
+C11 Y VSUBS 0.37296f
+C12 VDD VSUBS 0.22445f
+C13 w_0_397# VSUBS 0.49016f
+.ends
+

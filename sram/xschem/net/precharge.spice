@@ -1,0 +1,7 @@
+** sch_path: /foss/designs/sram/xschem/precharge.sch
+.subckt precharge bl blb pcb vdd
+*.PININFO bl:B blb:B pcb:B vdd:B
+XMP1 bl pcb vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1
+XMP2 blb pcb vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1
+XMP3 bl pcb blb vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.42 nf=1
+.ends

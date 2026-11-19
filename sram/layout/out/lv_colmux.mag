@@ -1,0 +1,39 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1794013109
+<< checkpaint >>
+rect -1260 1570 1430 1970
+rect -1260 -1260 2083 1570
+rect -1260 -1296 1430 -1260
+<< locali >>
+rect 493 242 527 276
+<< metal1 >>
+rect 353 127 387 161
+rect 633 127 667 161
+rect 3 -17 37 17
+<< metal2 >>
+rect 213 243 247 277
+rect 773 243 807 277
+use tap  t
+timestamp 1794013107
+transform 1 0 0 0 1 0
+box 0 -36 170 710
+use colmux  u
+timestamp 1794013107
+transform 1 0 230 0 1 0
+box -33 0 593 310
+<< labels >>
+rlabel metal2 230 260 230 260 0 BL
+port 1 nsew
+rlabel metal1 370 144 370 144 0 DL
+port 2 nsew
+rlabel metal2 790 260 790 260 0 BLB
+port 3 nsew
+rlabel metal1 650 144 650 144 0 DLB
+port 4 nsew
+rlabel locali 510 259 510 259 0 CSEL
+port 5 nsew
+rlabel metal1 20 0 20 0 0 GND
+port 6 nsew
+<< end >>

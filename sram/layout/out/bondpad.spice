@@ -1,0 +1,5 @@
+* NGSPICE file created from bondpad.ext - technology: sky130A
+
+.subckt bondpad PAD
+.ends
+

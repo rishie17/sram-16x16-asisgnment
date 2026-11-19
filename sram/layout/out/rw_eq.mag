@@ -1,0 +1,53 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1794013107
+<< checkpaint >>
+rect -1260 -1296 1598 1970
+<< nwell >>
+rect 0 468 338 710
+<< pmos >>
+rect 154 517 184 601
+<< pdiff >>
+rect 44 576 154 601
+rect 44 542 60 576
+rect 94 542 154 576
+rect 44 517 154 542
+rect 184 576 294 601
+rect 184 542 244 576
+rect 278 542 294 576
+rect 184 517 294 542
+<< pdiffc >>
+rect 60 542 94 576
+rect 244 542 278 576
+<< poly >>
+rect 154 601 184 627
+rect 154 480 184 517
+rect 136 470 202 480
+rect 136 436 152 470
+rect 186 436 202 470
+rect 136 426 202 436
+<< polycont >>
+rect 152 436 186 470
+<< locali >>
+rect 60 576 94 594
+rect 60 505 94 542
+rect 244 576 278 594
+rect 244 505 278 542
+rect 152 470 186 486
+rect 152 420 186 436
+<< metal1 >>
+rect 0 612 338 684
+rect 0 -36 338 36
+<< labels >>
+rlabel polycont 169 453 169 453 0 PCB
+port 1 nsew
+rlabel locali 77 540 77 540 0 DL
+port 2 nsew
+rlabel locali 261 540 261 540 0 DLB
+port 3 nsew
+rlabel metal1 20 648 20 648 0 VDD
+port 4 nsew
+rlabel metal1 20 0 20 0 0 GND
+port 5 nsew
+<< end >>

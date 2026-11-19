@@ -1,0 +1,7 @@
+* NGSPICE file created from esd.ext - technology: sky130A
+
+.subckt esd PAD GND VDDIO
+X0 PAD VDDIO sky130_fd_pr__diode_pd2nw_05v5 perim=1.6e+07 area=1.6e+13
+X1 GND PAD sky130_fd_pr__diode_pw2nd_05v5 perim=1.6e+07 area=1.6e+13
+.ends
+

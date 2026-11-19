@@ -1,0 +1,7 @@
+* NGSPICE file created from tg.ext - technology: sky130A
+
+.subckt tg A B GN GP VDD GND
+X0 B GN A VSUBS sky130_fd_pr__nfet_01v8 ad=0.4578 pd=3.02 as=0.2394 ps=1.98 w=0.42 l=0.15
+X1 B GP A w_0_481# sky130_fd_pr__pfet_01v8 ad=0.2394 pd=1.98 as=0.4578 ps=3.02 w=0.42 l=0.15
+.ends
+

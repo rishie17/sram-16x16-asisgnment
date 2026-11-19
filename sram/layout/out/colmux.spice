@@ -1,0 +1,7 @@
+* NGSPICE file created from colmux.ext - technology: sky130A
+
+.subckt colmux BL DL BLB DLB CSEL
+X0 DL CSEL BL VSUBS sky130_fd_pr__nfet_01v8 ad=0.3696 pd=2.56 as=0.3696 ps=2.56 w=0.84 l=0.15
+X1 BLB CSEL DLB VSUBS sky130_fd_pr__nfet_01v8 ad=0.3696 pd=2.56 as=0.3696 ps=2.56 w=0.84 l=0.15
+.ends
+

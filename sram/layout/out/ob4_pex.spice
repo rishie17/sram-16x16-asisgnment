@@ -1,0 +1,19 @@
+* NGSPICE file created from ob4.ext - technology: sky130A
+
+.subckt ob4 A Y VDD GND
+X0 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.52038 pd=9.715 as=2.52038 ps=9.715 w=9.165 l=0.15
+X1 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.52038 pd=9.715 as=2.52038 ps=9.715 w=9.165 l=0.15
+X2 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.475 pd=9.55 as=3.96 ps=18.88 w=9 l=0.15
+X3 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.52038 pd=9.715 as=2.52038 ps=9.715 w=9.165 l=0.15
+X4 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.52038 pd=9.715 as=4.0326 ps=19.21 w=9.165 l=0.15
+X5 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.52038 pd=9.715 as=2.52038 ps=9.715 w=9.165 l=0.15
+X6 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=4.0326 pd=19.21 as=2.52038 ps=9.715 w=9.165 l=0.15
+X7 Y A GND GND sky130_fd_pr__nfet_01v8 ad=3.96 pd=18.88 as=2.475 ps=9.55 w=9 l=0.15
+X8 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.475 pd=9.55 as=2.475 ps=9.55 w=9 l=0.15
+C0 VDD A 0.96283f
+C1 Y A 1.15785f
+C2 Y VDD 4.18992f
+C3 Y GND 3.38064f
+C4 VDD GND 7.35149f
+.ends
+

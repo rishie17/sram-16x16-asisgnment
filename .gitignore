@@ -1,8 +1,1 @@
-*.dat
-*.raw
-*.log
-sram/sim/
-sram/layout/out/
 __pycache__/
-sram/xschem/net/
-sram_stage2.zip

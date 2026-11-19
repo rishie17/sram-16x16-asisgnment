@@ -1,0 +1,6 @@
+** sch_path: /foss/designs/sram/xschem/inv.sch
+.subckt inv a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=0.84 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.42 nf=1
+.ends

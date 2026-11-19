@@ -1,0 +1,25 @@
+* NGSPICE file created from ib2.ext - technology: sky130A
+
+.subckt ib2 A Y VDD GND
+X0 Y A VDD w_0_341# sky130_fd_pr__pfet_01v8 ad=0.308 pd=1.67 as=0.4928 ps=3.12 w=1.12 l=0.15
+X1 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.154 pd=1.11 as=0.154 ps=1.11 w=0.56 l=0.15
+X2 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.2464 pd=2 as=0.154 ps=1.11 w=0.56 l=0.15
+X3 Y A VDD w_0_341# sky130_fd_pr__pfet_01v8 ad=0.4928 pd=3.12 as=0.308 ps=1.67 w=1.12 l=0.15
+X4 VDD A Y w_0_341# sky130_fd_pr__pfet_01v8 ad=0.308 pd=1.67 as=0.308 ps=1.67 w=1.12 l=0.15
+X5 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.154 pd=1.11 as=0.2464 ps=2 w=0.56 l=0.15
+C0 GND A 0.03955f
+C1 w_0_341# VDD 0.0696f
+C2 VDD A 0.0323f
+C3 Y w_0_341# 0.02983f
+C4 Y A 0.12555f
+C5 w_0_341# A 0.11912f
+C6 GND VDD 0.01808f
+C7 GND Y 0.08294f
+C8 GND w_0_341# 0.00662f
+C9 Y VDD 0.17724f
+C10 GND VSUBS 0.2632f
+C11 Y VSUBS 0.45334f
+C12 VDD VSUBS 0.43414f
+C13 w_0_341# VSUBS 0.63542f
+.ends
+

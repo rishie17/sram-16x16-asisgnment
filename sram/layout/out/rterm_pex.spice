@@ -1,0 +1,9 @@
+* NGSPICE file created from rterm.ext - technology: sky130A
+
+.subckt rterm A B
+X0 A B sky130_fd_pr__res_generic_po w=8.2 l=3.4
+C0 A B 0.08155f
+C1 B VSUBS 2.6978f
+C2 A VSUBS 2.6978f
+.ends
+

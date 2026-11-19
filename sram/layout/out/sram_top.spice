@@ -1,0 +1,829 @@
+* NGSPICE file created from sram_top.ext - technology: sky130A
+
+.subckt esd PAD GND VDDIO
+X0 PAD VDDIO sky130_fd_pr__diode_pd2nw_05v5 perim=1.6e+07 area=1.6e+13
+X1 GND PAD sky130_fd_pr__diode_pw2nd_05v5 perim=1.6e+07 area=1.6e+13
+.ends
+
+.subckt ib2 A Y VDD GND w_0_341# VSUBS
+X0 Y A VDD w_0_341# sky130_fd_pr__pfet_01v8 ad=0.308 pd=1.67 as=0.4928 ps=3.12 w=1.12 l=0.15
+X1 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.154 pd=1.11 as=0.154 ps=1.11 w=0.56 l=0.15
+X2 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.2464 pd=2 as=0.154 ps=1.11 w=0.56 l=0.15
+X3 Y A VDD w_0_341# sky130_fd_pr__pfet_01v8 ad=0.4928 pd=3.12 as=0.308 ps=1.67 w=1.12 l=0.15
+X4 VDD A Y w_0_341# sky130_fd_pr__pfet_01v8 ad=0.308 pd=1.67 as=0.308 ps=1.67 w=1.12 l=0.15
+X5 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.154 pd=1.11 as=0.2464 ps=2 w=0.56 l=0.15
+.ends
+
+.subckt wldrv A Y VDD GND w_0_397# VSUBS
+X0 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.1848 pd=1.72 as=0.1155 ps=0.97 w=0.42 l=0.15
+X1 VDD A Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.3696 pd=2.56 as=0.231 ps=1.39 w=0.84 l=0.15
+X2 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.3696 ps=2.56 w=0.84 l=0.15
+X3 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.1155 pd=0.97 as=0.1848 ps=1.72 w=0.42 l=0.15
+.ends
+
+.subckt tg A B GN GP VDD GND w_0_481# VSUBS
+X0 B GN A VSUBS sky130_fd_pr__nfet_01v8 ad=0.4578 pd=3.02 as=0.2394 ps=1.98 w=0.42 l=0.15
+X1 B GP A w_0_481# sky130_fd_pr__pfet_01v8 ad=0.2394 pd=1.98 as=0.4578 ps=3.02 w=0.42 l=0.15
+.ends
+
+.subckt inv_s1 A Y VDD GND w_0_313# VSUBS
+X0 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.3465 pd=2.36 as=0.3465 ps=2.36 w=0.63 l=0.15
+X1 Y A VDD w_0_313# sky130_fd_pr__pfet_01v8 ad=0.693 pd=3.62 as=0.693 ps=3.62 w=1.26 l=0.15
+.ends
+
+.subckt inv_ff A Y VDD GND w_0_397# VSUBS
+X0 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.231 pd=1.94 as=0.231 ps=1.94 w=0.42 l=0.15
+X1 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.462 pd=2.78 as=0.462 ps=2.78 w=0.84 l=0.15
+.ends
+
+.subckt inv_s2 A Y VDD GND w_0_397# VSUBS
+X0 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.2688 pd=2.12 as=0.2688 ps=2.12 w=0.42 l=0.15
+X1 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.5376 pd=2.96 as=0.5376 ps=2.96 w=0.84 l=0.15
+.ends
+
+.subckt sdff D CLK Q QB t4/w_0_481# GND VSUBS VDD
+Xt1 D t2/B ci/Y t4/GP VDD GND t4/w_0_481# VSUBS tg
+Xs1 t4/B Q VDD GND t4/w_0_481# VSUBS inv_s1
+Xt2 t2/A t2/B t4/GP ci/Y VDD GND t4/w_0_481# VSUBS tg
+Xci CLK ci/Y VDD GND t4/w_0_481# VSUBS inv_ff
+Xs2 Q QB VDD GND t4/w_0_481# VSUBS inv_s2
+Xt3 t3/A t4/B t4/GP ci/Y VDD GND t4/w_0_481# VSUBS tg
+Xt4 QB t4/B ci/Y t4/GP VDD GND t4/w_0_481# VSUBS tg
+Xm1 t2/B t3/A VDD GND t4/w_0_481# VSUBS inv_ff
+Xm2 t3/A t2/A VDD GND t4/w_0_481# VSUBS inv_ff
+Xci2 ci/Y t4/GP VDD GND t4/w_0_481# VSUBS inv_ff
+.ends
+
+.subckt nand2 A B Y VDD GND w_0_397# VSUBS
+X0 GND B a_162_47# VSUBS sky130_fd_pr__nfet_01v8 ad=0.3696 pd=2.56 as=0.231 ps=1.39 w=0.84 l=0.15
+X1 Y B VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.3696 pd=2.56 as=0.231 ps=1.39 w=0.84 l=0.15
+X2 VDD A Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.3696 ps=2.56 w=0.84 l=0.15
+X3 a_162_47# A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.231 pd=1.39 as=0.3696 ps=2.56 w=0.84 l=0.15
+.ends
+
+.subckt ob1 A Y VDD GND
+X0 Y A GND GND sky130_fd_pr__nfet_01v8 ad=0.1848 pd=1.72 as=0.1848 ps=1.72 w=0.42 l=0.15
+X1 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=0.3696 pd=2.56 as=0.3696 ps=2.56 w=0.84 l=0.15
+.ends
+
+.subckt rw_pre PCB DL DLB VDD GND PCB_uq0 w_0_313#
+X0 DLB PCB_uq0 VDD w_0_313# sky130_fd_pr__pfet_01v8 ad=0.693 pd=3.62 as=0.4851 ps=2.03 w=1.26 l=0.15
+X1 VDD PCB DL w_0_313# sky130_fd_pr__pfet_01v8 ad=0.4851 pd=2.03 as=0.693 ps=3.62 w=1.26 l=0.15
+.ends
+
+.subckt rw_sa A Y VDD GND w_0_313# VSUBS
+X0 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.231 pd=1.94 as=0.231 ps=1.94 w=0.42 l=0.15
+X1 Y A VDD w_0_313# sky130_fd_pr__pfet_01v8 ad=0.693 pd=3.62 as=0.693 ps=3.62 w=1.26 l=0.15
+.ends
+
+.subckt rw_wr WE DINB DIN DL DLB VDD GND WE_uq0 VSUBS
+X0 GND DINB a_184_47# VSUBS sky130_fd_pr__nfet_01v8 ad=0.6468 pd=2.45 as=0.6468 ps=2.45 w=1.68 l=0.15
+X1 a_184_47# WE DL VSUBS sky130_fd_pr__nfet_01v8 ad=0.6468 pd=2.45 as=0.924 ps=4.46 w=1.68 l=0.15
+X2 a_552_47# DIN GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.6468 pd=2.45 as=0.6468 ps=2.45 w=1.68 l=0.15
+X3 DLB WE_uq0 a_552_47# VSUBS sky130_fd_pr__nfet_01v8 ad=0.924 pd=4.46 as=0.6468 ps=2.45 w=1.68 l=0.15
+.ends
+
+.subckt rw_eq PCB DL DLB VDD GND w_0_468#
+X0 DLB PCB DL w_0_468# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.94 as=0.231 ps=1.94 w=0.42 l=0.15
+.ends
+
+.subckt rwckt DIN DINB RD DL DLB WE PCB VDD GND
+Xp PCB DL DLB VDD GND PCB VDD rw_pre
+Xs DL RD VDD GND VDD GND rw_sa
+Xw WE DINB DIN DL DLB VDD GND WE GND rw_wr
+Xe PCB DL DLB VDD GND VDD rw_eq
+.ends
+
+.subckt ob2 A Y VDD GND
+X0 Y A GND GND sky130_fd_pr__nfet_01v8 ad=0.7392 pd=4.24 as=0.7392 ps=4.24 w=1.68 l=0.15
+X1 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=1.4784 pd=7.6 as=1.4784 ps=7.6 w=3.36 l=0.15
+.ends
+
+.subckt ob3 A Y VDD GND
+X0 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.9568 pd=14.32 as=2.9568 ps=14.32 w=6.72 l=0.15
+X1 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=5.9136 pd=27.76 as=5.9136 ps=27.76 w=13.44 l=0.15
+.ends
+
+.subckt ib1 A Y VDD GND w_0_397# VSUBS
+X0 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.1848 pd=1.72 as=0.1155 ps=0.97 w=0.42 l=0.15
+X1 VDD A Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.3696 pd=2.56 as=0.231 ps=1.39 w=0.84 l=0.15
+X2 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.3696 ps=2.56 w=0.84 l=0.15
+X3 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.1155 pd=0.97 as=0.1848 ps=1.72 w=0.42 l=0.15
+.ends
+
+.subckt ob4 A Y VDD GND
+X0 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.52038 pd=9.715 as=2.52038 ps=9.715 w=9.165 l=0.15
+X1 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.52038 pd=9.715 as=2.52038 ps=9.715 w=9.165 l=0.15
+X2 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.475 pd=9.55 as=3.96 ps=18.88 w=9 l=0.15
+X3 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.52038 pd=9.715 as=2.52038 ps=9.715 w=9.165 l=0.15
+X4 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.52038 pd=9.715 as=4.0326 ps=19.21 w=9.165 l=0.15
+X5 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.52038 pd=9.715 as=2.52038 ps=9.715 w=9.165 l=0.15
+X6 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=4.0326 pd=19.21 as=2.52038 ps=9.715 w=9.165 l=0.15
+X7 Y A GND GND sky130_fd_pr__nfet_01v8 ad=3.96 pd=18.88 as=2.475 ps=9.55 w=9 l=0.15
+X8 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.475 pd=9.55 as=2.475 ps=9.55 w=9 l=0.15
+.ends
+
+.subckt ix6 A Y VDD GND w_0_341# VSUBS
+X0 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.2464 pd=2 as=0.154 ps=1.11 w=0.56 l=0.15
+X1 VDD A Y w_0_341# sky130_fd_pr__pfet_01v8 ad=0.4928 pd=3.12 as=0.308 ps=1.67 w=1.12 l=0.15
+X2 Y A VDD w_0_341# sky130_fd_pr__pfet_01v8 ad=0.308 pd=1.67 as=0.308 ps=1.67 w=1.12 l=0.15
+X3 Y A VDD w_0_341# sky130_fd_pr__pfet_01v8 ad=0.308 pd=1.67 as=0.4928 ps=3.12 w=1.12 l=0.15
+X4 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.154 pd=1.11 as=0.154 ps=1.11 w=0.56 l=0.15
+X5 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.154 pd=1.11 as=0.154 ps=1.11 w=0.56 l=0.15
+X6 VDD A Y w_0_341# sky130_fd_pr__pfet_01v8 ad=0.308 pd=1.67 as=0.308 ps=1.67 w=1.12 l=0.15
+X7 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.154 pd=1.11 as=0.154 ps=1.11 w=0.56 l=0.15
+X8 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.154 pd=1.11 as=0.154 ps=1.11 w=0.56 l=0.15
+X9 Y A VDD w_0_341# sky130_fd_pr__pfet_01v8 ad=0.308 pd=1.67 as=0.308 ps=1.67 w=1.12 l=0.15
+X10 VDD A Y w_0_341# sky130_fd_pr__pfet_01v8 ad=0.308 pd=1.67 as=0.308 ps=1.67 w=1.12 l=0.15
+X11 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.154 pd=1.11 as=0.2464 ps=2 w=0.56 l=0.15
+.ends
+
+.subckt ob5 A Y VDD GND
+X0 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X1 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X2 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X3 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.7005 pd=10.37 as=2.7005 ps=10.37 w=9.82 l=0.15
+X4 Y A GND GND sky130_fd_pr__nfet_01v8 ad=4.3208 pd=20.52 as=2.7005 ps=10.37 w=9.82 l=0.15
+X5 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X6 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.7005 pd=10.37 as=2.7005 ps=10.37 w=9.82 l=0.15
+X7 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.7005 pd=10.37 as=2.7005 ps=10.37 w=9.82 l=0.15
+X8 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X9 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.7005 pd=10.37 as=4.3208 ps=20.52 w=9.82 l=0.15
+X10 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X11 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X12 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X13 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X14 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=4.2988 ps=20.42 w=9.77 l=0.15
+X15 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X16 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X17 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.7005 pd=10.37 as=2.7005 ps=10.37 w=9.82 l=0.15
+X18 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.7005 pd=10.37 as=2.7005 ps=10.37 w=9.82 l=0.15
+X19 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X20 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X21 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X22 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X23 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X24 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X25 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X26 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.7005 pd=10.37 as=2.7005 ps=10.37 w=9.82 l=0.15
+X27 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.7005 pd=10.37 as=2.7005 ps=10.37 w=9.82 l=0.15
+X28 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.7005 pd=10.37 as=2.7005 ps=10.37 w=9.82 l=0.15
+X29 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=4.2988 pd=20.42 as=2.68675 ps=10.32 w=9.77 l=0.15
+X30 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.7005 pd=10.37 as=2.7005 ps=10.37 w=9.82 l=0.15
+X31 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+X32 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.68675 pd=10.32 as=2.68675 ps=10.32 w=9.77 l=0.15
+.ends
+
+.subckt ob6 A Y VDD GND
+X0 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X1 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X2 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X3 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X4 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X5 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X6 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X7 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X8 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X9 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X10 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X11 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X12 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X13 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X14 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X15 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X16 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X17 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X18 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X19 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X20 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X21 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X22 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X23 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X24 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X25 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X26 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X27 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X28 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X29 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X30 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X31 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X32 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=4.4 ps=20.88 w=10 l=0.15
+X33 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X34 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X35 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X36 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X37 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X38 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X39 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X40 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X41 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X42 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X43 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X44 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X45 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X46 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X47 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X48 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X49 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X50 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X51 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X52 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X53 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X54 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X55 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X56 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X57 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X58 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X59 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X60 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X61 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X62 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X63 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X64 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X65 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X66 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X67 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X68 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X69 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=4.4 pd=20.88 as=2.75 ps=10.55 w=10 l=0.15
+X70 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X71 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X72 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X73 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X74 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X75 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X76 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X77 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X78 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X79 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X80 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X81 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X82 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X83 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X84 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X85 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X86 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X87 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X88 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X89 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X90 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X91 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X92 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X93 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X94 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X95 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X96 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X97 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X98 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X99 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X100 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X101 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X102 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X103 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X104 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X105 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X106 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X107 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X108 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X109 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X110 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X111 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X112 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X113 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X114 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X115 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X116 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X117 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X118 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X119 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X120 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=4.4 ps=20.88 w=10 l=0.15
+X121 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X122 Y A GND GND sky130_fd_pr__nfet_01v8 ad=4.4 pd=20.88 as=2.75 ps=10.55 w=10 l=0.15
+X123 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X124 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X125 VDD A Y VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X126 Y A VDD VDD sky130_fd_pr__pfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X127 Y A GND GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+X128 GND A Y GND sky130_fd_pr__nfet_01v8 ad=2.75 pd=10.55 as=2.75 ps=10.55 w=10 l=0.15
+.ends
+
+.subckt c1n A B Y VDD GND VSUBS
+X0 GND B a_184_47# VSUBS sky130_fd_pr__nfet_01v8 ad=0.924 pd=4.46 as=0.6468 ps=2.45 w=1.68 l=0.15
+X1 a_184_47# A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.6468 pd=2.45 as=0.924 ps=4.46 w=1.68 l=0.15
+.ends
+
+.subckt c1p A B Y VDD GND Y_uq0 w_0_229#
+X0 VDD A Y w_0_229# sky130_fd_pr__pfet_01v8 ad=0.6468 pd=2.45 as=0.924 ps=4.46 w=1.68 l=0.15
+X1 Y_uq0 B VDD w_0_229# sky130_fd_pr__pfet_01v8 ad=0.924 pd=4.46 as=0.6468 ps=2.45 w=1.68 l=0.15
+.ends
+
+.subckt inv A Y VDD GND w_0_397# VSUBS
+X0 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.3696 pd=2.56 as=0.3696 ps=2.56 w=0.84 l=0.15
+X1 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.1848 pd=1.72 as=0.1848 ps=1.72 w=0.42 l=0.15
+.ends
+
+.subckt ix3s A Y VDD GND w_0_397# VSUBS
+X0 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.1155 pd=0.97 as=0.1155 ps=0.97 w=0.42 l=0.15
+X1 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.3696 pd=2.56 as=0.231 ps=1.39 w=0.84 l=0.15
+X2 VDD A Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.231 ps=1.39 w=0.84 l=0.15
+X3 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.3696 ps=2.56 w=0.84 l=0.15
+X4 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.1848 pd=1.72 as=0.1155 ps=0.97 w=0.42 l=0.15
+X5 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.1155 pd=0.97 as=0.1848 ps=1.72 w=0.42 l=0.15
+.ends
+
+.subckt ix6s A Y VDD GND w_0_397# VSUBS
+X0 VDD A Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.231 ps=1.39 w=0.84 l=0.15
+X1 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.1848 pd=1.72 as=0.1155 ps=0.97 w=0.42 l=0.15
+X2 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.1155 pd=0.97 as=0.1155 ps=0.97 w=0.42 l=0.15
+X3 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.1155 pd=0.97 as=0.1155 ps=0.97 w=0.42 l=0.15
+X4 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.231 ps=1.39 w=0.84 l=0.15
+X5 VDD A Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.231 ps=1.39 w=0.84 l=0.15
+X6 VDD A Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.3696 pd=2.56 as=0.231 ps=1.39 w=0.84 l=0.15
+X7 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.1155 pd=0.97 as=0.1155 ps=0.97 w=0.42 l=0.15
+X8 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.231 ps=1.39 w=0.84 l=0.15
+X9 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.3696 ps=2.56 w=0.84 l=0.15
+X10 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.1155 pd=0.97 as=0.1155 ps=0.97 w=0.42 l=0.15
+X11 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.1155 pd=0.97 as=0.1848 ps=1.72 w=0.42 l=0.15
+.ends
+
+.subckt bitcell BL BLB WL VDD GND Q QB
+X0 QB Q VDD VDD sky130_fd_pr__pfet_01v8 ad=0.1848 pd=1.72 as=0.1155 ps=0.97 w=0.42 l=0.15
+X1 VDD QB Q VDD sky130_fd_pr__pfet_01v8 ad=0.1155 pd=0.97 as=0.1848 ps=1.72 w=0.42 l=0.15
+X2 GND QB Q GND sky130_fd_pr__nfet_01v8 ad=0.17325 pd=1.18 as=0.14437 ps=1.18 w=0.63 l=0.15
+X3 Q WL BL GND sky130_fd_pr__nfet_01v8 ad=0.14437 pd=1.18 as=0.1848 ps=1.72 w=0.42 l=0.15
+X4 QB Q GND GND sky130_fd_pr__nfet_01v8 ad=0.14437 pd=1.18 as=0.17325 ps=1.18 w=0.63 l=0.15
+X5 BLB WL QB GND sky130_fd_pr__nfet_01v8 ad=0.1848 pd=1.72 as=0.14437 ps=1.18 w=0.42 l=0.15
+.ends
+
+.subckt csdrv A Y VDD GND w_0_397# VSUBS
+X0 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.231 pd=1.94 as=0.1617 ps=1.19 w=0.42 l=0.15
+X1 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.1617 pd=1.19 as=0.231 ps=1.94 w=0.42 l=0.15
+X2 VDD A Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.462 pd=2.78 as=0.3234 ps=1.61 w=0.84 l=0.15
+X3 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.3234 pd=1.61 as=0.462 ps=2.78 w=0.84 l=0.15
+.ends
+
+.subckt colslice A B VDD GND w_0_390# CSEL d/GND VSUBS
+Xn A B n/Y VDD GND w_0_390# VSUBS nand2
+Xd n/Y CSEL VDD d/GND w_0_390# VSUBS csdrv
+.ends
+
+.subckt colmux BL DL BLB DLB CSEL VSUBS
+X0 DL CSEL BL VSUBS sky130_fd_pr__nfet_01v8 ad=0.3696 pd=2.56 as=0.3696 ps=2.56 w=0.84 l=0.15
+X1 BLB CSEL DLB VSUBS sky130_fd_pr__nfet_01v8 ad=0.3696 pd=2.56 as=0.3696 ps=2.56 w=0.84 l=0.15
+.ends
+
+.subckt precharge PCB VDD BL BLB
+X0 BLB PCB BL VDD sky130_fd_pr__pfet_01v8 ad=0.6258 pd=3.82 as=0.6258 ps=3.82 w=0.42 l=0.15
+X1 BLB PCB VDD VDD sky130_fd_pr__pfet_01v8 ad=0.6636 pd=3.26 as=0.525 ps=2.09 w=0.84 l=0.15
+X2 VDD PCB BL VDD sky130_fd_pr__pfet_01v8 ad=0.525 pd=2.09 as=0.6636 ps=3.26 w=0.84 l=0.15
+.ends
+
+.subckt nand3 A B C Y VDD GND w_0_397# VSUBS
+X0 a_302_47# B a_162_47# VSUBS sky130_fd_pr__nfet_01v8 ad=0.3465 pd=1.81 as=0.3465 ps=1.81 w=1.26 l=0.15
+X1 VDD C Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.3696 pd=2.56 as=0.231 ps=1.39 w=0.84 l=0.15
+X2 Y B VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.231 ps=1.39 w=0.84 l=0.15
+X3 VDD A Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.3696 ps=2.56 w=0.84 l=0.15
+X4 GND C a_302_47# VSUBS sky130_fd_pr__nfet_01v8 ad=0.5544 pd=3.4 as=0.3465 ps=1.81 w=1.26 l=0.15
+X5 a_162_47# A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.3465 pd=1.81 as=0.5544 ps=3.4 w=1.26 l=0.15
+.ends
+
+.subckt rowslice A B C WL VDD GND
+Xn3 A B C wd/A VDD GND VDD GND nand3
+Xwd wd/A WL VDD GND VDD GND wldrv
+.ends
+
+.subckt rowcell A B C WL VDD GND
+Xs A B C WL VDD GND rowslice
+.ends
+
+.subckt core clkb rl0 rl1 rl2 rl3 rh0 rh1 rh2 rh3 bl0 blb0 bl1 blb1 bl2 blb2 bl3 blb3
++ bl4 blb4 bl5 blb5 bl6 blb6 bl7 blb7 bl8 blb8 bl9 blb9 bl10 blb10 bl11 blb11 bl12
++ blb12 bl13 blb13 bl14 blb14 bl15 blb15 csel0 csel1 csel2 csel3 csel4 csel5 csel6
++ csel7 csel8 csel9 csel10 csel11 csel12 csel13 csel14 csel15 pcb dl dlb ch0 ch1 ch2
++ ch3 cl0 cl1 cl2 cl3 VDD GND
+Xc_11_1 bl1 blb1 rc11/WL VDD GND c_11_1/Q c_11_1/QB bitcell
+Xc_3_14 bl14 blb14 rc3/WL VDD GND c_3_14/Q c_3_14/QB bitcell
+Xcs10 ch2 cl2 VDD GND VDD csel10 GND GND colslice
+Xmux12 bl12 dl blb12 dlb csel12 GND colmux
+Xc_0_15 bl15 blb15 rc0/WL VDD GND c_0_15/Q c_0_15/QB bitcell
+Xc_15_8 bl8 blb8 rc15/WL VDD GND c_15_8/Q c_15_8/QB bitcell
+Xc_9_13 bl13 blb13 rc9/WL VDD GND c_9_13/Q c_9_13/QB bitcell
+Xc_3_7 bl7 blb7 rc3/WL VDD GND c_3_7/Q c_3_7/QB bitcell
+Xc_13_5 bl5 blb5 rc13/WL VDD GND c_13_5/Q c_13_5/QB bitcell
+Xc_11_2 bl2 blb2 rc11/WL VDD GND c_11_2/Q c_11_2/QB bitcell
+Xc_6_14 bl14 blb14 rc6/WL VDD GND c_6_14/Q c_6_14/QB bitcell
+Xc_1_4 bl4 blb4 rc1/WL VDD GND c_1_4/Q c_1_4/QB bitcell
+Xc_3_15 bl15 blb15 rc3/WL VDD GND c_3_15/Q c_3_15/QB bitcell
+Xcs11 ch2 cl3 VDD GND VDD csel11 GND GND colslice
+Xmux13 bl13 dl blb13 dlb csel13 GND colmux
+Xc_11_10 bl10 blb10 rc11/WL VDD GND c_11_10/Q c_11_10/QB bitcell
+Xc_9_14 bl14 blb14 rc9/WL VDD GND c_9_14/Q c_9_14/QB bitcell
+Xc_15_9 bl9 blb9 rc15/WL VDD GND c_15_9/Q c_15_9/QB bitcell
+Xc_13_6 bl6 blb6 rc13/WL VDD GND c_13_6/Q c_13_6/QB bitcell
+Xc_6_15 bl15 blb15 rc6/WL VDD GND c_6_15/Q c_6_15/QB bitcell
+Xc_1_5 bl5 blb5 rc1/WL VDD GND c_1_5/Q c_1_5/QB bitcell
+Xc_3_8 bl8 blb8 rc3/WL VDD GND c_3_8/Q c_3_8/QB bitcell
+Xc_14_10 bl10 blb10 rc14/WL VDD GND c_14_10/Q c_14_10/QB bitcell
+Xc_11_3 bl3 blb3 rc11/WL VDD GND c_11_3/Q c_11_3/QB bitcell
+Xcs12 ch3 cl0 VDD GND VDD csel12 GND GND colslice
+Xc_11_11 bl11 blb11 rc11/WL VDD GND c_11_11/Q c_11_11/QB bitcell
+Xmux14 bl14 dl blb14 dlb csel14 GND colmux
+Xc_9_15 bl15 blb15 rc9/WL VDD GND c_9_15/Q c_9_15/QB bitcell
+Xc_3_9 bl9 blb9 rc3/WL VDD GND c_3_9/Q c_3_9/QB bitcell
+Xc_13_7 bl7 blb7 rc13/WL VDD GND c_13_7/Q c_13_7/QB bitcell
+Xc_1_6 bl6 blb6 rc1/WL VDD GND c_1_6/Q c_1_6/QB bitcell
+Xc_14_11 bl11 blb11 rc14/WL VDD GND c_14_11/Q c_14_11/QB bitcell
+Xc_11_4 bl4 blb4 rc11/WL VDD GND c_11_4/Q c_11_4/QB bitcell
+Xcs13 ch3 cl1 VDD GND VDD csel13 GND GND colslice
+Xmux15 bl15 dl blb15 dlb csel15 GND colmux
+Xc_11_12 bl12 blb12 rc11/WL VDD GND c_11_12/Q c_11_12/QB bitcell
+Xc_13_8 bl8 blb8 rc13/WL VDD GND c_13_8/Q c_13_8/QB bitcell
+Xc_8_0 bl0 blb0 rc8/WL VDD GND c_8_0/Q c_8_0/QB bitcell
+Xc_1_7 bl7 blb7 rc1/WL VDD GND c_1_7/Q c_1_7/QB bitcell
+Xc_14_12 bl12 blb12 rc14/WL VDD GND c_14_12/Q c_14_12/QB bitcell
+Xc_11_5 bl5 blb5 rc11/WL VDD GND c_11_5/Q c_11_5/QB bitcell
+Xc_11_13 bl13 blb13 rc11/WL VDD GND c_11_13/Q c_11_13/QB bitcell
+Xcs14 ch3 cl2 VDD GND VDD csel14 GND GND colslice
+Xc_8_1 bl1 blb1 rc8/WL VDD GND c_8_1/Q c_8_1/QB bitcell
+Xc_13_9 bl9 blb9 rc13/WL VDD GND c_13_9/Q c_13_9/QB bitcell
+Xc_1_8 bl8 blb8 rc1/WL VDD GND c_1_8/Q c_1_8/QB bitcell
+Xc_14_13 bl13 blb13 rc14/WL VDD GND c_14_13/Q c_14_13/QB bitcell
+Xc_11_6 bl6 blb6 rc11/WL VDD GND c_11_6/Q c_11_6/QB bitcell
+Xcs15 ch3 cl3 VDD GND VDD csel15 GND GND colslice
+Xc_11_14 bl14 blb14 rc11/WL VDD GND c_11_14/Q c_11_14/QB bitcell
+Xc_8_2 bl2 blb2 rc8/WL VDD GND c_8_2/Q c_8_2/QB bitcell
+Xc_1_9 bl9 blb9 rc1/WL VDD GND c_1_9/Q c_1_9/QB bitcell
+Xc_14_14 bl14 blb14 rc14/WL VDD GND c_14_14/Q c_14_14/QB bitcell
+Xc_11_7 bl7 blb7 rc11/WL VDD GND c_11_7/Q c_11_7/QB bitcell
+Xc_11_15 bl15 blb15 rc11/WL VDD GND c_11_15/Q c_11_15/QB bitcell
+Xc_8_3 bl3 blb3 rc8/WL VDD GND c_8_3/Q c_8_3/QB bitcell
+Xc_6_0 bl0 blb0 rc6/WL VDD GND c_6_0/Q c_6_0/QB bitcell
+Xc_14_15 bl15 blb15 rc14/WL VDD GND c_14_15/Q c_14_15/QB bitcell
+Xc_11_8 bl8 blb8 rc11/WL VDD GND c_11_8/Q c_11_8/QB bitcell
+Xc_8_4 bl4 blb4 rc8/WL VDD GND c_8_4/Q c_8_4/QB bitcell
+Xc_1_10 bl10 blb10 rc1/WL VDD GND c_1_10/Q c_1_10/QB bitcell
+Xc_11_9 bl9 blb9 rc11/WL VDD GND c_11_9/Q c_11_9/QB bitcell
+Xc_6_1 bl1 blb1 rc6/WL VDD GND c_6_1/Q c_6_1/QB bitcell
+Xc_4_10 bl10 blb10 rc4/WL VDD GND c_4_10/Q c_4_10/QB bitcell
+Xc_8_5 bl5 blb5 rc8/WL VDD GND c_8_5/Q c_8_5/QB bitcell
+Xc_6_2 bl2 blb2 rc6/WL VDD GND c_6_2/Q c_6_2/QB bitcell
+Xc_1_11 bl11 blb11 rc1/WL VDD GND c_1_11/Q c_1_11/QB bitcell
+Xc_7_10 bl10 blb10 rc7/WL VDD GND c_7_10/Q c_7_10/QB bitcell
+Xc_4_11 bl11 blb11 rc4/WL VDD GND c_4_11/Q c_4_11/QB bitcell
+Xc_8_6 bl6 blb6 rc8/WL VDD GND c_8_6/Q c_8_6/QB bitcell
+Xcs0 ch0 cl0 VDD GND VDD csel0 GND GND colslice
+Xc_1_12 bl12 blb12 rc1/WL VDD GND c_1_12/Q c_1_12/QB bitcell
+Xc_6_3 bl3 blb3 rc6/WL VDD GND c_6_3/Q c_6_3/QB bitcell
+Xc_7_11 bl11 blb11 rc7/WL VDD GND c_7_11/Q c_7_11/QB bitcell
+Xc_4_0 bl0 blb0 rc4/WL VDD GND c_4_0/Q c_4_0/QB bitcell
+Xc_4_12 bl12 blb12 rc4/WL VDD GND c_4_12/Q c_4_12/QB bitcell
+Xc_8_7 bl7 blb7 rc8/WL VDD GND c_8_7/Q c_8_7/QB bitcell
+Xc_6_4 bl4 blb4 rc6/WL VDD GND c_6_4/Q c_6_4/QB bitcell
+Xcs1 ch0 cl1 VDD GND VDD csel1 GND GND colslice
+Xc_1_13 bl13 blb13 rc1/WL VDD GND c_1_13/Q c_1_13/QB bitcell
+Xc_7_12 bl12 blb12 rc7/WL VDD GND c_7_12/Q c_7_12/QB bitcell
+Xc_4_1 bl1 blb1 rc4/WL VDD GND c_4_1/Q c_4_1/QB bitcell
+Xc_4_13 bl13 blb13 rc4/WL VDD GND c_4_13/Q c_4_13/QB bitcell
+Xc_8_8 bl8 blb8 rc8/WL VDD GND c_8_8/Q c_8_8/QB bitcell
+Xc_1_14 bl14 blb14 rc1/WL VDD GND c_1_14/Q c_1_14/QB bitcell
+Xcs2 ch0 cl2 VDD GND VDD csel2 GND GND colslice
+Xc_6_5 bl5 blb5 rc6/WL VDD GND c_6_5/Q c_6_5/QB bitcell
+Xc_14_0 bl0 blb0 rc14/WL VDD GND c_14_0/Q c_14_0/QB bitcell
+Xc_7_13 bl13 blb13 rc7/WL VDD GND c_7_13/Q c_7_13/QB bitcell
+Xc_4_2 bl2 blb2 rc4/WL VDD GND c_4_2/Q c_4_2/QB bitcell
+Xc_4_14 bl14 blb14 rc4/WL VDD GND c_4_14/Q c_4_14/QB bitcell
+Xmux0 bl0 dl blb0 dlb csel0 GND colmux
+Xpre10 pcb VDD bl10 blb10 precharge
+Xc_8_9 bl9 blb9 rc8/WL VDD GND c_8_9/Q c_8_9/QB bitcell
+Xc_1_15 bl15 blb15 rc1/WL VDD GND c_1_15/Q c_1_15/QB bitcell
+Xcs3 ch0 cl3 VDD GND VDD csel3 GND GND colslice
+Xc_7_14 bl14 blb14 rc7/WL VDD GND c_7_14/Q c_7_14/QB bitcell
+Xc_6_6 bl6 blb6 rc6/WL VDD GND c_6_6/Q c_6_6/QB bitcell
+Xc_4_3 bl3 blb3 rc4/WL VDD GND c_4_3/Q c_4_3/QB bitcell
+Xc_14_1 bl1 blb1 rc14/WL VDD GND c_14_1/Q c_14_1/QB bitcell
+Xc_4_15 bl15 blb15 rc4/WL VDD GND c_4_15/Q c_4_15/QB bitcell
+Xc_2_0 bl0 blb0 rc2/WL VDD GND c_2_0/Q c_2_0/QB bitcell
+Xpre11 pcb VDD bl11 blb11 precharge
+Xc_12_10 bl10 blb10 rc12/WL VDD GND c_12_10/Q c_12_10/QB bitcell
+Xcs4 ch1 cl0 VDD GND VDD csel4 GND GND colslice
+Xmux1 bl1 dl blb1 dlb csel1 GND colmux
+Xc_6_7 bl7 blb7 rc6/WL VDD GND c_6_7/Q c_6_7/QB bitcell
+Xc_14_2 bl2 blb2 rc14/WL VDD GND c_14_2/Q c_14_2/QB bitcell
+Xc_7_15 bl15 blb15 rc7/WL VDD GND c_7_15/Q c_7_15/QB bitcell
+Xc_4_4 bl4 blb4 rc4/WL VDD GND c_4_4/Q c_4_4/QB bitcell
+Xc_2_1 bl1 blb1 rc2/WL VDD GND c_2_1/Q c_2_1/QB bitcell
+Xc_15_10 bl10 blb10 rc15/WL VDD GND c_15_10/Q c_15_10/QB bitcell
+Xmux2 bl2 dl blb2 dlb csel2 GND colmux
+Xpre12 pcb VDD bl12 blb12 precharge
+Xc_12_11 bl11 blb11 rc12/WL VDD GND c_12_11/Q c_12_11/QB bitcell
+Xcs5 ch1 cl1 VDD GND VDD csel5 GND GND colslice
+Xc_6_8 bl8 blb8 rc6/WL VDD GND c_6_8/Q c_6_8/QB bitcell
+Xc_4_5 bl5 blb5 rc4/WL VDD GND c_4_5/Q c_4_5/QB bitcell
+Xc_15_11 bl11 blb11 rc15/WL VDD GND c_15_11/Q c_15_11/QB bitcell
+Xc_14_3 bl3 blb3 rc14/WL VDD GND c_14_3/Q c_14_3/QB bitcell
+Xc_2_2 bl2 blb2 rc2/WL VDD GND c_2_2/Q c_2_2/QB bitcell
+Xpre13 pcb VDD bl13 blb13 precharge
+Xc_12_12 bl12 blb12 rc12/WL VDD GND c_12_12/Q c_12_12/QB bitcell
+Xc_12_0 bl0 blb0 rc12/WL VDD GND c_12_0/Q c_12_0/QB bitcell
+Xcs6 ch1 cl2 VDD GND VDD csel6 GND GND colslice
+Xmux3 bl3 dl blb3 dlb csel3 GND colmux
+Xc_6_9 bl9 blb9 rc6/WL VDD GND c_6_9/Q c_6_9/QB bitcell
+Xc_4_6 bl6 blb6 rc4/WL VDD GND c_4_6/Q c_4_6/QB bitcell
+Xc_15_12 bl12 blb12 rc15/WL VDD GND c_15_12/Q c_15_12/QB bitcell
+Xc_14_4 bl4 blb4 rc14/WL VDD GND c_14_4/Q c_14_4/QB bitcell
+Xc_12_1 bl1 blb1 rc12/WL VDD GND c_12_1/Q c_12_1/QB bitcell
+Xc_0_0 bl0 blb0 rc0/WL VDD GND c_0_0/Q c_0_0/QB bitcell
+Xmux4 bl4 dl blb4 dlb csel4 GND colmux
+Xc_2_3 bl3 blb3 rc2/WL VDD GND c_2_3/Q c_2_3/QB bitcell
+Xpre14 pcb VDD bl14 blb14 precharge
+Xc_12_13 bl13 blb13 rc12/WL VDD GND c_12_13/Q c_12_13/QB bitcell
+Xcs7 ch1 cl3 VDD GND VDD csel7 GND GND colslice
+Xc_4_7 bl7 blb7 rc4/WL VDD GND c_4_7/Q c_4_7/QB bitcell
+Xc_15_13 bl13 blb13 rc15/WL VDD GND c_15_13/Q c_15_13/QB bitcell
+Xc_14_5 bl5 blb5 rc14/WL VDD GND c_14_5/Q c_14_5/QB bitcell
+Xc_2_4 bl4 blb4 rc2/WL VDD GND c_2_4/Q c_2_4/QB bitcell
+Xpre15 pcb VDD bl15 blb15 precharge
+Xc_12_14 bl14 blb14 rc12/WL VDD GND c_12_14/Q c_12_14/QB bitcell
+Xc_12_2 bl2 blb2 rc12/WL VDD GND c_12_2/Q c_12_2/QB bitcell
+Xc_0_1 bl1 blb1 rc0/WL VDD GND c_0_1/Q c_0_1/QB bitcell
+Xmux5 bl5 dl blb5 dlb csel5 GND colmux
+Xcs8 ch2 cl0 VDD GND VDD csel8 GND GND colslice
+Xc_4_8 bl8 blb8 rc4/WL VDD GND c_4_8/Q c_4_8/QB bitcell
+Xc_15_14 bl14 blb14 rc15/WL VDD GND c_15_14/Q c_15_14/QB bitcell
+Xc_14_6 bl6 blb6 rc14/WL VDD GND c_14_6/Q c_14_6/QB bitcell
+Xc_12_3 bl3 blb3 rc12/WL VDD GND c_12_3/Q c_12_3/QB bitcell
+Xc_0_2 bl2 blb2 rc0/WL VDD GND c_0_2/Q c_0_2/QB bitcell
+Xmux6 bl6 dl blb6 dlb csel6 GND colmux
+Xc_2_5 bl5 blb5 rc2/WL VDD GND c_2_5/Q c_2_5/QB bitcell
+Xc_12_15 bl15 blb15 rc12/WL VDD GND c_12_15/Q c_12_15/QB bitcell
+Xc_10_0 bl0 blb0 rc10/WL VDD GND c_10_0/Q c_10_0/QB bitcell
+Xcs9 ch2 cl1 VDD GND VDD csel9 GND GND colslice
+Xpre0 pcb VDD bl0 blb0 precharge
+Xc_15_15 bl15 blb15 rc15/WL VDD GND c_15_15/Q c_15_15/QB bitcell
+Xc_14_7 bl7 blb7 rc14/WL VDD GND c_14_7/Q c_14_7/QB bitcell
+Xc_4_9 bl9 blb9 rc4/WL VDD GND c_4_9/Q c_4_9/QB bitcell
+Xc_2_6 bl6 blb6 rc2/WL VDD GND c_2_6/Q c_2_6/QB bitcell
+Xc_12_4 bl4 blb4 rc12/WL VDD GND c_12_4/Q c_12_4/QB bitcell
+Xc_0_3 bl3 blb3 rc0/WL VDD GND c_0_3/Q c_0_3/QB bitcell
+Xmux7 bl7 dl blb7 dlb csel7 GND colmux
+Xpre1 pcb VDD bl1 blb1 precharge
+Xc_10_1 bl1 blb1 rc10/WL VDD GND c_10_1/Q c_10_1/QB bitcell
+Xrc0 rh0 rl0 clkb rc0/WL VDD GND rowcell
+Xc_9_0 bl0 blb0 rc9/WL VDD GND c_9_0/Q c_9_0/QB bitcell
+Xc_2_10 bl10 blb10 rc2/WL VDD GND c_2_10/Q c_2_10/QB bitcell
+Xc_14_8 bl8 blb8 rc14/WL VDD GND c_14_8/Q c_14_8/QB bitcell
+Xc_12_5 bl5 blb5 rc12/WL VDD GND c_12_5/Q c_12_5/QB bitcell
+Xc_0_4 bl4 blb4 rc0/WL VDD GND c_0_4/Q c_0_4/QB bitcell
+Xmux8 bl8 dl blb8 dlb csel8 GND colmux
+Xc_2_7 bl7 blb7 rc2/WL VDD GND c_2_7/Q c_2_7/QB bitcell
+Xc_10_2 bl2 blb2 rc10/WL VDD GND c_10_2/Q c_10_2/QB bitcell
+Xc_5_10 bl10 blb10 rc5/WL VDD GND c_5_10/Q c_5_10/QB bitcell
+Xpre2 pcb VDD bl2 blb2 precharge
+Xrc1 rh0 rl1 clkb rc1/WL VDD GND rowcell
+Xc_2_11 bl11 blb11 rc2/WL VDD GND c_2_11/Q c_2_11/QB bitcell
+Xc_14_9 bl9 blb9 rc14/WL VDD GND c_14_9/Q c_14_9/QB bitcell
+Xc_8_10 bl10 blb10 rc8/WL VDD GND c_8_10/Q c_8_10/QB bitcell
+Xc_9_1 bl1 blb1 rc9/WL VDD GND c_9_1/Q c_9_1/QB bitcell
+Xc_2_8 bl8 blb8 rc2/WL VDD GND c_2_8/Q c_2_8/QB bitcell
+Xc_12_6 bl6 blb6 rc12/WL VDD GND c_12_6/Q c_12_6/QB bitcell
+Xc_0_5 bl5 blb5 rc0/WL VDD GND c_0_5/Q c_0_5/QB bitcell
+Xmux9 bl9 dl blb9 dlb csel9 GND colmux
+Xpre3 pcb VDD bl3 blb3 precharge
+Xc_10_3 bl3 blb3 rc10/WL VDD GND c_10_3/Q c_10_3/QB bitcell
+Xc_5_11 bl11 blb11 rc5/WL VDD GND c_5_11/Q c_5_11/QB bitcell
+Xrc2 rh0 rl2 clkb rc2/WL VDD GND rowcell
+Xc_9_2 bl2 blb2 rc9/WL VDD GND c_9_2/Q c_9_2/QB bitcell
+Xc_2_12 bl12 blb12 rc2/WL VDD GND c_2_12/Q c_2_12/QB bitcell
+Xc_8_11 bl11 blb11 rc8/WL VDD GND c_8_11/Q c_8_11/QB bitcell
+Xc_0_6 bl6 blb6 rc0/WL VDD GND c_0_6/Q c_0_6/QB bitcell
+Xc_2_9 bl9 blb9 rc2/WL VDD GND c_2_9/Q c_2_9/QB bitcell
+Xc_12_7 bl7 blb7 rc12/WL VDD GND c_12_7/Q c_12_7/QB bitcell
+Xc_10_4 bl4 blb4 rc10/WL VDD GND c_10_4/Q c_10_4/QB bitcell
+Xc_5_12 bl12 blb12 rc5/WL VDD GND c_5_12/Q c_5_12/QB bitcell
+Xpre4 pcb VDD bl4 blb4 precharge
+Xrc3 rh0 rl3 clkb rc3/WL VDD GND rowcell
+Xc_2_13 bl13 blb13 rc2/WL VDD GND c_2_13/Q c_2_13/QB bitcell
+Xc_9_3 bl3 blb3 rc9/WL VDD GND c_9_3/Q c_9_3/QB bitcell
+Xc_12_8 bl8 blb8 rc12/WL VDD GND c_12_8/Q c_12_8/QB bitcell
+Xc_8_12 bl12 blb12 rc8/WL VDD GND c_8_12/Q c_8_12/QB bitcell
+Xc_7_0 bl0 blb0 rc7/WL VDD GND c_7_0/Q c_7_0/QB bitcell
+Xc_0_7 bl7 blb7 rc0/WL VDD GND c_0_7/Q c_0_7/QB bitcell
+Xpre5 pcb VDD bl5 blb5 precharge
+Xc_10_5 bl5 blb5 rc10/WL VDD GND c_10_5/Q c_10_5/QB bitcell
+Xc_5_13 bl13 blb13 rc5/WL VDD GND c_5_13/Q c_5_13/QB bitcell
+Xrc4 rh1 rl0 clkb rc4/WL VDD GND rowcell
+Xc_9_4 bl4 blb4 rc9/WL VDD GND c_9_4/Q c_9_4/QB bitcell
+Xc_2_14 bl14 blb14 rc2/WL VDD GND c_2_14/Q c_2_14/QB bitcell
+Xc_8_13 bl13 blb13 rc8/WL VDD GND c_8_13/Q c_8_13/QB bitcell
+Xc_7_1 bl1 blb1 rc7/WL VDD GND c_7_1/Q c_7_1/QB bitcell
+Xc_12_9 bl9 blb9 rc12/WL VDD GND c_12_9/Q c_12_9/QB bitcell
+Xc_10_6 bl6 blb6 rc10/WL VDD GND c_10_6/Q c_10_6/QB bitcell
+Xc_5_14 bl14 blb14 rc5/WL VDD GND c_5_14/Q c_5_14/QB bitcell
+Xc_0_8 bl8 blb8 rc0/WL VDD GND c_0_8/Q c_0_8/QB bitcell
+Xpre6 pcb VDD bl6 blb6 precharge
+Xrc5 rh1 rl1 clkb rc5/WL VDD GND rowcell
+Xc_2_15 bl15 blb15 rc2/WL VDD GND c_2_15/Q c_2_15/QB bitcell
+Xc_10_10 bl10 blb10 rc10/WL VDD GND c_10_10/Q c_10_10/QB bitcell
+Xc_9_5 bl5 blb5 rc9/WL VDD GND c_9_5/Q c_9_5/QB bitcell
+Xc_8_14 bl14 blb14 rc8/WL VDD GND c_8_14/Q c_8_14/QB bitcell
+Xc_7_2 bl2 blb2 rc7/WL VDD GND c_7_2/Q c_7_2/QB bitcell
+Xc_0_9 bl9 blb9 rc0/WL VDD GND c_0_9/Q c_0_9/QB bitcell
+Xc_10_7 bl7 blb7 rc10/WL VDD GND c_10_7/Q c_10_7/QB bitcell
+Xrc6 rh1 rl2 clkb rc6/WL VDD GND rowcell
+Xc_5_15 bl15 blb15 rc5/WL VDD GND c_5_15/Q c_5_15/QB bitcell
+Xpre7 pcb VDD bl7 blb7 precharge
+Xc_13_10 bl10 blb10 rc13/WL VDD GND c_13_10/Q c_13_10/QB bitcell
+Xc_8_15 bl15 blb15 rc8/WL VDD GND c_8_15/Q c_8_15/QB bitcell
+Xc_10_11 bl11 blb11 rc10/WL VDD GND c_10_11/Q c_10_11/QB bitcell
+Xc_9_6 bl6 blb6 rc9/WL VDD GND c_9_6/Q c_9_6/QB bitcell
+Xc_7_3 bl3 blb3 rc7/WL VDD GND c_7_3/Q c_7_3/QB bitcell
+Xc_10_8 bl8 blb8 rc10/WL VDD GND c_10_8/Q c_10_8/QB bitcell
+Xc_5_0 bl0 blb0 rc5/WL VDD GND c_5_0/Q c_5_0/QB bitcell
+Xpre8 pcb VDD bl8 blb8 precharge
+Xc_13_11 bl11 blb11 rc13/WL VDD GND c_13_11/Q c_13_11/QB bitcell
+Xrc7 rh1 rl3 clkb rc7/WL VDD GND rowcell
+Xc_10_12 bl12 blb12 rc10/WL VDD GND c_10_12/Q c_10_12/QB bitcell
+Xc_9_7 bl7 blb7 rc9/WL VDD GND c_9_7/Q c_9_7/QB bitcell
+Xc_7_4 bl4 blb4 rc7/WL VDD GND c_7_4/Q c_7_4/QB bitcell
+Xc_5_1 bl1 blb1 rc5/WL VDD GND c_5_1/Q c_5_1/QB bitcell
+Xc_10_9 bl9 blb9 rc10/WL VDD GND c_10_9/Q c_10_9/QB bitcell
+Xrc8 rh2 rl0 clkb rc8/WL VDD GND rowcell
+Xpre9 pcb VDD bl9 blb9 precharge
+Xc_13_12 bl12 blb12 rc13/WL VDD GND c_13_12/Q c_13_12/QB bitcell
+Xc_10_13 bl13 blb13 rc10/WL VDD GND c_10_13/Q c_10_13/QB bitcell
+Xc_9_8 bl8 blb8 rc9/WL VDD GND c_9_8/Q c_9_8/QB bitcell
+Xc_7_5 bl5 blb5 rc7/WL VDD GND c_7_5/Q c_7_5/QB bitcell
+Xc_5_2 bl2 blb2 rc5/WL VDD GND c_5_2/Q c_5_2/QB bitcell
+Xc_15_0 bl0 blb0 rc15/WL VDD GND c_15_0/Q c_15_0/QB bitcell
+Xc_13_13 bl13 blb13 rc13/WL VDD GND c_13_13/Q c_13_13/QB bitcell
+Xrc9 rh2 rl1 clkb rc9/WL VDD GND rowcell
+Xc_9_9 bl9 blb9 rc9/WL VDD GND c_9_9/Q c_9_9/QB bitcell
+Xrc10 rh2 rl2 clkb rc10/WL VDD GND rowcell
+Xc_10_14 bl14 blb14 rc10/WL VDD GND c_10_14/Q c_10_14/QB bitcell
+Xc_7_6 bl6 blb6 rc7/WL VDD GND c_7_6/Q c_7_6/QB bitcell
+Xc_15_1 bl1 blb1 rc15/WL VDD GND c_15_1/Q c_15_1/QB bitcell
+Xc_5_3 bl3 blb3 rc5/WL VDD GND c_5_3/Q c_5_3/QB bitcell
+Xc_3_0 bl0 blb0 rc3/WL VDD GND c_3_0/Q c_3_0/QB bitcell
+Xc_13_14 bl14 blb14 rc13/WL VDD GND c_13_14/Q c_13_14/QB bitcell
+Xrc11 rh2 rl3 clkb rc11/WL VDD GND rowcell
+Xc_10_15 bl15 blb15 rc10/WL VDD GND c_10_15/Q c_10_15/QB bitcell
+Xc_7_7 bl7 blb7 rc7/WL VDD GND c_7_7/Q c_7_7/QB bitcell
+Xc_5_4 bl4 blb4 rc5/WL VDD GND c_5_4/Q c_5_4/QB bitcell
+Xc_15_2 bl2 blb2 rc15/WL VDD GND c_15_2/Q c_15_2/QB bitcell
+Xc_13_15 bl15 blb15 rc13/WL VDD GND c_13_15/Q c_13_15/QB bitcell
+Xc_3_1 bl1 blb1 rc3/WL VDD GND c_3_1/Q c_3_1/QB bitcell
+Xrc12 rh3 rl0 clkb rc12/WL VDD GND rowcell
+Xc_7_8 bl8 blb8 rc7/WL VDD GND c_7_8/Q c_7_8/QB bitcell
+Xc_15_3 bl3 blb3 rc15/WL VDD GND c_15_3/Q c_15_3/QB bitcell
+Xc_5_5 bl5 blb5 rc5/WL VDD GND c_5_5/Q c_5_5/QB bitcell
+Xc_0_10 bl10 blb10 rc0/WL VDD GND c_0_10/Q c_0_10/QB bitcell
+Xc_3_2 bl2 blb2 rc3/WL VDD GND c_3_2/Q c_3_2/QB bitcell
+Xc_13_0 bl0 blb0 rc13/WL VDD GND c_13_0/Q c_13_0/QB bitcell
+Xrc13 rh3 rl1 clkb rc13/WL VDD GND rowcell
+Xc_3_10 bl10 blb10 rc3/WL VDD GND c_3_10/Q c_3_10/QB bitcell
+Xc_7_9 bl9 blb9 rc7/WL VDD GND c_7_9/Q c_7_9/QB bitcell
+Xc_5_6 bl6 blb6 rc5/WL VDD GND c_5_6/Q c_5_6/QB bitcell
+Xc_0_11 bl11 blb11 rc0/WL VDD GND c_0_11/Q c_0_11/QB bitcell
+Xc_15_4 bl4 blb4 rc15/WL VDD GND c_15_4/Q c_15_4/QB bitcell
+Xc_3_3 bl3 blb3 rc3/WL VDD GND c_3_3/Q c_3_3/QB bitcell
+Xc_13_1 bl1 blb1 rc13/WL VDD GND c_13_1/Q c_13_1/QB bitcell
+Xrc14 rh3 rl2 clkb rc14/WL VDD GND rowcell
+Xc_6_10 bl10 blb10 rc6/WL VDD GND c_6_10/Q c_6_10/QB bitcell
+Xc_1_0 bl0 blb0 rc1/WL VDD GND c_1_0/Q c_1_0/QB bitcell
+Xc_3_11 bl11 blb11 rc3/WL VDD GND c_3_11/Q c_3_11/QB bitcell
+Xc_15_5 bl5 blb5 rc15/WL VDD GND c_15_5/Q c_15_5/QB bitcell
+Xc_9_10 bl10 blb10 rc9/WL VDD GND c_9_10/Q c_9_10/QB bitcell
+Xc_5_7 bl7 blb7 rc5/WL VDD GND c_5_7/Q c_5_7/QB bitcell
+Xc_0_12 bl12 blb12 rc0/WL VDD GND c_0_12/Q c_0_12/QB bitcell
+Xc_3_4 bl4 blb4 rc3/WL VDD GND c_3_4/Q c_3_4/QB bitcell
+Xc_13_2 bl2 blb2 rc13/WL VDD GND c_13_2/Q c_13_2/QB bitcell
+Xc_6_11 bl11 blb11 rc6/WL VDD GND c_6_11/Q c_6_11/QB bitcell
+Xc_1_1 bl1 blb1 rc1/WL VDD GND c_1_1/Q c_1_1/QB bitcell
+Xrc15 rh3 rl3 clkb rc15/WL VDD GND rowcell
+Xmux10 bl10 dl blb10 dlb csel10 GND colmux
+Xc_3_12 bl12 blb12 rc3/WL VDD GND c_3_12/Q c_3_12/QB bitcell
+Xc_9_11 bl11 blb11 rc9/WL VDD GND c_9_11/Q c_9_11/QB bitcell
+Xc_5_8 bl8 blb8 rc5/WL VDD GND c_5_8/Q c_5_8/QB bitcell
+Xc_0_13 bl13 blb13 rc0/WL VDD GND c_0_13/Q c_0_13/QB bitcell
+Xc_15_6 bl6 blb6 rc15/WL VDD GND c_15_6/Q c_15_6/QB bitcell
+Xc_3_5 bl5 blb5 rc3/WL VDD GND c_3_5/Q c_3_5/QB bitcell
+Xc_13_3 bl3 blb3 rc13/WL VDD GND c_13_3/Q c_13_3/QB bitcell
+Xc_11_0 bl0 blb0 rc11/WL VDD GND c_11_0/Q c_11_0/QB bitcell
+Xc_6_12 bl12 blb12 rc6/WL VDD GND c_6_12/Q c_6_12/QB bitcell
+Xc_1_2 bl2 blb2 rc1/WL VDD GND c_1_2/Q c_1_2/QB bitcell
+Xmux11 bl11 dl blb11 dlb csel11 GND colmux
+Xc_3_13 bl13 blb13 rc3/WL VDD GND c_3_13/Q c_3_13/QB bitcell
+Xc_9_12 bl12 blb12 rc9/WL VDD GND c_9_12/Q c_9_12/QB bitcell
+Xc_5_9 bl9 blb9 rc5/WL VDD GND c_5_9/Q c_5_9/QB bitcell
+Xc_0_14 bl14 blb14 rc0/WL VDD GND c_0_14/Q c_0_14/QB bitcell
+Xc_15_7 bl7 blb7 rc15/WL VDD GND c_15_7/Q c_15_7/QB bitcell
+Xc_13_4 bl4 blb4 rc13/WL VDD GND c_13_4/Q c_13_4/QB bitcell
+Xc_6_13 bl13 blb13 rc6/WL VDD GND c_6_13/Q c_6_13/QB bitcell
+Xc_1_3 bl3 blb3 rc1/WL VDD GND c_1_3/Q c_1_3/QB bitcell
+Xc_3_6 bl6 blb6 rc3/WL VDD GND c_3_6/Q c_3_6/QB bitcell
+.ends
+
+.subckt chip0 yd addr_pad din_pad rw_pad vddio clk_pad VDD GND
+XXib_ADDRb Xib_ADDRb/A Xff_a0/D VDD GND VDD GND ib2
+XXpi_ch3 Xpi_ch3/A core/ch3 VDD GND VDD GND wldrv
+XXff_din Xff_din/D Xck_a2/Y Xrw/DIN Xrw/DINB VDD GND GND VDD sdff
+XXff_a0 Xff_a0/D Xck_a2/Y Xff_a1/D Xpd_cl2/B VDD GND GND VDD sdff
+XXff_a1 Xff_a1/D Xck_a2/Y Xff_a2/D Xpd_cl1/A VDD GND GND VDD sdff
+XXpd_rl0 Xpd_rl1/A Xpd_rl2/B Xpi_rl0/A VDD GND VDD GND nand2
+XXff_a2 Xff_a2/D Xck_a2/Y Xff_a3/D Xpd_ch2/B VDD GND GND VDD sdff
+XXpd_rl1 Xpd_rl1/A Xff_a5/D Xpi_rl1/A VDD GND VDD GND nand2
+XXff_a3 Xff_a3/D Xck_a2/Y Xff_a4/D Xpd_ch1/A VDD GND GND VDD sdff
+XXpd_rl2 Xff_a6/D Xpd_rl2/B Xpi_rl2/A VDD GND VDD GND nand2
+Xob1 ob1/A ob2/A vddio GND ob1
+XXff_a4 Xff_a4/D Xck_a2/Y Xff_a5/D Xpd_rl2/B VDD GND GND VDD sdff
+XXrw Xrw/DIN Xrw/DINB Xrw/RD Xrw/DL Xrw/DLB Xwe2/Y Xrw/PCB VDD GND rwckt
+XXff_a5 Xff_a5/D Xck_a2/Y Xff_a6/D Xpd_rl1/A VDD GND GND VDD sdff
+XXpd_rl3 Xff_a6/D Xff_a5/D Xpi_rl3/A VDD GND VDD GND nand2
+Xob2 ob2/A ob3/A vddio GND ob2
+XXff_a6 Xff_a6/D Xck_a2/Y Xff_a7/D Xpd_rh2/B VDD GND GND VDD sdff
+XXpd_rh0 Xpd_rh1/A Xpd_rh2/B Xpi_rh0/A VDD GND VDD GND nand2
+Xob3 ob3/A ob4/A vddio GND ob3
+XXck_r1 Xck_r1/A Xck_r2/A VDD GND VDD GND ib2
+XXib_RWa rw_pad Xib_RWb/A VDD GND VDD GND ib1
+XXff_a7 Xff_a7/D Xck_a2/Y Xff_a7/Q Xpd_rh1/A VDD GND GND VDD sdff
+XXpd_rh1 Xpd_rh1/A Xff_a7/D Xpi_rh1/A VDD GND VDD GND nand2
+Xob4 ob4/A ob5/A vddio GND ob4
+XXck_r2 Xck_r2/A Xck_r2/Y VDD GND VDD GND ix6
+XXib_RWb Xib_RWb/A Xff_rw/D VDD GND VDD GND ib2
+XXpd_rh2 Xff_a7/Q Xpd_rh2/B Xpi_rh2/A VDD GND VDD GND nand2
+Xob5 ob5/A ob6/A vddio GND ob5
+XXpd_cl0 Xpd_cl1/A Xpd_cl2/B Xpi_cl0/A VDD GND VDD GND nand2
+XXpd_cl1 Xpd_cl1/A Xff_a1/D Xpi_cl1/A VDD GND VDD GND nand2
+XXpd_rh3 Xff_a7/Q Xff_a7/D Xpi_rh3/A VDD GND VDD GND nand2
+Xob6 ob6/A yd vddio GND ob6
+XXpd_cl2 Xff_a2/D Xpd_cl2/B Xpi_cl2/A VDD GND VDD GND nand2
+XXpd_cl3 Xff_a2/D Xff_a1/D Xpi_cl3/A VDD GND VDD GND nand2
+XXpd_ch0 Xpd_ch1/A Xpd_ch2/B Xpi_ch0/A VDD GND VDD GND nand2
+XXib_DINa din_pad Xib_DINb/A VDD GND VDD GND ib1
+XXpd_ch1 Xpd_ch1/A Xff_a3/D Xpi_ch1/A VDD GND VDD GND nand2
+XXib_DINb Xib_DINb/A Xff_din/D VDD GND VDD GND ib2
+XXpd_ch2 Xff_a4/D Xpd_ch2/B Xpi_ch2/A VDD GND VDD GND nand2
+XXpd_ch3 Xff_a4/D Xff_a3/D Xpi_ch3/A VDD GND VDD GND nand2
+XXck_c1n Xck_r2/Y Xck_d8/Y Xck_c2/A VDD GND GND c1n
+XXib_CLKa clk_pad Xib_CLKb/A VDD GND VDD GND ib1
+XXib_CLKb Xib_CLKb/A Xck_r1/A VDD GND VDD GND ib2
+XXck_c1p Xck_r2/Y Xck_d8/Y Xck_c2/A VDD GND Xck_c2/A VDD c1p
+XXff_rw Xff_rw/D Xck_a2/Y Xwe1/A Xff_rw/QB VDD GND GND VDD sdff
+XXpi_rl0 Xpi_rl0/A core/rl0 VDD GND VDD GND wldrv
+XXpi_rl1 Xpi_rl1/A core/rl1 VDD GND VDD GND wldrv
+XXwe1 Xwe1/A Xwe1/B Xwe2/A VDD GND VDD GND nand2
+XXck_d1 Xck_r2/Y Xck_d2/A VDD GND VDD GND inv
+XXpi_rl2 Xpi_rl2/A core/rl2 VDD GND VDD GND wldrv
+XXwe2 Xwe2/A Xwe2/Y VDD GND VDD GND ix3s
+XXck_d2 Xck_d2/A Xck_d3/A VDD GND VDD GND inv
+XXpi_rl3 Xpi_rl3/A core/rl3 VDD GND VDD GND wldrv
+XXck_b1 Xck_r2/Y Xck_b2/A VDD GND VDD GND wldrv
+XXck_d3 Xck_d3/A Xck_d4/A VDD GND VDD GND inv
+XXck_c2 Xck_c2/A Xck_c3/A VDD GND VDD GND wldrv
+XXpi_rh0 Xpi_rh0/A core/rh0 VDD GND VDD GND wldrv
+XXck_b2 Xck_b2/A Xck_b3/A VDD GND VDD GND ix3s
+XXck_d4 Xck_d4/A Xck_d5/A VDD GND VDD GND inv
+XXck_c3 Xck_c3/A Xrw/PCB VDD GND VDD GND ix6s
+XXck_a1 Xck_r2/Y Xck_a2/A VDD GND VDD GND wldrv
+XXpi_rh1 Xpi_rh1/A core/rh1 VDD GND VDD GND wldrv
+XXck_b3 Xck_b3/A Xwe1/B VDD GND VDD GND ix6s
+XXck_d5 Xck_d5/A Xck_d6/A VDD GND VDD GND inv
+XXck_a2 Xck_a2/A Xck_a2/Y VDD GND VDD GND ib2
+XXpi_rh2 Xpi_rh2/A core/rh2 VDD GND VDD GND wldrv
+XXpi_cl0 Xpi_cl0/A core/cl0 VDD GND VDD GND wldrv
+XXck_d6 Xck_d6/A Xck_d7/A VDD GND VDD GND inv
+XXpi_cl1 Xpi_cl1/A core/cl1 VDD GND VDD GND wldrv
+XXpi_rh3 Xpi_rh3/A core/rh3 VDD GND VDD GND wldrv
+Xcore Xwe1/B core/rl0 core/rl1 core/rl2 core/rl3 core/rh0 core/rh1 core/rh2 core/rh3
++ core/bl0 core/blb0 core/bl1 core/blb1 core/bl2 core/blb2 core/bl3 core/blb3 core/bl4
++ core/blb4 core/bl5 core/blb5 core/bl6 core/blb6 core/bl7 core/blb7 core/bl8 core/blb8
++ core/bl9 core/blb9 core/bl10 core/blb10 core/bl11 core/blb11 core/bl12 core/blb12
++ core/bl13 core/blb13 core/bl14 core/blb14 core/bl15 core/blb15 core/csel0 core/csel1
++ core/csel2 core/csel3 core/csel4 core/csel5 core/csel6 core/csel7 core/csel8 core/csel9
++ core/csel10 core/csel11 core/csel12 core/csel13 core/csel14 core/csel15 Xrw/PCB
++ Xrw/DL Xrw/DLB core/ch0 core/ch1 core/ch2 core/ch3 core/cl0 core/cl1 core/cl2 core/cl3
++ VDD GND core
+XXck_d7 Xck_d7/A Xck_d8/A VDD GND VDD GND inv
+XXpi_cl2 Xpi_cl2/A core/cl2 VDD GND VDD GND wldrv
+XXck_d8 Xck_d8/A Xck_d8/Y VDD GND VDD GND inv
+XXpi_cl3 Xpi_cl3/A core/cl3 VDD GND VDD GND wldrv
+XXff_out Xrw/RD Xck_a2/Y Xff_out/Q ob1/A VDD GND GND VDD sdff
+XXpi_ch0 Xpi_ch0/A core/ch0 VDD GND VDD GND wldrv
+XXpi_ch1 Xpi_ch1/A core/ch1 VDD GND VDD GND wldrv
+XXib_ADDRa addr_pad Xib_ADDRb/A VDD GND VDD GND ib1
+XXpi_ch2 Xpi_ch2/A core/ch2 VDD GND VDD GND wldrv
+.ends
+
+.subckt rterm A B
+X0 A B sky130_fd_pr__res_generic_po w=8.2 l=3.4
+.ends
+
+.subckt sram_top DOUT VDDIO GND VDD CLK ADDR RW DIN
+Xesd_din_pad DIN GND VDDIO esd
+Xesd_clk_pad CLK GND VDDIO esd
+Xchip rterm/A ADDR DIN RW VDDIO CLK VDD GND chip0
+Xrterm rterm/A DOUT rterm
+Xesd_rw_pad RW GND VDDIO esd
+Xesd_addr_pad ADDR GND VDDIO esd
+Xesd_DOUT DOUT GND VDDIO esd
+.ends
+

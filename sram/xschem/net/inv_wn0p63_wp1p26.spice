@@ -1,0 +1,6 @@
+** sch_path: /foss/designs/sram/xschem/inv_wn0p63_wp1p26.sch
+.subckt inv_wn0p63_wp1p26 a y vdd vss
+*.PININFO a:B y:B vdd:B vss:B
+XMP y a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=1.26 nf=1
+XMN y a vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=0.63 nf=1
+.ends

@@ -1,0 +1,297 @@
+
+Circuit 1 cell sky130_fd_pr__nfet_01v8 and Circuit 2 cell sky130_fd_pr__nfet_01v8 are black boxes.
+Warning: Equate pins:  cell sky130_fd_pr__nfet_01v8 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell sky130_fd_pr__nfet_01v8 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: sky130_fd_pr__nfet_01v8         |Circuit 2: sky130_fd_pr__nfet_01v8         
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes sky130_fd_pr__nfet_01v8 and sky130_fd_pr__nfet_01v8 are equivalent.
+
+Circuit 1 cell sky130_fd_pr__pfet_01v8 and Circuit 2 cell sky130_fd_pr__pfet_01v8 are black boxes.
+Warning: Equate pins:  cell sky130_fd_pr__pfet_01v8 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell sky130_fd_pr__pfet_01v8 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: sky130_fd_pr__pfet_01v8         |Circuit 2: sky130_fd_pr__pfet_01v8         
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes sky130_fd_pr__pfet_01v8 and sky130_fd_pr__pfet_01v8 are equivalent.
+Flattening unmatched subcell nand3 in circuit rowslice (0)(1 instance)
+Flattening unmatched subcell wldrv in circuit rowslice (0)(1 instance)
+
+Class rowslice (0):  Merged 2 parallel devices.
+Class rowslice (1):  Merged 2 parallel devices.
+Subcircuit summary:
+Circuit 1: rowslice                        |Circuit 2: rowslice                        
+-------------------------------------------|-------------------------------------------
+sky130_fd_pr__nfet_01v8 (5->4)             |sky130_fd_pr__nfet_01v8 (5->4)             
+sky130_fd_pr__pfet_01v8 (5->4)             |sky130_fd_pr__pfet_01v8 (5->4)             
+Number of devices: 8                       |Number of devices: 8                       
+Number of nets: 9                          |Number of nets: 9                          
+---------------------------------------------------------------------------------------
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: rowslice                        |Circuit 2: rowslice                        
+-------------------------------------------|-------------------------------------------
+VDD                                        |VDD                                        
+GND                                        |GND                                        
+B                                          |B                                          
+C                                          |C                                          
+A                                          |A                                          
+WL                                         |WL                                         
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes rowslice and rowslice are equivalent.
+
+Subcircuit summary:
+Circuit 1: bitcell                         |Circuit 2: bitcell                         
+-------------------------------------------|-------------------------------------------
+sky130_fd_pr__pfet_01v8 (2)                |sky130_fd_pr__pfet_01v8 (2)                
+sky130_fd_pr__nfet_01v8 (4)                |sky130_fd_pr__nfet_01v8 (4)                
+Number of devices: 6                       |Number of devices: 6                       
+Number of nets: 7                          |Number of nets: 7                          
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: bitcell                         |Circuit 2: bitcell                         
+-------------------------------------------|-------------------------------------------
+BLB                                        |BLB                                        
+BL                                         |BL                                         
+WL                                         |WL                                         
+GND                                        |GND                                        
+VDD                                        |VDD                                        
+Q                                          |Q                                          
+QB                                         |QB                                         
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes bitcell and bitcell are equivalent.
+
+Subcircuit summary:
+Circuit 1: precharge                       |Circuit 2: precharge                       
+-------------------------------------------|-------------------------------------------
+sky130_fd_pr__pfet_01v8 (3)                |sky130_fd_pr__pfet_01v8 (3)                
+Number of devices: 3                       |Number of devices: 3                       
+Number of nets: 4                          |Number of nets: 4                          
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: precharge                       |Circuit 2: precharge                       
+-------------------------------------------|-------------------------------------------
+VDD                                        |VDD                                        
+PCB                                        |PCB                                        
+BL                                         |BL                                         
+BLB                                        |BLB                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes precharge and precharge are equivalent.
+Flattening unmatched subcell rw_pre in circuit rwckt (0)(1 instance)
+Flattening unmatched subcell rw_sa in circuit rwckt (0)(1 instance)
+Flattening unmatched subcell rw_wr in circuit rwckt (0)(1 instance)
+Flattening unmatched subcell rw_eq in circuit rwckt (0)(1 instance)
+
+Subcircuit summary:
+Circuit 1: rwckt                           |Circuit 2: rwckt                           
+-------------------------------------------|-------------------------------------------
+sky130_fd_pr__pfet_01v8 (4)                |sky130_fd_pr__pfet_01v8 (4)                
+sky130_fd_pr__nfet_01v8 (5)                |sky130_fd_pr__nfet_01v8 (5)                
+Number of devices: 9                       |Number of devices: 9                       
+Number of nets: 11                         |Number of nets: 11                         
+---------------------------------------------------------------------------------------
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: rwckt                           |Circuit 2: rwckt                           
+-------------------------------------------|-------------------------------------------
+DIN                                        |DIN                                        
+DINB                                       |DINB                                       
+WE                                         |WE                                         
+RD                                         |RD                                         
+GND                                        |GND                                        
+VDD                                        |VDD                                        
+DL                                         |DL                                         
+PCB                                        |PCB                                        
+DLB                                        |DLB                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes rwckt and rwckt are equivalent.
+Flattening unmatched subcell colslice in circuit core (0)(16 instances)
+Flattening unmatched subcell nand2 in circuit core (0)(16 instances)
+Flattening unmatched subcell csdrv in circuit core (0)(16 instances)
+Flattening unmatched subcell colmux in circuit core (0)(16 instances)
+Flattening unmatched subcell rowcell in circuit core (0)(16 instances)
+Flattening unmatched subcell lv_colmux in circuit core (1)(16 instances)
+Flattening unmatched subcell lv_nand2 in circuit core (1)(16 instances)
+Flattening unmatched subcell lv_wldrv in circuit core (1)(16 instances)
+
+Class core (0):  Merged 32 parallel devices.
+Class core (1):  Merged 32 parallel devices.
+Subcircuit summary:
+Circuit 1: core                            |Circuit 2: core                            
+-------------------------------------------|-------------------------------------------
+bitcell (256)                              |bitcell (256)                              
+sky130_fd_pr__nfet_01v8 (96->80)           |sky130_fd_pr__nfet_01v8 (96->80)           
+sky130_fd_pr__pfet_01v8 (64->48)           |sky130_fd_pr__pfet_01v8 (64->48)           
+precharge (16)                             |precharge (16)                             
+rowslice (16)                              |rowslice (16)                              
+Number of devices: 416                     |Number of devices: 416                     
+Number of nets: 630                        |Number of nets: 630                        
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: core                            |Circuit 2: core                            
+-------------------------------------------|-------------------------------------------
+clkb                                       |clkb                                       
+pcb                                        |pcb                                        
+dlb                                        |dlb                                        
+dl                                         |dl                                         
+rl0                                        |rl0                                        
+rl1                                        |rl1                                        
+rl2                                        |rl2                                        
+rl3                                        |rl3                                        
+rh0                                        |rh0                                        
+rh1                                        |rh1                                        
+rh2                                        |rh2                                        
+rh3                                        |rh3                                        
+csel0                                      |csel0                                      
+csel1                                      |csel1                                      
+csel2                                      |csel2                                      
+csel3                                      |csel3                                      
+csel4                                      |csel4                                      
+csel5                                      |csel5                                      
+csel6                                      |csel6                                      
+csel7                                      |csel7                                      
+csel8                                      |csel8                                      
+csel9                                      |csel9                                      
+csel10                                     |csel10                                     
+csel11                                     |csel11                                     
+csel12                                     |csel12                                     
+csel13                                     |csel13                                     
+csel14                                     |csel14                                     
+csel15                                     |csel15                                     
+cl0                                        |cl0                                        
+cl1                                        |cl1                                        
+cl2                                        |cl2                                        
+cl3                                        |cl3                                        
+ch0                                        |ch0                                        
+ch1                                        |ch1                                        
+ch2                                        |ch2                                        
+ch3                                        |ch3                                        
+VDD                                        |VDD                                        
+GND                                        |GND                                        
+bl0                                        |bl0                                        
+bl1                                        |bl1                                        
+bl2                                        |bl2                                        
+bl3                                        |bl3                                        
+bl4                                        |bl4                                        
+bl5                                        |bl5                                        
+bl6                                        |bl6                                        
+bl7                                        |bl7                                        
+bl8                                        |bl8                                        
+bl9                                        |bl9                                        
+bl10                                       |bl10                                       
+bl11                                       |bl11                                       
+bl12                                       |bl12                                       
+bl13                                       |bl13                                       
+bl14                                       |bl14                                       
+bl15                                       |bl15                                       
+blb0                                       |blb0                                       
+blb1                                       |blb1                                       
+blb2                                       |blb2                                       
+blb3                                       |blb3                                       
+blb4                                       |blb4                                       
+blb5                                       |blb5                                       
+blb6                                       |blb6                                       
+blb7                                       |blb7                                       
+blb8                                       |blb8                                       
+blb9                                       |blb9                                       
+blb10                                      |blb10                                      
+blb11                                      |blb11                                      
+blb12                                      |blb12                                      
+blb13                                      |blb13                                      
+blb14                                      |blb14                                      
+blb15                                      |blb15                                      
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes core and core are equivalent.
+Flattening unmatched subcell ib2 in circuit chip0 (0)(6 instances)
+Flattening unmatched subcell wldrv in circuit chip0 (0)(19 instances)
+Flattening unmatched subcell sdff in circuit chip0 (0)(11 instances)
+Flattening unmatched subcell tg in circuit chip0 (0)(44 instances)
+Flattening unmatched subcell inv_s1 in circuit chip0 (0)(11 instances)
+Flattening unmatched subcell inv_ff in circuit chip0 (0)(44 instances)
+Flattening unmatched subcell inv_s2 in circuit chip0 (0)(11 instances)
+Flattening unmatched subcell nand2 in circuit chip0 (0)(17 instances)
+Flattening unmatched subcell ob1 in circuit chip0 (0)(1 instance)
+Flattening unmatched subcell ob2 in circuit chip0 (0)(1 instance)
+Flattening unmatched subcell ob3 in circuit chip0 (0)(1 instance)
+Flattening unmatched subcell ib1 in circuit chip0 (0)(4 instances)
+Flattening unmatched subcell ob4 in circuit chip0 (0)(1 instance)
+Flattening unmatched subcell ix6 in circuit chip0 (0)(1 instance)
+Flattening unmatched subcell ob5 in circuit chip0 (0)(1 instance)
+Flattening unmatched subcell ob6 in circuit chip0 (0)(1 instance)
+Flattening unmatched subcell c1n in circuit chip0 (0)(1 instance)
+Flattening unmatched subcell c1p in circuit chip0 (0)(1 instance)
+Flattening unmatched subcell inv in circuit chip0 (0)(8 instances)
+Flattening unmatched subcell ix3s in circuit chip0 (0)(2 instances)
+Flattening unmatched subcell ix6s in circuit chip0 (0)(2 instances)
+
+Flattening instances of rwckt in cell chip0 (0) makes a better match
+Flattening instances of core in cell chip0 (0) makes a better match
+Making another compare attempt.
+
+Flattening instances of precharge in cell chip0 (0) makes a better match
+Flattening instances of bitcell in cell chip0 (0) makes a better match
+Making another compare attempt.
+
+Class chip0 (0):  Merged 273 parallel devices.
+Class chip0 (1):  Merged 16 parallel devices.
+Subcircuit summary:
+Circuit 1: chip0                           |Circuit 2: chip0                           
+-------------------------------------------|-------------------------------------------
+sky130_fd_pr__pfet_01v8 (987->806)         |sky130_fd_pr__pfet_01v8 (817->806)         
+sky130_fd_pr__nfet_01v8 (1427->1303)       |sky130_fd_pr__nfet_01v8 (1308->1303)       
+rowslice (16)                              |rowslice (16)                              
+Number of devices: 2125                    |Number of devices: 2125                    
+Number of nets: 792                        |Number of nets: 792                        
+---------------------------------------------------------------------------------------
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: chip0                           |Circuit 2: chip0                           
+-------------------------------------------|-------------------------------------------
+clk_pad                                    |clk_pad                                    
+addr_pad                                   |addr_pad                                   
+din_pad                                    |din_pad                                    
+rw_pad                                     |rw_pad                                     
+yd                                         |yd                                         
+vddio                                      |vddio                                      
+GND                                        |GND                                        
+VDD                                        |VDD                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes chip0 and chip0 are equivalent.
+
+Final result: Circuits match uniquely.
+.

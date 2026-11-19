@@ -1,0 +1,55 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1794013108
+<< checkpaint >>
+rect -1260 -1296 2588 1970
+<< nwell >>
+rect 1178 420 1328 710
+<< poly >>
+rect 1235 82 1301 92
+rect 1235 48 1251 82
+rect 1285 80 1301 82
+rect 1285 50 1328 80
+rect 1285 48 1301 50
+rect 1235 38 1301 48
+<< polycont >>
+rect 1251 48 1285 82
+<< locali >>
+rect 300 345 334 379
+rect 440 345 474 379
+rect 580 345 614 379
+rect 1251 141 1285 142
+rect 1251 82 1285 107
+rect 1251 32 1285 48
+<< viali >>
+rect 1251 107 1285 141
+<< metal1 >>
+rect 3 631 37 665
+rect 1178 612 1328 684
+rect 961 513 1284 545
+rect 1252 156 1284 513
+rect 1236 141 1300 156
+rect 1236 107 1251 141
+rect 1285 107 1300 141
+rect 1236 92 1300 107
+rect 3 -17 37 17
+rect 1178 -36 1328 36
+use rowslice  s
+timestamp 1794013108
+transform 1 0 0 0 1 0
+box 0 -36 1178 710
+<< labels >>
+rlabel locali 317 362 317 362 0 A
+port 1 nsew
+rlabel locali 457 362 457 362 0 B
+port 2 nsew
+rlabel locali 597 362 597 362 0 C
+port 3 nsew
+rlabel viali 1268 124 1268 124 0 WL
+port 4 nsew
+rlabel metal1 20 648 20 648 0 VDD
+port 5 nsew
+rlabel metal1 20 0 20 0 0 GND
+port 6 nsew
+<< end >>

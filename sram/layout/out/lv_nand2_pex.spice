@@ -1,0 +1,45 @@
+* NGSPICE file created from lv_nand2.ext - technology: sky130A
+
+.subckt nand2 A B Y VDD GND w_0_397# VSUBS
+X0 GND B a_162_47# VSUBS sky130_fd_pr__nfet_01v8 ad=0.3696 pd=2.56 as=0.231 ps=1.39 w=0.84 l=0.15
+X1 Y B VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.3696 pd=2.56 as=0.231 ps=1.39 w=0.84 l=0.15
+X2 VDD A Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.3696 ps=2.56 w=0.84 l=0.15
+X3 a_162_47# A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.231 pd=1.39 as=0.3696 ps=2.56 w=0.84 l=0.15
+C0 VDD w_0_397# 0.04634f
+C1 B GND 0.01195f
+C2 a_162_47# GND 0.01215f
+C3 A B 0.0293f
+C4 GND Y 0.04167f
+C5 A a_162_47# 0
+C6 A Y 0.0457f
+C7 VDD GND 0.00433f
+C8 A VDD 0.00869f
+C9 GND w_0_397# 0.00442f
+C10 A w_0_397# 0.03444f
+C11 A GND 0.00866f
+C12 B a_162_47# 0
+C13 B Y 0.01673f
+C14 a_162_47# Y 0.01292f
+C15 B VDD 0.00869f
+C16 a_162_47# VDD 0
+C17 VDD Y 0.14001f
+C18 B w_0_397# 0.03444f
+C19 Y w_0_397# 0.02334f
+C20 GND VSUBS 0.28843f
+C21 VDD VSUBS 0.22995f
+C22 Y VSUBS 0.281f
+C23 a_162_47# VSUBS 0.08257f
+C24 w_0_397# VSUBS 0.40753f
+.ends
+
+.subckt lv_nand2 A B Y VDD GND
+Xu A B Y VDD GND VDD GND nand2
+C0 A VDD 0.00264f
+C1 Y VDD 0.0123f
+C2 B VDD 0
+C3 VDD GND -0.06868f
+C4 Y GND -0.0123f
+C5 B GND 0
+C6 A GND -0.00172f
+.ends
+

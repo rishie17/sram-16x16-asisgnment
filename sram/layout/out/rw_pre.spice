@@ -1,0 +1,7 @@
+* NGSPICE file created from rw_pre.ext - technology: sky130A
+
+.subckt rw_pre PCB DL DLB VDD GND PCB_uq0
+X0 DLB PCB_uq0 VDD w_0_313# sky130_fd_pr__pfet_01v8 ad=0.693 pd=3.62 as=0.4851 ps=2.03 w=1.26 l=0.15
+X1 VDD PCB DL w_0_313# sky130_fd_pr__pfet_01v8 ad=0.4851 pd=2.03 as=0.693 ps=3.62 w=1.26 l=0.15
+.ends
+

@@ -1,0 +1,62 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1794013108
+<< checkpaint >>
+rect -1260 1970 1940 2592
+rect -1260 -1296 1941 1970
+<< nwell >>
+rect 0 390 680 906
+<< locali >>
+rect 377 303 411 337
+rect 517 303 551 337
+<< viali >>
+rect 171 1001 205 1035
+<< metal1 >>
+rect 0 1260 680 1332
+rect 162 1044 214 1050
+rect 162 986 214 992
+rect 263 750 297 784
+rect 0 612 680 684
+rect 156 555 324 561
+rect 156 503 162 555
+rect 214 503 324 555
+rect 156 497 324 503
+rect 0 -36 680 36
+<< via1 >>
+rect 162 1035 214 1044
+rect 162 1001 171 1035
+rect 171 1001 205 1035
+rect 205 1001 214 1035
+rect 162 992 214 1001
+rect 162 503 214 555
+<< metal2 >>
+rect 156 1044 220 1050
+rect 156 992 162 1044
+rect 214 992 220 1044
+rect 156 986 220 992
+rect 158 561 218 986
+rect 156 555 220 561
+rect 156 503 162 555
+rect 214 503 220 555
+rect 156 497 220 503
+use csdrv  d
+timestamp 1794013108
+transform 1 0 19 0 -1 1296
+box 0 -36 522 710
+use nand2  n
+timestamp 1794013107
+transform 1 0 247 0 1 0
+box 0 -36 434 710
+<< labels >>
+rlabel locali 394 320 394 320 0 A
+port 1 nsew
+rlabel locali 534 320 534 320 0 B
+port 2 nsew
+rlabel metal1 280 767 280 767 0 CSEL
+port 3 nsew
+rlabel metal1 20 648 20 648 0 VDD
+port 4 nsew
+rlabel metal1 20 0 20 0 0 GND
+port 5 nsew
+<< end >>

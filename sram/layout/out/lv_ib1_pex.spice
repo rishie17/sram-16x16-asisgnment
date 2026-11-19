@@ -1,0 +1,32 @@
+* NGSPICE file created from lv_ib1.ext - technology: sky130A
+
+.subckt ib1 A Y VDD GND w_0_397# VSUBS
+X0 GND A Y VSUBS sky130_fd_pr__nfet_01v8 ad=0.1848 pd=1.72 as=0.1155 ps=0.97 w=0.42 l=0.15
+X1 VDD A Y w_0_397# sky130_fd_pr__pfet_01v8 ad=0.3696 pd=2.56 as=0.231 ps=1.39 w=0.84 l=0.15
+X2 Y A VDD w_0_397# sky130_fd_pr__pfet_01v8 ad=0.231 pd=1.39 as=0.3696 ps=2.56 w=0.84 l=0.15
+X3 Y A GND VSUBS sky130_fd_pr__nfet_01v8 ad=0.1155 pd=0.97 as=0.1848 ps=1.72 w=0.42 l=0.15
+C0 GND Y 0.0384f
+C1 w_0_397# GND 0.00487f
+C2 A VDD 0.02761f
+C3 VDD Y 0.05869f
+C4 w_0_397# VDD 0.05909f
+C5 A Y 0.0755f
+C6 VDD GND 0.02086f
+C7 w_0_397# A 0.06983f
+C8 w_0_397# Y 0.01491f
+C9 A GND 0.02569f
+C10 GND VSUBS 0.45666f
+C11 Y VSUBS 0.35858f
+C12 VDD VSUBS 0.20319f
+C13 w_0_397# VSUBS 0.40753f
+.ends
+
+.subckt lv_ib1 A Y VDD GND
+Xu A Y VDD GND VDD GND ib1
+C0 VDD A 0.00251f
+C1 VDD Y 0.00535f
+C2 Y GND -0.00535f
+C3 VDD GND -0.09341f
+C4 A GND -0.00185f
+.ends
+

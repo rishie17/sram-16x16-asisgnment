@@ -1,0 +1,11 @@
+magic
+tech sky130A
+timestamp 1794013107
+<< checkpaint >>
+rect -630 -630 6630 6630
+<< metal5 >>
+rect 0 0 6000 6000
+<< labels >>
+rlabel metal5 3000 3000 3000 3000 0 PAD
+port 1 nsew
+<< end >>

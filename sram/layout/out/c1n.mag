@@ -1,0 +1,67 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1794013108
+<< checkpaint >>
+rect -1260 -1296 1782 1944
+<< nmos >>
+rect 154 47 184 383
+rect 338 47 368 383
+<< ndiff >>
+rect 44 232 154 383
+rect 44 198 60 232
+rect 94 198 154 232
+rect 44 47 154 198
+rect 184 47 338 383
+rect 368 232 478 383
+rect 368 198 428 232
+rect 462 198 478 232
+rect 368 47 478 198
+<< ndiffc >>
+rect 60 198 94 232
+rect 428 198 462 232
+<< poly >>
+rect 136 464 202 474
+rect 136 430 152 464
+rect 186 430 202 464
+rect 136 420 202 430
+rect 320 464 386 474
+rect 320 430 336 464
+rect 370 430 386 464
+rect 320 420 386 430
+rect 154 383 184 420
+rect 338 383 368 420
+rect 154 21 184 47
+rect 338 21 368 47
+<< polycont >>
+rect 152 430 186 464
+rect 336 430 370 464
+<< locali >>
+rect 152 464 186 480
+rect 152 414 186 430
+rect 336 464 370 480
+rect 336 414 370 430
+rect 60 232 94 250
+rect 60 180 94 198
+rect 428 232 462 250
+rect 428 17 462 198
+<< viali >>
+rect 428 -17 462 17
+<< metal1 >>
+rect 0 612 522 684
+rect 0 17 522 36
+rect 0 -17 428 17
+rect 462 -17 522 17
+rect 0 -36 522 -17
+<< labels >>
+rlabel polycont 169 447 169 447 0 A
+port 1 nsew
+rlabel polycont 353 447 353 447 0 B
+port 2 nsew
+rlabel ndiffc 77 215 77 215 0 Y
+port 3 nsew
+rlabel metal1 20 648 20 648 0 VDD
+port 4 nsew
+rlabel metal1 20 0 20 0 0 GND
+port 5 nsew
+<< end >>

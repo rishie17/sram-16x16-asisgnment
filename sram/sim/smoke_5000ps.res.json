@@ -1,0 +1,14 @@
+{
+ "kind": "smoke",
+ "T_ns": 5.0,
+ "sim_s": 526.6146779060364,
+ "reads_checked": 68,
+ "core_errors": 0,
+ "dout_errors": 0,
+ "E_write_core_pJ": 2.3381804487778246,
+ "E_read_core_pJ": 2.246747315827672,
+ "E_write_io_pJ": 12.351058946264649,
+ "E_read_io_pJ": 8.40275074232919,
+ "first_core_errs": [],
+ "first_dout_errs": []
+}

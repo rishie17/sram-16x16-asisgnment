@@ -1,0 +1,6 @@
+* NGSPICE file created from tap.ext - technology: sky130A
+
+.subckt tap VDD GND
+C0 VDD GND 0.26488f
+.ends
+
